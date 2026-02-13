@@ -1,9 +1,6 @@
 import { Link } from '@tanstack/react-router'
 
 import BetterAuthHeader from '../integrations/better-auth/header-user.tsx'
-
-import ResumeAssistantButton from './ResumeAssistantButton'
-
 import { useState } from 'react'
 import {
   ClipboardType,
@@ -155,8 +152,6 @@ export default function Header() {
 
         <div className="p-4 border-t border-gray-700 bg-gray-800 flex flex-col gap-2">
           <BetterAuthHeader />
-
-          <ResumeAssistantButton />
         </div>
       </aside>
     </>

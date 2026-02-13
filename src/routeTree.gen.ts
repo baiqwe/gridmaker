@@ -14,7 +14,6 @@ import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-qu
 import { Route as DemoTableRouteImport } from './routes/demo/table'
 import { Route as DemoStoreRouteImport } from './routes/demo/store'
 import { Route as DemoBetterAuthRouteImport } from './routes/demo/better-auth'
-import { Route as ApiResumeChatRouteImport } from './routes/api.resume-chat'
 import { Route as DemoFormSimpleRouteImport } from './routes/demo/form.simple'
 import { Route as DemoFormAddressRouteImport } from './routes/demo/form.address'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
@@ -44,11 +43,6 @@ const DemoBetterAuthRoute = DemoBetterAuthRouteImport.update({
   path: '/demo/better-auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiResumeChatRoute = ApiResumeChatRouteImport.update({
-  id: '/api/resume-chat',
-  path: '/api/resume-chat',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const DemoFormSimpleRoute = DemoFormSimpleRouteImport.update({
   id: '/demo/form/simple',
   path: '/demo/form/simple',
@@ -67,7 +61,6 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/api/resume-chat': typeof ApiResumeChatRoute
   '/demo/better-auth': typeof DemoBetterAuthRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/table': typeof DemoTableRoute
@@ -78,7 +71,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/api/resume-chat': typeof ApiResumeChatRoute
   '/demo/better-auth': typeof DemoBetterAuthRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/table': typeof DemoTableRoute
@@ -90,7 +82,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/api/resume-chat': typeof ApiResumeChatRoute
   '/demo/better-auth': typeof DemoBetterAuthRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/table': typeof DemoTableRoute
@@ -103,7 +94,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/api/resume-chat'
     | '/demo/better-auth'
     | '/demo/store'
     | '/demo/table'
@@ -114,7 +104,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/api/resume-chat'
     | '/demo/better-auth'
     | '/demo/store'
     | '/demo/table'
@@ -125,7 +114,6 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/api/resume-chat'
     | '/demo/better-auth'
     | '/demo/store'
     | '/demo/table'
@@ -137,7 +125,6 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ApiResumeChatRoute: typeof ApiResumeChatRoute
   DemoBetterAuthRoute: typeof DemoBetterAuthRoute
   DemoStoreRoute: typeof DemoStoreRoute
   DemoTableRoute: typeof DemoTableRoute
@@ -184,13 +171,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoBetterAuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/resume-chat': {
-      id: '/api/resume-chat'
-      path: '/api/resume-chat'
-      fullPath: '/api/resume-chat'
-      preLoaderRoute: typeof ApiResumeChatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/demo/form/simple': {
       id: '/demo/form/simple'
       path: '/demo/form/simple'
@@ -217,7 +197,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ApiResumeChatRoute: ApiResumeChatRoute,
   DemoBetterAuthRoute: DemoBetterAuthRoute,
   DemoStoreRoute: DemoStoreRoute,
   DemoTableRoute: DemoTableRoute,
