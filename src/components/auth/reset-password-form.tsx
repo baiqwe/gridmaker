@@ -18,17 +18,10 @@ import { Routes } from '@/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconEye, IconEyeOff, IconLoader2 } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
+import { messages } from '@/config/messages';
 import * as z from 'zod';
 
-const message = {
-  title: 'Reset Password',
-  password: 'Password',
-  reset: 'Reset password',
-  backToLogin: 'Back to login',
-  showPassword: 'Show password',
-  hidePassword: 'Hide password',
-  minLength: 'Password must be at least 8 characters',
-} as const;
+const m = messages.auth.resetPassword;
 
 export function ResetPasswordForm() {
   const router = useRouter();
@@ -44,13 +37,11 @@ export function ResetPasswordForm() {
   if (!token || errorParam === 'invalid_token') {
     return (
       <AuthCard
-        headerLabel={message.title}
-        bottomButtonLabel={message.backToLogin}
+        headerLabel={m.title}
+        bottomButtonLabel={m.backToLogin}
         bottomButtonHref={Routes.Login}
       >
-        <p className="text-sm text-destructive py-4">
-          Invalid or expired reset link. Please request a new one.
-        </p>
+        <p className="text-sm text-destructive py-4">{m.invalidToken}</p>
       </AuthCard>
     );
   }
@@ -61,7 +52,7 @@ export function ResetPasswordForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   const ResetPasswordSchema = z.object({
-    password: z.string().min(8, { message: message.minLength }),
+    password: z.string().min(8, { message: m.minLength }),
   });
 
   const form = useForm<z.infer<typeof ResetPasswordSchema>>({
@@ -98,8 +89,8 @@ export function ResetPasswordForm() {
 
   return (
     <AuthCard
-      headerLabel={message.title}
-      bottomButtonLabel={message.backToLogin}
+      headerLabel={m.title}
+      bottomButtonLabel={m.backToLogin}
       bottomButtonHref={Routes.Login}
     >
       <Form {...form}>
@@ -110,13 +101,13 @@ export function ResetPasswordForm() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{message.password}</FormLabel>
+                  <FormLabel>{m.password}</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input
                         {...field}
                         disabled={isPending}
-                        placeholder="******"
+                        placeholder={m.placeholderPassword}
                         type={showPassword ? 'text' : 'password'}
                         className="pr-10"
                       />
@@ -135,8 +126,8 @@ export function ResetPasswordForm() {
                         )}
                         <span className="sr-only">
                           {showPassword
-                            ? message.hidePassword
-                            : message.showPassword}
+? m.hidePassword
+                              : m.showPassword}
                         </span>
                       </Button>
                     </div>
@@ -155,7 +146,7 @@ export function ResetPasswordForm() {
             className="w-full cursor-pointer"
           >
             {isPending && <IconLoader2 className="mr-2 size-4 animate-spin" />}
-            <span>{message.reset}</span>
+            <span>{m.reset}</span>
           </Button>
         </form>
       </Form>

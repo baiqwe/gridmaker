@@ -1,3 +1,4 @@
+import { messages } from '@/config/messages';
 import { websiteConfig } from '@/config/website';
 import { HeaderSection } from '@/components/layout/header-section';
 import { FormError } from '@/components/layout/form-error';
@@ -17,8 +18,9 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+const m = messages.newsletterBlock;
 const schema = z.object({
-  email: z.string().email('Please enter a valid email address'),
+  email: z.string().email(m.emailInvalid),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -49,12 +51,12 @@ export function NewsletterCard() {
         setSuccess(true);
         form.reset();
       } else {
-        const msg = json.error ?? 'Failed to subscribe to the newsletter';
-        setError(msg);
+        const errMsg = json.error ?? m.error;
+        setError(errMsg);
       }
     } catch (err) {
       console.error('Newsletter subscription error:', err);
-      setError('Failed to subscribe to the newsletter');
+      setError(m.error);
     }
   }
 
@@ -64,9 +66,9 @@ export function NewsletterCard() {
     <div className="w-full rounded-lg bg-muted/50 p-16">
       <div className="flex flex-col items-center justify-center gap-8">
         <HeaderSection
-          title="Newsletter"
-          subtitle="Stay in the loop"
-          description="Get product updates and tips in your inbox."
+          title={m.title}
+          subtitle={m.subtitle}
+          description={m.description}
         />
 
         <Form {...form}>
@@ -80,11 +82,11 @@ export function NewsletterCard() {
                 name="email"
                 render={({ field }) => (
                   <FormItem className="relative w-full space-y-0">
-                    <FormLabel className="sr-only">Email</FormLabel>
+                    <FormLabel className="sr-only">{m.email}</FormLabel>
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="you@example.com"
+                        placeholder={m.placeholderEmail}
                         className="h-12 rounded-r-none border-r-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus:border-primary focus:border-2 focus:border-r-0"
                         {...field}
                       />
@@ -105,7 +107,7 @@ export function NewsletterCard() {
                 ) : (
                   <IconSend className="size-6" aria-hidden />
                 )}
-                <span className="sr-only">Subscribe</span>
+                <span className="sr-only">{m.subscribe}</span>
               </Button>
             </div>
             {error && (
@@ -115,7 +117,7 @@ export function NewsletterCard() {
             )}
             {success && (
               <p className="text-muted-foreground text-sm">
-                Thanks for subscribing!
+                {m.thanks}
               </p>
             )}
           </form>

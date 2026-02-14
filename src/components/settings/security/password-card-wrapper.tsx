@@ -1,3 +1,4 @@
+import { messages } from '@/config/messages';
 import {
   Card,
   CardContent,
@@ -12,6 +13,8 @@ import { authClient } from '@/lib/auth-client';
 import { cn } from '@/lib/utils';
 import { UpdatePasswordCard } from './update-password-card';
 import { ResetPasswordCard } from './reset-password-card';
+
+const m = messages.dashboard.settings.security.updatePassword;
 
 export function PasswordCardWrapper() {
   const { data: session } = authClient.useSession();
@@ -28,8 +31,8 @@ export function PasswordCardWrapper() {
     return (
       <Card className={cn('w-full overflow-hidden pt-6 pb-0 flex flex-col')}>
         <CardHeader>
-          <CardTitle className="text-lg font-semibold">Change Password</CardTitle>
-          <CardDescription>Enter your current password and a new password</CardDescription>
+          <CardTitle className="text-lg font-semibold">{m.title}</CardTitle>
+          <CardDescription>{m.description}</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col space-y-3 flex-1">
           <Skeleton className="h-5 w-1/2" />

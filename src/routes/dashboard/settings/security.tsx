@@ -1,8 +1,11 @@
 import { SettingsPageLayout } from '@/components/dashboard/settings-page-layout';
 import { DeleteAccountCard } from '@/components/settings/security/delete-account-card';
 import { PasswordCardWrapper } from '@/components/settings/security/password-card-wrapper';
+import { messages } from '@/config/messages';
 import { websiteConfig } from '@/config/website';
 import { createFileRoute } from '@tanstack/react-router';
+
+const m = messages.dashboard.settings.security;
 
 export const Route = createFileRoute('/dashboard/settings/security')({
   component: SecurityPage,
@@ -10,16 +13,16 @@ export const Route = createFileRoute('/dashboard/settings/security')({
 
 function SecurityPage() {
   const breadcrumbs = [
-    { label: 'Settings', isCurrentPage: false },
-    { label: 'Security', isCurrentPage: true },
+    { label: messages.common.settings, isCurrentPage: false },
+    { label: m.title, isCurrentPage: true },
   ];
   const credentialLoginEnabled = websiteConfig.auth?.enableCredentialLogin ?? true;
 
   return (
     <SettingsPageLayout
       breadcrumbs={breadcrumbs}
-      title="Security"
-      description="Manage your security settings"
+      title={m.title}
+      description={m.description}
     >
       <div className="flex flex-col gap-8">
         {credentialLoginEnabled && (

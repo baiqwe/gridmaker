@@ -1,36 +1,39 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { RegisterForm } from '@/components/auth/register-form';
+import { messages } from '@/config/messages';
 import { Routes } from '@/routes';
+
+const m = messages.auth.register;
+const agreement = messages.auth.agreement;
 
 export const Route = createFileRoute('/auth/register')({
   component: RegisterPage,
+  head: () => ({
+    meta: [
+      { title: m.title },
+      { name: 'description', content: m.description },
+    ],
+  }),
 });
-
-const message = {
-  byClickingContinue: 'By clicking continue, you agree to our ',
-  termsOfService: 'Terms of Service',
-  privacyPolicy: 'Privacy Policy',
-  and: ' and ',
-} as const;
 
 function RegisterPage() {
   return (
     <div className="flex flex-col gap-4">
       <RegisterForm />
       <div className="text-balance text-center text-xs text-muted-foreground">
-        {message.byClickingContinue}
+        {agreement.byClickingContinue}
         <Link
           to={Routes.TermsOfService}
           className="underline underline-offset-4 hover:text-primary"
         >
-          {message.termsOfService}
+          {agreement.termsOfService}
         </Link>
-        {message.and}
+        {agreement.and}
         <Link
           to={Routes.PrivacyPolicy}
           className="underline underline-offset-4 hover:text-primary"
         >
-          {message.privacyPolicy}
+          {agreement.privacyPolicy}
         </Link>
       </div>
     </div>

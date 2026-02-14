@@ -1,42 +1,44 @@
 import { Routes } from '@/routes';
 import type { MenuItemConfig } from '../types';
 import { websiteConfig } from './website';
+import { messages } from './messages';
+
+const m = messages.nav;
 
 /**
  * Footer links (English only). Grouped by section.
  */
 export function getFooterLinks(): MenuItemConfig[] {
   const productItems: MenuItemConfig[] = [
-    { title: 'Features', href: Routes.Features, external: false },
-    { title: 'Pricing', href: Routes.Pricing, external: false },
-    { title: 'FAQ', href: Routes.FAQ, external: false },
+    { title: m.features, href: Routes.Features, external: false },
+    { title: m.pricing, href: Routes.Pricing, external: false },
+    { title: m.faq, href: Routes.FAQ, external: false },
   ];
 
   const resourcesItems: MenuItemConfig[] = [];
   if (websiteConfig.blog?.enable) {
-    resourcesItems.push({ title: 'Blog', href: Routes.Blog, external: false });
+    resourcesItems.push({ title: m.blog, href: Routes.Blog, external: false });
   }
   if (websiteConfig.docs?.enable) {
-    resourcesItems.push({ title: 'Docs', href: Routes.Docs, external: false });
+    resourcesItems.push({ title: m.docs, href: Routes.Docs, external: false });
   }
-  // Changelog and Roadmap removed from footer
 
   const companyItems: MenuItemConfig[] = [
-    { title: 'About', href: Routes.About, external: false },
-    { title: 'Contact', href: Routes.Contact, external: false },
-    { title: 'Waitlist', href: Routes.Waitlist, external: false },
+    { title: m.about.title, href: Routes.About, external: false },
+    { title: m.contact.title, href: Routes.Contact, external: false },
+    { title: m.waitlist.title, href: Routes.Waitlist, external: false },
   ];
 
   const legalItems: MenuItemConfig[] = [
-    { title: 'Cookie Policy', href: Routes.CookiePolicy, external: false },
-    { title: 'Privacy Policy', href: Routes.PrivacyPolicy, external: false },
-    { title: 'Terms of Service', href: Routes.TermsOfService, external: false },
+    { title: m.cookiePolicy.title, href: Routes.CookiePolicy, external: false },
+    { title: m.privacyPolicy.title, href: Routes.PrivacyPolicy, external: false },
+    { title: m.termsOfService.title, href: Routes.TermsOfService, external: false },
   ];
 
   return [
-    { title: 'Product', items: productItems },
-    { title: 'Resources', items: resourcesItems },
-    { title: 'Company', items: companyItems },
-    { title: 'Legal', items: legalItems },
+    { title: m.product, items: productItems },
+    { title: m.resources, items: resourcesItems },
+    { title: m.company, items: companyItems },
+    { title: m.legal, items: legalItems },
   ];
 }

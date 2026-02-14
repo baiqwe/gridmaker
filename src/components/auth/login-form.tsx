@@ -21,21 +21,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { IconEye, IconEyeOff, IconLoader2 } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { messages } from '@/config/messages';
 import * as z from 'zod';
 import { SocialLoginButton } from './social-login-button';
 
-const message = {
-  welcomeBack: 'Welcome back',
-  email: 'Email',
-  password: 'Password',
-  signIn: 'Sign In',
-  signUpHint: "Don't have an account? Sign up",
-  forgotPassword: 'Forgot Password?',
-  showPassword: 'Show password',
-  hidePassword: 'Hide password',
-  emailRequired: 'Please enter your email',
-  passwordRequired: 'Please enter your password',
-} as const;
+const m = messages.auth.login;
 
 export interface LoginFormProps {
   className?: string;
@@ -65,8 +55,8 @@ export function LoginForm({
   const credentialLoginEnabled = websiteConfig.auth.enableCredentialLogin;
 
   const LoginSchema = z.object({
-    email: z.string().email({ message: message.emailRequired }),
-    password: z.string().min(1, { message: message.passwordRequired }),
+    email: z.string().email({ message: m.emailRequired }),
+    password: z.string().min(1, { message: m.passwordRequired }),
   });
 
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -107,8 +97,8 @@ export function LoginForm({
 
   return (
     <AuthCard
-      headerLabel={message.welcomeBack}
-      bottomButtonLabel={message.signUpHint}
+      headerLabel={m.welcomeBack}
+      bottomButtonLabel={m.signUpHint}
       bottomButtonHref={Routes.Register}
       className={cn('', className)}
     >
@@ -121,12 +111,12 @@ export function LoginForm({
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{message.email}</FormLabel>
+                    <FormLabel>{m.email}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         disabled={isPending}
-                        placeholder="name@example.com"
+                        placeholder={m.placeholderEmail}
                         type="email"
                       />
                     </FormControl>
@@ -140,12 +130,12 @@ export function LoginForm({
                 render={({ field }) => (
                   <FormItem>
                     <div className="flex justify-between items-center">
-                      <FormLabel>{message.password}</FormLabel>
+                      <FormLabel>{m.password}</FormLabel>
                       <Link
                         to={Routes.ForgotPassword}
                         className="text-xs font-normal text-muted-foreground hover:underline hover:underline-offset-4 hover:text-primary"
                       >
-                        {message.forgotPassword}
+                        {m.forgotPassword}
                       </Link>
                     </div>
                     <FormControl>
@@ -153,7 +143,7 @@ export function LoginForm({
                         <Input
                           {...field}
                           disabled={isPending}
-                          placeholder="******"
+                          placeholder={m.placeholderPassword}
                           type={showPassword ? 'text' : 'password'}
                           className="pr-10"
                         />
@@ -172,8 +162,8 @@ export function LoginForm({
                           )}
                           <span className="sr-only">
                             {showPassword
-                              ? message.hidePassword
-                              : message.showPassword}
+                              ? m.hidePassword
+                              : m.showPassword}
                           </span>
                         </Button>
                       </div>
@@ -194,7 +184,7 @@ export function LoginForm({
               {isPending && (
                 <IconLoader2 className="mr-2 size-4 animate-spin" />
               )}
-              <span>{message.signIn}</span>
+              <span>{m.signIn}</span>
             </Button>
           </form>
         </Form>

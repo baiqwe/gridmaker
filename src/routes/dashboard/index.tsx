@@ -1,5 +1,6 @@
 import { DashboardHeader } from '@/components/dashboard/dashboard-header';
 import { SectionCards } from '@/components/dashboard/section-cards';
+import { messages } from '@/config/messages';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/dashboard/')({
@@ -9,7 +10,7 @@ export const Route = createFileRoute('/dashboard/')({
 function DashboardPage() {
   const breadcrumbs = [
     {
-      label: 'Dashboard',
+      label: messages.dashboard.title,
       isCurrentPage: true,
     },
   ];

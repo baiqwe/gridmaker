@@ -17,17 +17,11 @@ import { cn } from '@/lib/utils';
 import { Routes } from '@/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconLoader2 } from '@tabler/icons-react';
+import { messages } from '@/config/messages';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
-const message = {
-  title: 'Forgot Password',
-  email: 'Email',
-  send: 'Send reset link',
-  backToLogin: 'Back to login',
-  checkEmail: 'Please check your email inbox',
-  emailRequired: 'Please enter your email',
-} as const;
+const m = messages.auth.forgotPassword;
 
 export function ForgotPasswordForm({ className }: { className?: string }) {
   const [error, setError] = useState<string | undefined>('');
@@ -35,7 +29,7 @@ export function ForgotPasswordForm({ className }: { className?: string }) {
   const [isPending, setIsPending] = useState(false);
 
   const ForgotPasswordSchema = z.object({
-    email: z.string().email({ message: message.emailRequired }),
+    email: z.string().email({ message: m.emailRequired }),
   });
 
   const form = useForm<z.infer<typeof ForgotPasswordSchema>>({
@@ -65,7 +59,7 @@ export function ForgotPasswordForm({ className }: { className?: string }) {
           setSuccess('');
         },
         onResponse: () => setIsPending(false),
-        onSuccess: () => setSuccess(message.checkEmail),
+        onSuccess: () => setSuccess(m.checkEmail),
         onError: (ctx) => {
           setError(`${ctx.error.status}: ${ctx.error.message}`);
         },
@@ -75,8 +69,8 @@ export function ForgotPasswordForm({ className }: { className?: string }) {
 
   return (
     <AuthCard
-      headerLabel={message.title}
-      bottomButtonLabel={message.backToLogin}
+      headerLabel={m.title}
+      bottomButtonLabel={m.backToLogin}
       bottomButtonHref={Routes.Login}
       className={cn('', className)}
     >
@@ -88,12 +82,12 @@ export function ForgotPasswordForm({ className }: { className?: string }) {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{message.email}</FormLabel>
+                  <FormLabel>{m.email}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       disabled={isPending}
-                      placeholder="name@example.com"
+                      placeholder={m.placeholderEmail}
                       type="email"
                     />
                   </FormControl>
@@ -111,7 +105,7 @@ export function ForgotPasswordForm({ className }: { className?: string }) {
             className="w-full cursor-pointer"
           >
             {isPending && <IconLoader2 className="mr-2 size-4 animate-spin" />}
-            <span>{message.send}</span>
+            <span>{m.send}</span>
           </Button>
         </form>
       </Form>

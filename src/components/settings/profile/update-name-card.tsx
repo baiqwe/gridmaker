@@ -1,3 +1,4 @@
+import { messages } from '@/config/messages';
 import { FormError } from '@/components/layout/form-error';
 import { Button } from '@/components/ui/button';
 import {
@@ -28,8 +29,10 @@ interface UpdateNameCardProps {
   className?: string;
 }
 
+const m = messages.dashboard.settings.profile.name;
+
 const nameSchema = z.object({
-  name: z.string().min(3, { message: 'Please use 3 characters at minimum' }).max(30, { message: 'Please use 30 characters at maximum' }),
+  name: z.string().min(3, { message: m.minLength }).max(30, { message: m.maxLength }),
 });
 
 export function UpdateNameCard({ className }: UpdateNameCardProps) {
@@ -60,13 +63,13 @@ export function UpdateNameCard({ className }: UpdateNameCardProps) {
         },
         onResponse: () => { setIsSaving(false); },
         onSuccess: () => {
-          toast.success('Name updated successfully');
+          toast.success(m.success);
           refetch();
           form.reset();
         },
         onError: (ctx) => {
           setError(`${ctx.error.status}: ${ctx.error.message}`);
-          toast.error('Failed to update name');
+          toast.error(m.fail);
         },
       },
     );
@@ -75,8 +78,8 @@ export function UpdateNameCard({ className }: UpdateNameCardProps) {
   return (
     <Card className={cn('w-full overflow-hidden pt-6 pb-0 flex flex-col', className)}>
       <CardHeader>
-        <CardTitle className="text-lg font-semibold">Name</CardTitle>
-        <CardDescription>Please enter your display name</CardDescription>
+        <CardTitle className="text-lg font-semibold">{m.title}</CardTitle>
+        <CardDescription>{m.description}</CardDescription>
       </CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col flex-1">
@@ -87,7 +90,7 @@ export function UpdateNameCard({ className }: UpdateNameCardProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder="Enter your name" {...field} />
+                    <Input placeholder={m.placeholder} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -96,9 +99,9 @@ export function UpdateNameCard({ className }: UpdateNameCardProps) {
             <FormError message={error} />
           </CardContent>
           <CardFooter className="mt-6 px-6 py-4 flex justify-between items-center bg-muted rounded-none">
-            <p className="text-sm text-muted-foreground">Please use 3-30 characters for your name</p>
+            <p className="text-sm text-muted-foreground">{m.hint}</p>
             <Button type="submit" disabled={isSaving} className="cursor-pointer">
-              {isSaving ? 'Saving...' : 'Save'}
+              {isSaving ? m.saving : m.save}
             </Button>
           </CardFooter>
         </form>

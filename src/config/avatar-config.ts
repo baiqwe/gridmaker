@@ -5,26 +5,17 @@ import {
 } from '@tabler/icons-react';
 import { Routes } from '@/routes';
 import type { MenuItemConfig } from '../types';
+import { messages } from './messages';
+
+const m = messages.dashboard.avatar;
 
 /**
  * Avatar dropdown links (English). Shown when user clicks avatar in header.
  */
 export function getAvatarLinks(): MenuItemConfig[] {
   return [
-    {
-      title: 'Dashboard',
-      href: Routes.Dashboard,
-      icon: IconLayoutDashboard,
-    },
-    {
-      title: 'Billing',
-      href: Routes.SettingsBilling,
-      icon: IconCreditCard,
-    },
-    {
-      title: 'Settings',
-      href: Routes.SettingsProfile,
-      icon: IconSettings2,
-    },
+    { title: m.dashboard, href: Routes.Dashboard, icon: IconLayoutDashboard },
+    { title: m.billing, href: Routes.SettingsBilling, icon: IconCreditCard },
+    { title: m.settings, href: Routes.SettingsProfile, icon: IconSettings2 },
   ];
 }

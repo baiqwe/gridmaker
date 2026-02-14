@@ -8,7 +8,7 @@ import {
   Tailwind,
   Text,
 } from '@react-email/components';
-import { APP_NAME } from '../constants';
+import { messages } from '@/config/messages';
 
 interface EmailLayoutProps {
   children: React.ReactNode;
@@ -34,7 +34,7 @@ export default function EmailLayout({ children }: EmailLayoutProps) {
           <Container className="rounded-lg bg-card p-6 text-card-foreground">
             {children}
             <Hr className="my-8" />
-            <Text className="mt-4">{APP_NAME} Team</Text>
+            <Text className="mt-4">{messages.site.name} Team</Text>
             <Text>©️ {year} All Rights Reserved.</Text>
           </Container>
         </Section>

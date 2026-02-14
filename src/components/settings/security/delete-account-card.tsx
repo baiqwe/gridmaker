@@ -16,11 +16,14 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { messages } from '@/config/messages';
 import { authClient } from '@/lib/auth-client';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { useNavigate } from '@tanstack/react-router';
+
+const m = messages.dashboard.settings.security.deleteAccount;
 
 export function DeleteAccountCard() {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -45,13 +48,13 @@ export function DeleteAccountCard() {
           setShowConfirmation(false);
         },
         onSuccess: () => {
-          toast.success('Account deleted successfully');
+          toast.success(m.success);
           refetch();
           navigate({ to: '/' });
         },
         onError: (ctx) => {
           setError(`${ctx.error.status}: ${ctx.error.message}`);
-          toast.error('Failed to delete account');
+          toast.error(m.fail);
         },
       },
     );
@@ -60,13 +63,11 @@ export function DeleteAccountCard() {
   return (
     <Card className={cn('w-full border-destructive/50 overflow-hidden pt-6 pb-0 flex flex-col')}>
       <CardHeader>
-        <CardTitle className="text-lg font-bold text-destructive">Delete Account</CardTitle>
-        <CardDescription>Permanently remove your account and all of its contents</CardDescription>
+        <CardTitle className="text-lg font-bold text-destructive">{m.title}</CardTitle>
+        <CardDescription>{m.description}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1">
-        <p className="text-sm text-muted-foreground">
-          This action is not reversible, so please continue with caution
-        </p>
+        <p className="text-sm text-muted-foreground">{m.warning}</p>
         {error && (
           <div className="mt-4">
             <FormError message={error} />
@@ -79,19 +80,15 @@ export function DeleteAccountCard() {
           onClick={() => setShowConfirmation(true)}
           className="cursor-pointer"
         >
-          Delete Account
+          {m.button}
         </Button>
       </CardFooter>
 
       <AlertDialog open={showConfirmation} onOpenChange={setShowConfirmation}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-destructive">
-              Delete Account
-            </AlertDialogTitle>
-            <AlertDialogDescription>
-              Are you sure you want to delete your account? This action cannot be undone.
-            </AlertDialogDescription>
+            <AlertDialogTitle className="text-destructive">{m.confirmTitle}</AlertDialogTitle>
+            <AlertDialogDescription>{m.confirmDescription}</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="flex justify-end gap-3">
             <Button
@@ -99,7 +96,7 @@ export function DeleteAccountCard() {
               onClick={() => setShowConfirmation(false)}
               className="cursor-pointer"
             >
-              Cancel
+              {m.cancel}
             </Button>
             <Button
               variant="destructive"
@@ -107,7 +104,7 @@ export function DeleteAccountCard() {
               disabled={isDeleting}
               className="cursor-pointer"
             >
-              {isDeleting ? 'Deleting...' : 'Delete'}
+              {isDeleting ? m.deleting : m.confirm}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

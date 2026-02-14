@@ -1,3 +1,4 @@
+import { messages } from '@/config/messages';
 import { FormError } from '@/components/layout/form-error';
 import {
   Card,
@@ -30,18 +31,13 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
-const MESSAGES = {
-  emailRequired: 'Email is required to subscribe to the newsletter',
-  subscribeSuccess: 'Successfully subscribed to the newsletter',
-  unsubscribeSuccess: 'Successfully unsubscribed from the newsletter',
-  error: 'An error occurred while updating your subscription',
-} as const;
-
 interface NewsletterFormCardProps {
   className?: string;
 }
 
 const formSchema = z.object({ subscribed: z.boolean() });
+
+const m = messages.dashboard.settings.notification.newsletter;
 
 export function NewsletterFormCard({ className }: NewsletterFormCardProps) {
   if (!websiteConfig.newsletter?.enable) return null;
@@ -71,22 +67,21 @@ export function NewsletterFormCard({ className }: NewsletterFormCardProps) {
 
   const handleSubscriptionChange = async (value: boolean) => {
     if (!currentUser.email) {
-      toast.error(MESSAGES.emailRequired);
+      toast.error(m.emailRequired);
       return;
     }
     try {
       if (value) {
         await subscribeMutation.mutateAsync(currentUser.email);
-        toast.success(MESSAGES.subscribeSuccess);
+        toast.success(m.subscribeSuccess);
       } else {
         await unsubscribeMutation.mutateAsync(currentUser.email);
-        toast.success(MESSAGES.unsubscribeSuccess);
+        toast.success(m.unsubscribeSuccess);
       }
     } catch (err) {
       console.error('newsletter subscription error:', err);
-      const message =
-        err instanceof Error ? err.message : MESSAGES.error;
-      toast.error(message);
+      const msg = err instanceof Error ? err.message : m.error;
+      toast.error(msg);
       form.setValue('subscribed', newsletterStatus?.subscribed ?? false);
     }
   };
@@ -94,8 +89,8 @@ export function NewsletterFormCard({ className }: NewsletterFormCardProps) {
   return (
     <Card className={cn('w-full overflow-hidden pt-6 pb-0', className)}>
       <CardHeader>
-        <CardTitle className="text-lg font-semibold">Newsletter Subscription</CardTitle>
-        <CardDescription>Manage your newsletter subscription preferences</CardDescription>
+        <CardTitle className="text-lg font-semibold">{m.title}</CardTitle>
+        <CardDescription>{m.description}</CardDescription>
       </CardHeader>
       <Form {...form}>
         <form>
@@ -105,7 +100,7 @@ export function NewsletterFormCard({ className }: NewsletterFormCardProps) {
               name="subscribed"
               render={({ field }) => (
                 <FormItem className="flex flex-row items-center justify-between">
-                  <FormLabel className="text-base">Subscribe to newsletter</FormLabel>
+                  <FormLabel className="text-base">{m.label}</FormLabel>
                   <FormControl>
                     <div className="relative flex items-center">
                       {(isStatusLoading ||
@@ -140,9 +135,7 @@ export function NewsletterFormCard({ className }: NewsletterFormCardProps) {
             />
           </CardContent>
           <CardFooter className="mt-6 px-6 py-4 bg-muted rounded-none">
-            <p className="text-sm text-muted-foreground">
-              You can change your subscription preferences at any time
-            </p>
+            <p className="text-sm text-muted-foreground">{m.hint}</p>
           </CardFooter>
         </form>
       </Form>

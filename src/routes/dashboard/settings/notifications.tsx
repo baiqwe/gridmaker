@@ -1,6 +1,9 @@
 import { SettingsPageLayout } from '@/components/dashboard/settings-page-layout';
 import { NewsletterFormCard } from '@/components/settings/notification/newsletter-form-card';
+import { messages } from '@/config/messages';
 import { createFileRoute } from '@tanstack/react-router';
+
+const m = messages.dashboard.settings.notification;
 
 export const Route = createFileRoute('/dashboard/settings/notifications')({
   component: NotificationsPage,
@@ -8,15 +11,15 @@ export const Route = createFileRoute('/dashboard/settings/notifications')({
 
 function NotificationsPage() {
   const breadcrumbs = [
-    { label: 'Settings', isCurrentPage: false },
-    { label: 'Notification', isCurrentPage: true },
+    { label: messages.common.settings, isCurrentPage: false },
+    { label: m.title, isCurrentPage: true },
   ];
 
   return (
     <SettingsPageLayout
       breadcrumbs={breadcrumbs}
-      title="Notification"
-      description="Manage your notification preferences"
+      title={m.title}
+      description={m.description}
     >
       <div className="flex flex-col gap-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

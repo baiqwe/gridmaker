@@ -2,16 +2,14 @@ import { useState } from 'react';
 import { DividerWithText } from '@/components/auth/divider-with-text';
 import { GoogleIcon } from '@/components/icons/google';
 import { Button } from '@/components/ui/button';
+import { messages } from '@/config/messages';
 import { websiteConfig } from '@/config/website';
 import { authClient } from '@/lib/auth-client';
 import { getBaseUrl } from '@/lib/urls';
 import { DEFAULT_LOGIN_REDIRECT, Routes } from '@/routes';
 import { IconLoader2 } from '@tabler/icons-react';
 
-const message = {
-  or: 'Or continue with',
-  signInWithGoogle: 'Sign In with Google',
-} as const;
+const m = messages.auth.social;
 
 interface SocialLoginButtonProps {
   callbackUrl?: string;
@@ -58,7 +56,7 @@ export function SocialLoginButton({
 
   return (
     <div className="w-full flex flex-col gap-4">
-      {showDivider && <DividerWithText text={message.or} />}
+      {showDivider && <DividerWithText text={m.or} />}
       {websiteConfig.auth.enableGoogleLogin && (
         <Button
           size="lg"
@@ -72,7 +70,7 @@ export function SocialLoginButton({
           ) : (
             <GoogleIcon className="size-4 mr-2" />
           )}
-          <span>{message.signInWithGoogle}</span>
+          <span>{m.signInWithGoogle}</span>
         </Button>
       )}
     </div>

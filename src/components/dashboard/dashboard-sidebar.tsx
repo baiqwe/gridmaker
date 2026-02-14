@@ -11,11 +11,14 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
+import { messages } from '@/config/messages';
 import { authClient } from '@/lib/auth-client';
 import { Link } from '@tanstack/react-router';
 import { Routes } from '@/routes';
 import type * as React from 'react';
 import { useEffect, useState } from 'react';
+
+const siteName = messages.site.name;
 
 /**
  * Dashboard sidebar
@@ -45,7 +48,7 @@ export function DashboardSidebar(
               render={
                 <Link to={Routes.Root} onClick={closeMobileSidebar}>
                   <Logo className="size-5" />
-                  <span className="truncate font-semibold text-base">App</span>
+                  <span className="truncate font-semibold text-base">{siteName}</span>
                 </Link>
               }
               className="data-[slot=sidebar-menu-button]:!p-1.5"

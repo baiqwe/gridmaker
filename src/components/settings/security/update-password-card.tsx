@@ -1,3 +1,4 @@
+import { messages } from '@/config/messages';
 import { FormError } from '@/components/layout/form-error';
 import { Button } from '@/components/ui/button';
 import {
@@ -26,14 +27,16 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
+const m = messages.dashboard.settings.security.updatePassword;
+
+const passwordSchema = z.object({
+  currentPassword: z.string().min(1, { message: m.currentRequired }),
+  newPassword: z.string().min(8, { message: m.newMinLength }),
+});
+
 interface UpdatePasswordCardProps {
   className?: string;
 }
-
-const passwordSchema = z.object({
-  currentPassword: z.string().min(1, { message: 'Current password is required' }),
-  newPassword: z.string().min(8, { message: 'Password must be at least 8 characters' }),
-});
 
 export function UpdatePasswordCard({ className }: UpdatePasswordCardProps) {
   const [isSaving, setIsSaving] = useState(false);
@@ -61,12 +64,12 @@ export function UpdatePasswordCard({ className }: UpdatePasswordCardProps) {
         onRequest: () => { setIsSaving(true); setError(''); },
         onResponse: () => { setIsSaving(false); },
         onSuccess: () => {
-          toast.success('Password updated successfully');
+          toast.success(m.success);
           form.reset();
         },
         onError: (ctx) => {
           setError(`${ctx.error.status}: ${ctx.error.message}`);
-          toast.error('Failed to update password');
+          toast.error(m.fail);
         },
       },
     );
@@ -75,8 +78,8 @@ export function UpdatePasswordCard({ className }: UpdatePasswordCardProps) {
   return (
     <Card className={cn('w-full overflow-hidden pt-6 pb-0 flex flex-col', className)}>
       <CardHeader>
-        <CardTitle className="text-lg font-semibold">Change Password</CardTitle>
-        <CardDescription>Enter your current password and a new password</CardDescription>
+        <CardTitle className="text-lg font-semibold">{m.title}</CardTitle>
+        <CardDescription>{m.description}</CardDescription>
       </CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col flex-1">
@@ -86,12 +89,12 @@ export function UpdatePasswordCard({ className }: UpdatePasswordCardProps) {
               name="currentPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Current Password</FormLabel>
+                  <FormLabel>{m.currentPassword}</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input
                         type={showCurrent ? 'text' : 'password'}
-                        placeholder="Current Password"
+                        placeholder={m.placeholderCurrent}
                         {...field}
                       />
                       <Button
@@ -102,7 +105,9 @@ export function UpdatePasswordCard({ className }: UpdatePasswordCardProps) {
                         onClick={() => setShowCurrent(!showCurrent)}
                       >
                         {showCurrent ? <IconEyeOff className="h-4 w-4" /> : <IconEye className="h-4 w-4" />}
-                        <span className="sr-only">{showCurrent ? 'Hide password' : 'Show password'}</span>
+                        <span className="sr-only">
+                          {showCurrent ? m.hidePassword : m.showPassword}
+                        </span>
                       </Button>
                     </div>
                   </FormControl>
@@ -115,12 +120,12 @@ export function UpdatePasswordCard({ className }: UpdatePasswordCardProps) {
               name="newPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>New Password</FormLabel>
+                  <FormLabel>{m.newPassword}</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input
                         type={showNew ? 'text' : 'password'}
-                        placeholder="New Password"
+                        placeholder={m.placeholderNew}
                         {...field}
                       />
                       <Button
@@ -131,7 +136,9 @@ export function UpdatePasswordCard({ className }: UpdatePasswordCardProps) {
                         onClick={() => setShowNew(!showNew)}
                       >
                         {showNew ? <IconEyeOff className="size-4" /> : <IconEye className="size-4" />}
-                        <span className="sr-only">{showNew ? 'Hide password' : 'Show password'}</span>
+                        <span className="sr-only">
+                          {showNew ? m.hidePassword : m.showPassword}
+                        </span>
                       </Button>
                     </div>
                   </FormControl>
@@ -142,9 +149,9 @@ export function UpdatePasswordCard({ className }: UpdatePasswordCardProps) {
             <FormError message={error} />
           </CardContent>
           <CardFooter className="mt-6 px-6 py-4 flex justify-between items-center bg-muted rounded-none">
-            <p className="text-sm text-muted-foreground">Please use at least 8 characters for password</p>
+            <p className="text-sm text-muted-foreground">{m.hint}</p>
             <Button type="submit" disabled={isSaving} className="cursor-pointer">
-              {isSaving ? 'Saving...' : 'Save'}
+              {isSaving ? m.saving : m.save}
             </Button>
           </CardFooter>
         </form>

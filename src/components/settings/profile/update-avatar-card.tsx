@@ -1,3 +1,4 @@
+import { messages } from '@/config/messages';
 import { FormError } from '@/components/layout/form-error';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -18,6 +19,8 @@ import { useEffect, useState } from 'react';
 interface UpdateAvatarCardProps {
   className?: string;
 }
+
+const m = messages.dashboard.settings.profile.avatar;
 
 /**
  * Renders only when storage and enableUpdateAvatar are enabled.
@@ -45,8 +48,8 @@ export function UpdateAvatarCard({ className }: UpdateAvatarCardProps) {
   return (
     <Card className={cn('w-full overflow-hidden py-0 pt-6 flex flex-col', className)}>
       <CardHeader>
-        <CardTitle className="text-lg font-semibold">Avatar</CardTitle>
-        <CardDescription>Click upload button to upload a custom one</CardDescription>
+        <CardTitle className="text-lg font-semibold">{m.title}</CardTitle>
+        <CardDescription>{m.description}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4 flex-1">
         <div className="flex flex-col items-center sm:flex-row gap-4 sm:gap-8">
@@ -57,15 +60,13 @@ export function UpdateAvatarCard({ className }: UpdateAvatarCardProps) {
             </AvatarFallback>
           </Avatar>
           <Button variant="outline" size="sm" disabled className="cursor-pointer">
-            Upload Avatar (storage not configured)
+            {m.uploadNotConfigured}
           </Button>
         </div>
         <FormError message={error} />
       </CardContent>
       <CardFooter className="mt-auto px-6 py-4 flex justify-between items-center bg-muted rounded-none">
-        <p className="text-sm text-muted-foreground">
-          An avatar is optional but strongly recommended
-        </p>
+        <p className="text-sm text-muted-foreground">{m.hint}</p>
       </CardFooter>
     </Card>
   );

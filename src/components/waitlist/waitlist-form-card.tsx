@@ -18,13 +18,15 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { messages } from '@/config/messages';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+const m = messages.waitlist;
 const schema = z.object({
-  email: z.string().email('Please enter a valid email address'),
+  email: z.string().email(m.emailInvalid),
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -52,10 +54,10 @@ export function WaitlistFormCard() {
         form.reset();
         return;
       }
-      setError(json.error ?? 'Failed to subscribe');
+      setError(json.error ?? m.error);
     } catch (err) {
       console.error('Waitlist subscription error:', err);
-      setError('Failed to subscribe');
+      setError(m.error);
     }
   }
 
@@ -64,12 +66,8 @@ export function WaitlistFormCard() {
   return (
     <Card className="mx-auto max-w-lg overflow-hidden pt-6 pb-0">
       <CardHeader>
-        <CardTitle className="text-lg font-semibold">
-          Join the waitlist
-        </CardTitle>
-        <CardDescription>
-          Subscribe to get early access and product updates.
-        </CardDescription>
+        <CardTitle className="text-lg font-semibold">{m.title}</CardTitle>
+        <CardDescription>{m.description}</CardDescription>
       </CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col">
@@ -79,11 +77,11 @@ export function WaitlistFormCard() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{m.email}</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
-                      placeholder="you@example.com"
+                      placeholder={m.placeholderEmail}
                       {...field}
                     />
                   </FormControl>
@@ -99,7 +97,7 @@ export function WaitlistFormCard() {
               disabled={isPending}
               className="cursor-pointer"
             >
-              {isPending ? 'Subscribing…' : 'Subscribe'}
+              {isPending ? m.subscribing : m.subscribe}
             </Button>
           </CardFooter>
         </form>

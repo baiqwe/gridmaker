@@ -18,21 +18,17 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { messages } from '@/config/messages';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+const m = messages.contact;
 const schema = z.object({
-  name: z
-    .string()
-    .min(3, 'Name must be at least 3 characters')
-    .max(30, 'Name must not exceed 30 characters'),
-  email: z.string().email('Please enter a valid email address'),
-  message: z
-    .string()
-    .min(10, 'Message must be at least 10 characters')
-    .max(500, 'Message must not exceed 500 characters'),
+  name: z.string().min(3, m.nameMin).max(30, m.nameMax),
+  email: z.string().email(m.emailInvalid),
+  message: z.string().min(10, m.messageMin).max(500, m.messageMax),
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -60,21 +56,19 @@ export function ContactFormCard() {
         form.reset();
         return;
       }
-      const msg = json.error ?? 'Failed to send the message';
-      setError(msg);
+      const errMsg = json.error ?? m.error;
+      setError(errMsg);
     } catch (err) {
       console.error('Contact form error:', err);
-      setError('Failed to send the message');
+      setError(m.error);
     }
   }
 
   return (
     <Card className="mx-auto max-w-lg overflow-hidden pt-6 pb-0">
       <CardHeader>
-        <CardTitle className="text-lg font-semibold">Send a message</CardTitle>
-        <CardDescription>
-          We will get back to you as soon as we can.
-        </CardDescription>
+        <CardTitle className="text-lg font-semibold">{m.title}</CardTitle>
+        <CardDescription>{m.description}</CardDescription>
       </CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col">
@@ -84,9 +78,9 @@ export function ContactFormCard() {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>{m.name}</FormLabel>
                   <FormControl>
-                    <Input placeholder="Your name" {...field} />
+                    <Input placeholder={m.placeholderName} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -97,11 +91,11 @@ export function ContactFormCard() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{m.email}</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
-                      placeholder="you@example.com"
+                      placeholder={m.placeholderEmail}
                       {...field}
                     />
                   </FormControl>
@@ -114,9 +108,9 @@ export function ContactFormCard() {
               name="message"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Message</FormLabel>
+                  <FormLabel>{m.message}</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Your message" rows={3} {...field} />
+                    <Textarea placeholder={m.placeholderMessage} rows={3} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -130,7 +124,7 @@ export function ContactFormCard() {
               disabled={isPending}
               className="cursor-pointer"
             >
-              {isPending ? 'Sending…' : 'Send'}
+              {isPending ? m.sending : m.send}
             </Button>
           </CardFooter>
         </form>

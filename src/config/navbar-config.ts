@@ -9,66 +9,33 @@ import {
 import { Routes } from '@/routes';
 import type { MenuItemConfig } from '../types';
 import { websiteConfig } from './website';
+import { messages } from './messages';
+
+const m = messages.nav;
 
 /**
  * Navbar links (English only, no i18n). Icons are Tabler icon components.
  */
 export function getNavbarLinks(): MenuItemConfig[] {
   const links: MenuItemConfig[] = [
-    { title: 'Features', href: Routes.Features, external: false },
-    { title: 'Pricing', href: Routes.Pricing, external: false },
+    { title: m.features, href: Routes.Features, external: false },
+    { title: m.pricing, href: Routes.Pricing, external: false },
   ];
   if (websiteConfig.blog?.enable) {
-    links.push({ title: 'Blog', href: Routes.Blog, external: false });
+    links.push({ title: m.blog, href: Routes.Blog, external: false });
   }
   if (websiteConfig.docs?.enable) {
-    links.push({ title: 'Docs', href: Routes.Docs, external: false });
+    links.push({ title: m.docs, href: Routes.Docs, external: false });
   }
   links.push({
-    title: 'Pages',
+    title: m.pages,
     items: [
-      {
-        title: 'About',
-        description: 'Learn more about us',
-        href: Routes.About,
-        icon: IconBuilding,
-        external: false,
-      },
-      {
-        title: 'Contact',
-        description: 'Get in touch',
-        href: Routes.Contact,
-        icon: IconMail,
-        external: false,
-      },
-      {
-        title: 'Waitlist',
-        description: 'Join the waitlist',
-        href: Routes.Waitlist,
-        icon: IconMailbox,
-        external: false,
-      },
-      {
-        title: 'Cookie Policy',
-        description: 'Cookie policy',
-        href: Routes.CookiePolicy,
-        icon: IconCookie,
-        external: false,
-      },
-      {
-        title: 'Privacy Policy',
-        description: 'Privacy policy',
-        href: Routes.PrivacyPolicy,
-        icon: IconShieldCheck,
-        external: false,
-      },
-      {
-        title: 'Terms of Service',
-        description: 'Terms of service',
-        href: Routes.TermsOfService,
-        icon: IconFileText,
-        external: false,
-      },
+      { title: m.about.title, description: m.about.description, href: Routes.About, icon: IconBuilding, external: false },
+      { title: m.contact.title, description: m.contact.description, href: Routes.Contact, icon: IconMail, external: false },
+      { title: m.waitlist.title, description: m.waitlist.description, href: Routes.Waitlist, icon: IconMailbox, external: false },
+      { title: m.cookiePolicy.title, description: m.cookiePolicy.description, href: Routes.CookiePolicy, icon: IconCookie, external: false },
+      { title: m.privacyPolicy.title, description: m.privacyPolicy.description, href: Routes.PrivacyPolicy, icon: IconShieldCheck, external: false },
+      { title: m.termsOfService.title, description: m.termsOfService.description, href: Routes.TermsOfService, icon: IconFileText, external: false },
     ],
   });
   return links;

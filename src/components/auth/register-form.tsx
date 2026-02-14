@@ -20,22 +20,10 @@ import { IconEye, IconEyeOff, IconLoader2 } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
+import { messages } from '@/config/messages';
 import { SocialLoginButton } from './social-login-button';
 
-const message = {
-  createAccount: 'Create an account',
-  name: 'Name',
-  email: 'Email',
-  password: 'Password',
-  signUp: 'Sign Up',
-  signInHint: 'Already have an account? Sign in',
-  checkEmail: 'Please check your email inbox',
-  showPassword: 'Show password',
-  hidePassword: 'Hide password',
-  nameRequired: 'Please enter your name',
-  emailRequired: 'Please enter your email',
-  passwordRequired: 'Please enter your password',
-} as const;
+const m = messages.auth.register;
 
 interface RegisterFormProps {
   callbackUrl?: string;
@@ -63,9 +51,9 @@ export function RegisterForm({
   const credentialLoginEnabled = websiteConfig.auth.enableCredentialLogin;
 
   const RegisterSchema = z.object({
-    email: z.string().email({ message: message.emailRequired }),
-    password: z.string().min(1, { message: message.passwordRequired }),
-    name: z.string().min(1, { message: message.nameRequired }),
+    email: z.string().email({ message: m.emailRequired }),
+    password: z.string().min(1, { message: m.passwordRequired }),
+    name: z.string().min(1, { message: m.nameRequired }),
   });
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
@@ -88,7 +76,7 @@ export function RegisterForm({
           setSuccess('');
         },
         onResponse: () => setIsPending(false),
-        onSuccess: () => setSuccess(message.checkEmail),
+        onSuccess: () => setSuccess(m.checkEmail),
         onError: (ctx) => {
           setError(`${ctx.error.status}: ${ctx.error.message}`);
         },
@@ -102,8 +90,8 @@ export function RegisterForm({
 
   return (
     <AuthCard
-      headerLabel={message.createAccount}
-      bottomButtonLabel={message.signInHint}
+      headerLabel={m.createAccount}
+      bottomButtonLabel={m.signInHint}
       bottomButtonHref={Routes.Login}
     >
       {credentialLoginEnabled && (
@@ -115,12 +103,12 @@ export function RegisterForm({
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{message.name}</FormLabel>
+                    <FormLabel>{m.name}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         disabled={isPending}
-                        placeholder="name"
+                        placeholder={m.placeholderName}
                       />
                     </FormControl>
                     <FormMessage />
@@ -132,12 +120,12 @@ export function RegisterForm({
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{message.email}</FormLabel>
+                    <FormLabel>{m.email}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         disabled={isPending}
-                        placeholder="name@example.com"
+                        placeholder={m.placeholderEmail}
                         type="email"
                       />
                     </FormControl>
@@ -150,13 +138,13 @@ export function RegisterForm({
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{message.password}</FormLabel>
+                    <FormLabel>{m.password}</FormLabel>
                     <FormControl>
                       <div className="relative">
                         <Input
                           {...field}
                           disabled={isPending}
-                          placeholder="******"
+                          placeholder={m.placeholderPassword}
                           type={showPassword ? 'text' : 'password'}
                           className="pr-10"
                         />
@@ -175,8 +163,8 @@ export function RegisterForm({
                           )}
                           <span className="sr-only">
                             {showPassword
-                              ? message.hidePassword
-                              : message.showPassword}
+                              ? m.hidePassword
+                              : m.showPassword}
                           </span>
                         </Button>
                       </div>
@@ -197,7 +185,7 @@ export function RegisterForm({
               {isPending && (
                 <IconLoader2 className="mr-2 size-4 animate-spin" />
               )}
-              <span>{message.signUp}</span>
+              <span>{m.signUp}</span>
             </Button>
           </form>
         </Form>
