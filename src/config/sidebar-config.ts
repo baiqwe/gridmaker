@@ -2,10 +2,8 @@ import {
   IconBell,
   IconLayoutDashboard,
   IconLock,
-  IconSettings,
   IconSettings2,
   IconUserCircle,
-  IconUsersGroup,
 } from '@tabler/icons-react';
 import { Routes } from '@/routes';
 import type { MenuItemConfig } from '../types';
@@ -20,19 +18,6 @@ export function getSidebarLinks(): MenuItemConfig[] {
       icon: IconLayoutDashboard,
       href: Routes.Dashboard,
       external: false,
-    },
-    {
-      title: 'Admin',
-      icon: IconSettings,
-      authorizeOnly: ['admin'],
-      items: [
-        {
-          title: 'Users',
-          icon: IconUsersGroup,
-          href: Routes.AdminUsers,
-          external: false,
-        },
-      ],
     },
     {
       title: 'Settings',

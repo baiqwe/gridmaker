@@ -4,6 +4,7 @@ import {
   createRootRouteWithContext,
   HeadContent,
   Scripts,
+  useRouterState,
 } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { Analytics } from '@/components/analytics/analytics';
@@ -13,8 +14,25 @@ import { Footer } from '@/components/layout/footer';
 import { NotFound } from '@/components/layout/not-found';
 import { websiteConfig } from '@/config/website';
 import TanStackQueryDevtools from '../integrations/tanstack-query/devtools';
-import StoreDevtools from '../lib/demo-store-devtools';
 import appCss from '../styles.css?url';
+
+/** Marketing pages: Navbar + main + Footer. Dashboard: full-screen app shell only. */
+function RootLayout({ children }: { children: React.ReactNode }) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname }) ?? '';
+  const isDashboard = pathname.startsWith('/dashboard');
+
+  if (isDashboard) {
+    return <>{children}</>;
+  }
+
+  return (
+    <div className="flex min-h-screen flex-col">
+      <Navbar scroll />
+      <main className="flex-1">{children}</main>
+      <Footer />
+    </div>
+  );
+}
 
 const DEFAULT_THEME = websiteConfig.ui?.mode?.defaultMode ?? 'system';
 
@@ -61,13 +79,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body>
         <Analytics>
           <ThemeProvider>
-            <div className="flex min-h-screen flex-col">
-              <Navbar scroll />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </div>
+            <RootLayout>{children}</RootLayout>
           </ThemeProvider>
-          <TanStackDevtools
+          {/* <TanStackDevtools
             config={{
               position: 'bottom-right',
             }}
@@ -77,9 +91,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                 render: <TanStackRouterDevtoolsPanel />,
               },
               TanStackQueryDevtools,
-              StoreDevtools,
             ]}
-          />
+          /> */}
           <Scripts />
         </Analytics>
       </body>
