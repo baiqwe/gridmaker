@@ -48,7 +48,7 @@ export const messages = {
   },
 
   auth: {
-    agreement: {
+    common: {
       byClickingContinue: 'By clicking continue, you agree to our ',
       termsOfService: 'Terms of Service',
       privacyPolicy: 'Privacy Policy',

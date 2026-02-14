@@ -4,7 +4,7 @@ import { messages } from '@/config/messages';
 import { Routes } from '@/routes';
 
 const m = messages.auth.login;
-const agreement = messages.auth.agreement;
+const authCommon = messages.auth.common;
 
 export const Route = createFileRoute('/auth/login')({
   component: LoginPage,
@@ -18,19 +18,19 @@ function LoginPage() {
     <div className="flex flex-col gap-4">
       <LoginForm />
       <div className="text-balance text-center text-xs text-muted-foreground">
-        {agreement.byClickingContinue}
+        {authCommon.byClickingContinue}
         <Link
           to={Routes.TermsOfService}
           className="underline underline-offset-4 hover:text-primary"
         >
-          {agreement.termsOfService}
+          {authCommon.termsOfService}
         </Link>
-        {agreement.and}
+        {authCommon.and}
         <Link
           to={Routes.PrivacyPolicy}
           className="underline underline-offset-4 hover:text-primary"
         >
-          {agreement.privacyPolicy}
+          {authCommon.privacyPolicy}
         </Link>
       </div>
     </div>
