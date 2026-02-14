@@ -156,6 +156,10 @@ export const messages = {
           title: 'Avatar',
           description: 'Click upload button to upload a custom one',
           uploadNotConfigured: 'Upload Avatar (storage not configured)',
+          uploadAvatar: 'Upload Avatar',
+          uploading: 'Uploading...',
+          success: 'Avatar updated successfully',
+          fail: 'Failed to update avatar',
           hint: 'An avatar is optional but strongly recommended',
         },
       },
@@ -181,8 +185,10 @@ export const messages = {
         },
         deleteAccount: {
           title: 'Delete Account',
-          description: 'Permanently remove your account and all of its contents',
-          warning: 'This action is not reversible, so please continue with caution',
+          description:
+            'Permanently remove your account and all of its contents',
+          warning:
+            'This action is not reversible, so please continue with caution',
           button: 'Delete Account',
           confirmTitle: 'Delete Account',
           confirmDescription:

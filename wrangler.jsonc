@@ -13,9 +13,16 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "mkfast-db",
-      "database_id": "71d527ac-1cfa-4b10-bd95-fd18d779457d",
+      "database_name": "mkfast_template",
+      "database_id": "dc34f04a-3445-4b5c-bf61-c4ec2328e239",
       "migrations_dir": "./src/db/migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "bucket_name": "mkfast-template",
+      "binding": "FILES",
+      "remote": true
     }
   ]
 }

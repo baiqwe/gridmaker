@@ -32,3 +32,15 @@ When you run `pnpm build`, Vite uses production mode and loads `.env.production`
 | `.env.production`         | `pnpm build` | Production base URL. **Do not commit**; copy from `.env.production.example`. |
 
 Optional: `.dev.vars` is only for `wrangler dev` (e.g. Worker secrets). Not needed for `VITE_BASE_URL` if you only use .env.
+
+## Storage (S3-compatible, e.g. R2)
+
+For avatar upload and file storage, set in `.dev.vars` (local) or Wrangler secrets (production), and set `websiteConfig.storage.enable` to `true` in `src/config/website.ts`:
+
+- `STORAGE_REGION` – e.g. `auto` for Cloudflare R2
+- `STORAGE_ENDPOINT` – S3 endpoint URL (e.g. R2 bucket endpoint)
+- `STORAGE_ACCESS_KEY_ID` – S3 access key
+- `STORAGE_SECRET_ACCESS_KEY` – S3 secret key
+- `STORAGE_BUCKET_NAME` – Bucket name
+- `STORAGE_PUBLIC_URL` – (optional) Custom public URL for files
+- `STORAGE_FORCE_PATH_STYLE` – (optional) Set to `false` to disable path-style

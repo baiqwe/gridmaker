@@ -30,6 +30,7 @@ import { Route as ApiContactRouteImport } from './routes/api/contact'
 import { Route as DashboardSettingsSecurityRouteImport } from './routes/dashboard/settings/security'
 import { Route as DashboardSettingsProfileRouteImport } from './routes/dashboard/settings/profile'
 import { Route as DashboardSettingsNotificationsRouteImport } from './routes/dashboard/settings/notifications'
+import { Route as ApiStorageUploadRouteImport } from './routes/api/storage/upload'
 import { Route as ApiNewsletterUnsubscribeRouteImport } from './routes/api/newsletter/unsubscribe'
 import { Route as ApiNewsletterSubscribeRouteImport } from './routes/api/newsletter/subscribe'
 import { Route as ApiNewsletterStatusRouteImport } from './routes/api/newsletter/status'
@@ -143,6 +144,11 @@ const DashboardSettingsNotificationsRoute =
     path: '/settings/notifications',
     getParentRoute: () => DashboardRoute,
   } as any)
+const ApiStorageUploadRoute = ApiStorageUploadRouteImport.update({
+  id: '/api/storage/upload',
+  path: '/api/storage/upload',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiNewsletterUnsubscribeRoute =
   ApiNewsletterUnsubscribeRouteImport.update({
     id: '/api/newsletter/unsubscribe',
@@ -188,6 +194,7 @@ export interface FileRoutesByFullPath {
   '/api/newsletter/status': typeof ApiNewsletterStatusRoute
   '/api/newsletter/subscribe': typeof ApiNewsletterSubscribeRoute
   '/api/newsletter/unsubscribe': typeof ApiNewsletterUnsubscribeRoute
+  '/api/storage/upload': typeof ApiStorageUploadRoute
   '/dashboard/settings/notifications': typeof DashboardSettingsNotificationsRoute
   '/dashboard/settings/profile': typeof DashboardSettingsProfileRoute
   '/dashboard/settings/security': typeof DashboardSettingsSecurityRoute
@@ -214,6 +221,7 @@ export interface FileRoutesByTo {
   '/api/newsletter/status': typeof ApiNewsletterStatusRoute
   '/api/newsletter/subscribe': typeof ApiNewsletterSubscribeRoute
   '/api/newsletter/unsubscribe': typeof ApiNewsletterUnsubscribeRoute
+  '/api/storage/upload': typeof ApiStorageUploadRoute
   '/dashboard/settings/notifications': typeof DashboardSettingsNotificationsRoute
   '/dashboard/settings/profile': typeof DashboardSettingsProfileRoute
   '/dashboard/settings/security': typeof DashboardSettingsSecurityRoute
@@ -242,6 +250,7 @@ export interface FileRoutesById {
   '/api/newsletter/status': typeof ApiNewsletterStatusRoute
   '/api/newsletter/subscribe': typeof ApiNewsletterSubscribeRoute
   '/api/newsletter/unsubscribe': typeof ApiNewsletterUnsubscribeRoute
+  '/api/storage/upload': typeof ApiStorageUploadRoute
   '/dashboard/settings/notifications': typeof DashboardSettingsNotificationsRoute
   '/dashboard/settings/profile': typeof DashboardSettingsProfileRoute
   '/dashboard/settings/security': typeof DashboardSettingsSecurityRoute
@@ -271,6 +280,7 @@ export interface FileRouteTypes {
     | '/api/newsletter/status'
     | '/api/newsletter/subscribe'
     | '/api/newsletter/unsubscribe'
+    | '/api/storage/upload'
     | '/dashboard/settings/notifications'
     | '/dashboard/settings/profile'
     | '/dashboard/settings/security'
@@ -297,6 +307,7 @@ export interface FileRouteTypes {
     | '/api/newsletter/status'
     | '/api/newsletter/subscribe'
     | '/api/newsletter/unsubscribe'
+    | '/api/storage/upload'
     | '/dashboard/settings/notifications'
     | '/dashboard/settings/profile'
     | '/dashboard/settings/security'
@@ -324,6 +335,7 @@ export interface FileRouteTypes {
     | '/api/newsletter/status'
     | '/api/newsletter/subscribe'
     | '/api/newsletter/unsubscribe'
+    | '/api/storage/upload'
     | '/dashboard/settings/notifications'
     | '/dashboard/settings/profile'
     | '/dashboard/settings/security'
@@ -346,6 +358,7 @@ export interface RootRouteChildren {
   ApiNewsletterStatusRoute: typeof ApiNewsletterStatusRoute
   ApiNewsletterSubscribeRoute: typeof ApiNewsletterSubscribeRoute
   ApiNewsletterUnsubscribeRoute: typeof ApiNewsletterUnsubscribeRoute
+  ApiStorageUploadRoute: typeof ApiStorageUploadRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -497,6 +510,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSettingsNotificationsRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/api/storage/upload': {
+      id: '/api/storage/upload'
+      path: '/api/storage/upload'
+      fullPath: '/api/storage/upload'
+      preLoaderRoute: typeof ApiStorageUploadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/newsletter/unsubscribe': {
       id: '/api/newsletter/unsubscribe'
       path: '/api/newsletter/unsubscribe'
@@ -581,6 +601,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiNewsletterStatusRoute: ApiNewsletterStatusRoute,
   ApiNewsletterSubscribeRoute: ApiNewsletterSubscribeRoute,
   ApiNewsletterUnsubscribeRoute: ApiNewsletterUnsubscribeRoute,
+  ApiStorageUploadRoute: ApiStorageUploadRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
