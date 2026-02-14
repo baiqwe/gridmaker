@@ -6,7 +6,7 @@ import { websiteConfig } from '@/config/website';
 import { authClient } from '@/lib/auth-client';
 import { getBaseUrl } from '@/lib/urls';
 import { DEFAULT_LOGIN_REDIRECT, Routes } from '@/routes';
-import { Loader2Icon } from 'lucide-react';
+import { IconLoader2 } from '@tabler/icons-react';
 
 const message = {
   or: 'Or continue with',
@@ -68,7 +68,7 @@ export function SocialLoginButton({
           disabled={isLoading === 'google'}
         >
           {isLoading === 'google' ? (
-            <Loader2Icon className="mr-2 size-4 animate-spin" />
+            <IconLoader2 className="mr-2 size-4 animate-spin" />
           ) : (
             <GoogleIcon className="size-4 mr-2" />
           )}

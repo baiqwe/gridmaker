@@ -3,7 +3,7 @@ import Container from '@/components/layout/container';
 import { MarkdownBody } from '@/components/blog/markdown-body';
 import { getPostBySlug } from '@/lib/blog';
 import { websiteConfig } from '@/config/website';
-import { ArrowLeftIcon } from 'lucide-react';
+import { IconArrowLeft } from '@tabler/icons-react';
 
 export const Route = createFileRoute('/blog/$slug')({
   component: BlogPostPage,
@@ -57,7 +57,7 @@ function BlogPostPage() {
             search={{ page: 1 }}
             className="mb-6 inline-flex items-center gap-2 text-muted-foreground text-sm hover:text-foreground"
           >
-            <ArrowLeftIcon className="size-4" />
+            <IconArrowLeft className="size-4" />
             All posts
           </Link>
 

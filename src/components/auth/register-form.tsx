@@ -16,7 +16,7 @@ import { authClient } from '@/lib/auth-client';
 import { getBaseUrl } from '@/lib/urls';
 import { DEFAULT_LOGIN_REDIRECT, Routes } from '@/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { EyeIcon, EyeOffIcon, Loader2Icon } from 'lucide-react';
+import { IconEye, IconEyeOff, IconLoader2 } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
@@ -169,9 +169,9 @@ export function RegisterForm({
                           disabled={isPending}
                         >
                           {showPassword ? (
-                            <EyeOffIcon className="size-4 text-muted-foreground" />
+                            <IconEyeOff className="size-4 text-muted-foreground" />
                           ) : (
-                            <EyeIcon className="size-4 text-muted-foreground" />
+                            <IconEye className="size-4 text-muted-foreground" />
                           )}
                           <span className="sr-only">
                             {showPassword
@@ -195,7 +195,7 @@ export function RegisterForm({
               className="cursor-pointer w-full flex items-center justify-center gap-2"
             >
               {isPending && (
-                <Loader2Icon className="mr-2 size-4 animate-spin" />
+                <IconLoader2 className="mr-2 size-4 animate-spin" />
               )}
               <span>{message.signUp}</span>
             </Button>

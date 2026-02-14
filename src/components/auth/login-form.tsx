@@ -18,7 +18,7 @@ import { getBaseUrl } from '@/lib/urls';
 import { cn } from '@/lib/utils';
 import { DEFAULT_LOGIN_REDIRECT, Routes } from '@/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { EyeIcon, EyeOffIcon, Loader2Icon } from 'lucide-react';
+import { IconEye, IconEyeOff, IconLoader2 } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
@@ -166,9 +166,9 @@ export function LoginForm({
                           disabled={isPending}
                         >
                           {showPassword ? (
-                            <EyeOffIcon className="size-4 text-muted-foreground" />
+                            <IconEyeOff className="size-4 text-muted-foreground" />
                           ) : (
-                            <EyeIcon className="size-4 text-muted-foreground" />
+                            <IconEye className="size-4 text-muted-foreground" />
                           )}
                           <span className="sr-only">
                             {showPassword
@@ -192,7 +192,7 @@ export function LoginForm({
               className="w-full flex items-center justify-center gap-2 cursor-pointer"
             >
               {isPending && (
-                <Loader2Icon className="mr-2 size-4 animate-spin" />
+                <IconLoader2 className="mr-2 size-4 animate-spin" />
               )}
               <span>{message.signIn}</span>
             </Button>

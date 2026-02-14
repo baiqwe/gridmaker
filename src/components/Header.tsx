@@ -3,15 +3,15 @@ import { Link } from '@tanstack/react-router';
 import BetterAuthHeader from '../integrations/better-auth/header-user.tsx';
 import { useState } from 'react';
 import {
-  ClipboardType,
-  Globe,
-  Home,
-  Menu,
-  Network,
-  Store,
-  Table,
-  X,
-} from 'lucide-react';
+  IconClipboard,
+  IconHome,
+  IconMenu2,
+  IconNetwork,
+  IconShoppingCart,
+  IconTable,
+  IconWorld,
+  IconX,
+} from '@tabler/icons-react';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,7 +25,7 @@ export default function Header() {
           className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
           aria-label="Open menu"
         >
-          <Menu size={24} />
+          <IconMenu2 size={24} />
         </button>
         <h1 className="ml-4 text-xl font-semibold">
           <Link to="/">
@@ -51,7 +51,7 @@ export default function Header() {
             className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
             aria-label="Close menu"
           >
-            <X size={24} />
+            <IconX size={24} />
           </button>
         </div>
 
@@ -65,7 +65,7 @@ export default function Header() {
                 'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
             }}
           >
-            <Home size={20} />
+            <IconHome size={20} />
             <span className="font-medium">Home</span>
           </Link>
 
@@ -80,7 +80,7 @@ export default function Header() {
                 'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
             }}
           >
-            <Globe size={20} />
+            <IconWorld size={20} />
             <span className="font-medium">Sign in / Auth</span>
           </Link>
 
@@ -93,7 +93,7 @@ export default function Header() {
                 'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
             }}
           >
-            <Table size={20} />
+            <IconTable size={20} />
             <span className="font-medium">TanStack Table</span>
           </Link>
 
@@ -106,7 +106,7 @@ export default function Header() {
                 'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
             }}
           >
-            <Network size={20} />
+            <IconNetwork size={20} />
             <span className="font-medium">TanStack Query</span>
           </Link>
 
@@ -119,7 +119,7 @@ export default function Header() {
                 'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
             }}
           >
-            <Store size={20} />
+            <IconShoppingCart size={20} />
             <span className="font-medium">Store</span>
           </Link>
 
@@ -132,7 +132,7 @@ export default function Header() {
                 'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
             }}
           >
-            <ClipboardType size={20} />
+            <IconClipboard size={20} />
             <span className="font-medium">Simple Form</span>
           </Link>
 
@@ -145,7 +145,7 @@ export default function Header() {
                 'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
             }}
           >
-            <ClipboardType size={20} />
+            <IconClipboard size={20} />
             <span className="font-medium">Address Form</span>
           </Link>
 

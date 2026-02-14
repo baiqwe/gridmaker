@@ -16,7 +16,7 @@ import { authClient } from '@/lib/auth-client';
 import { cn } from '@/lib/utils';
 import { Routes } from '@/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Loader2Icon } from 'lucide-react';
+import { IconLoader2 } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -110,7 +110,7 @@ export function ForgotPasswordForm({ className }: { className?: string }) {
             type="submit"
             className="w-full cursor-pointer"
           >
-            {isPending && <Loader2Icon className="mr-2 size-4 animate-spin" />}
+            {isPending && <IconLoader2 className="mr-2 size-4 animate-spin" />}
             <span>{message.send}</span>
           </Button>
         </form>

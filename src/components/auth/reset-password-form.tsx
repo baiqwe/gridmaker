@@ -16,7 +16,7 @@ import { Input } from '@/components/ui/input';
 import { authClient } from '@/lib/auth-client';
 import { Routes } from '@/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { EyeIcon, EyeOffIcon, Loader2Icon } from 'lucide-react';
+import { IconEye, IconEyeOff, IconLoader2 } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -129,9 +129,9 @@ export function ResetPasswordForm() {
                         disabled={isPending}
                       >
                         {showPassword ? (
-                          <EyeOffIcon className="h-4 w-4 text-muted-foreground" />
+                          <IconEyeOff className="h-4 w-4 text-muted-foreground" />
                         ) : (
-                          <EyeIcon className="h-4 w-4 text-muted-foreground" />
+                          <IconEye className="h-4 w-4 text-muted-foreground" />
                         )}
                         <span className="sr-only">
                           {showPassword
@@ -154,7 +154,7 @@ export function ResetPasswordForm() {
             type="submit"
             className="w-full cursor-pointer"
           >
-            {isPending && <Loader2Icon className="mr-2 size-4 animate-spin" />}
+            {isPending && <IconLoader2 className="mr-2 size-4 animate-spin" />}
             <span>{message.reset}</span>
           </Button>
         </form>

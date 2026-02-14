@@ -1,5 +1,5 @@
 import { Link, useRouter } from '@tanstack/react-router';
-import { ArrowLeftIcon } from 'lucide-react';
+import { IconArrowLeft } from '@tabler/icons-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -20,7 +20,7 @@ export default function BackButtonSmall({
       variant="outline"
       className={cn('size-8 px-0', className)}
     >
-      <ArrowLeftIcon className="size-4" />
+      <IconArrowLeft className="size-4" />
     </Button>
   );
 
@@ -34,7 +34,7 @@ export default function BackButtonSmall({
       className={cn('size-8 px-0', className)}
       onClick={() => router.history.back()}
     >
-      <ArrowLeftIcon className="size-4" />
+      <IconArrowLeft className="size-4" />
     </Button>
   );
 }

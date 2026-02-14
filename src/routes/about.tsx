@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { buttonVariants } from '@/components/ui/button';
 import { websiteConfig } from '@/config/website';
 import { cn } from '@/lib/utils';
-import { MailIcon, TwitterIcon } from 'lucide-react';
+import { IconBrandX, IconMail } from '@tabler/icons-react';
 
 export const Route = createFileRoute('/about')({
   component: AboutPage,
@@ -62,7 +62,7 @@ function AboutPage() {
                         'cursor-pointer rounded-lg'
                       )}
                     >
-                      <TwitterIcon className="mr-1 size-4" />
+                      <IconBrandX className="mr-1 size-4" />
                       Follow us
                     </a>
                   )}
@@ -74,7 +74,7 @@ function AboutPage() {
                         'cursor-pointer rounded-lg inline-flex items-center'
                       )}
                     >
-                      <MailIcon className="mr-1 size-4" />
+                      <IconMail className="mr-1 size-4" />
                       Contact us
                     </a>
                   )}

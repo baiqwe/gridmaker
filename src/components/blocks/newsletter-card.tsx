@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Loader2Icon, Send } from 'lucide-react';
+import { IconLoader2, IconSend } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -101,9 +101,9 @@ export function NewsletterCard() {
                 disabled={isPending}
               >
                 {isPending ? (
-                  <Loader2Icon className="size-6 animate-spin" aria-hidden />
+                  <IconLoader2 className="size-6 animate-spin" aria-hidden />
                 ) : (
-                  <Send className="size-6" aria-hidden />
+                  <IconSend className="size-6" aria-hidden />
                 )}
                 <span className="sr-only">Subscribe</span>
               </Button>
