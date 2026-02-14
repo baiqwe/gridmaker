@@ -1,5 +1,5 @@
 import { drizzle } from "drizzle-orm/d1";
-import * as schema from "@/db/schema";
+import { schema } from "./schema";
 
 /**
  * Create Drizzle instance for Cloudflare D1.
@@ -8,3 +8,9 @@ import * as schema from "@/db/schema";
 export function getDb(d1: D1Database) {
   return drizzle(d1, { schema });
 }
+
+/**
+ * Export individual tables for drizzle-kit
+ */
+export * from "./auth.schema";
+export * from "./schema";

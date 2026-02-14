@@ -21,8 +21,7 @@
   "r2_buckets": [
     {
       "bucket_name": "mkfast-template",
-      "binding": "FILES",
-      "remote": true
+      "binding": "FILES"
     }
   ]
 }
