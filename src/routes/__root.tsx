@@ -9,9 +9,11 @@ import {
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { Analytics } from '@/components/analytics/analytics';
 import { ThemeProvider } from '@/components/layout/theme-provider';
+import { TailwindIndicator } from '@/components/layout/tailwind-indicator';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { NotFound } from '@/components/layout/not-found';
+import { Toaster } from '@/components/layout/sonner';
 import { websiteConfig } from '@/config/website';
 import TanStackQueryDevtools from '../integrations/tanstack-query/devtools';
 import appCss from '../styles.css?url';
@@ -80,6 +82,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Analytics>
           <ThemeProvider>
             <RootLayout>{children}</RootLayout>
+            <Toaster richColors position="top-right" offset={64} />
+            <TailwindIndicator />
           </ThemeProvider>
           {/* <TanStackDevtools
             config={{

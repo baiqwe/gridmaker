@@ -1,6 +1,6 @@
 import { websiteConfig } from '@/config/website';
 import { HeaderSection } from '@/components/layout/header-section';
-import { FormError } from '@/components/shared/form-error';
+import { FormError } from '@/components/layout/form-error';
 import { Button } from '@/components/ui/button';
 import {
   Form,
