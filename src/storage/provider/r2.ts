@@ -1,5 +1,5 @@
-import { S3mini } from 's3mini';
 import { storageConfig } from '../config/storage-config';
+import { getR2Bucket } from '../get-bucket';
 import {
   ConfigurationError,
   type StorageConfig,
@@ -11,49 +11,17 @@ import {
 } from '../types';
 
 /**
- * S3-compatible storage provider using s3mini (works with Cloudflare R2, AWS S3, etc.)
+ * Cloudflare R2 storage provider using the Worker bucket binding (no SDK).
  */
-export class S3Provider implements StorageProvider {
+export class R2Provider implements StorageProvider {
   private config: StorageConfig;
-  private s3Client: S3mini | null = null;
 
   constructor(config: StorageConfig = storageConfig) {
     this.config = config;
   }
 
   getProviderName(): string {
-    return 'S3';
-  }
-
-  private getS3Client(): S3mini {
-    if (this.s3Client) return this.s3Client;
-
-    const { region, endpoint, accessKeyId, secretAccessKey, bucketName } =
-      this.config;
-
-    if (!region) {
-      throw new ConfigurationError('Storage region is not configured');
-    }
-    if (!accessKeyId || !secretAccessKey) {
-      throw new ConfigurationError('Storage credentials are not configured');
-    }
-    if (!endpoint) {
-      throw new ConfigurationError('Storage endpoint is required for s3mini');
-    }
-    if (!bucketName) {
-      throw new ConfigurationError('Storage bucket name is not configured');
-    }
-
-    const endpointWithBucket = `${endpoint.replace(/\/$/, '')}/${bucketName}`;
-
-    this.s3Client = new S3mini({
-      accessKeyId,
-      secretAccessKey,
-      endpoint: endpointWithBucket,
-      region,
-    });
-
-    return this.s3Client;
+    return 'R2';
   }
 
   private generateUniqueFilename(originalFilename: string): string {
@@ -68,29 +36,21 @@ export class S3Provider implements StorageProvider {
   async uploadFile(params: UploadFileParams): Promise<UploadFileResult> {
     try {
       const { file, filename, contentType, folder } = params;
-      const s3 = this.getS3Client();
-      const { bucketName } = this.config;
+      const bucket = getR2Bucket();
 
       const uniqueFilename = this.generateUniqueFilename(filename);
       const key = folder ? `${folder}/${uniqueFilename}` : uniqueFilename;
 
-      let fileContent: Buffer | string;
-      if (file instanceof Blob) {
-        fileContent = Buffer.from(await file.arrayBuffer());
-      } else {
-        fileContent = file;
-      }
-
-      const response = await s3.putObject(key, fileContent, contentType);
-
-      if (!response.ok) {
-        throw new UploadError(`Failed to upload file: ${response.statusText}`);
-      }
+      const body =
+        file instanceof Blob ? file : new Uint8Array(file as Buffer);
+      await bucket.put(key, body, {
+        httpMetadata: { contentType },
+      });
 
       const { publicUrl } = this.config;
       const url = publicUrl
         ? `${publicUrl.replace(/\/$/, '')}/${key}`
-        : `${this.config.endpoint?.replace(/\/$/, '') || ''}/${key}`;
+        : key;
 
       return { url, key };
     } catch (error) {
@@ -105,8 +65,8 @@ export class S3Provider implements StorageProvider {
 
   async deleteFile(key: string): Promise<void> {
     try {
-      const s3 = this.getS3Client();
-      await s3.deleteObject(key);
+      const bucket = getR2Bucket();
+      await bucket.delete(key);
     } catch (error) {
       const message =
         error instanceof Error

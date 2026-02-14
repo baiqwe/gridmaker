@@ -86,7 +86,7 @@ export interface NewsletterConfig {
 
 export interface StorageConfig {
   enable: boolean;
-  provider?: 's3';
+  provider?: 'r2';
 }
 
 export interface PaymentConfig {

@@ -1,14 +1,8 @@
 /**
- * Storage configuration
+ * R2-only storage config (public URL for served objects; bucket comes from Worker binding).
  */
 export interface StorageConfig {
-  region: string;
-  endpoint?: string;
-  accessKeyId: string;
-  secretAccessKey: string;
-  bucketName: string;
   publicUrl?: string;
-  forcePathStyle?: boolean;
 }
 
 /**
@@ -35,9 +29,6 @@ export class UploadError extends StorageError {
   }
 }
 
-/**
- * Upload file parameters
- */
 export interface UploadFileParams {
   file: Buffer | Blob;
   filename: string;
@@ -45,17 +36,11 @@ export interface UploadFileParams {
   folder?: string;
 }
 
-/**
- * Upload file result
- */
 export interface UploadFileResult {
   url: string;
   key: string;
 }
 
-/**
- * Storage provider interface
- */
 export interface StorageProvider {
   uploadFile(params: UploadFileParams): Promise<UploadFileResult>;
   deleteFile(key: string): Promise<void>;

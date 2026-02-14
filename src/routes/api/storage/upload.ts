@@ -57,7 +57,13 @@ export const Route = createFileRoute('/api/storage/upload')({
             folder || undefined
           );
 
-          return Response.json(result);
+          // When no STORAGE_PUBLIC_URL, serve via same-origin proxy
+          const url =
+            result.url.startsWith('http') || result.url.startsWith('/')
+              ? result.url
+              : `${new URL(request.url).origin}/api/storage/file?key=${encodeURIComponent(result.key)}`;
+
+          return Response.json({ ...result, url });
         } catch (error) {
           if (error instanceof StorageError) {
             return Response.json({ error: error.message }, { status: 500 });

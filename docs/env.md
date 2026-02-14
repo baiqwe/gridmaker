@@ -33,14 +33,10 @@ When you run `pnpm build`, Vite uses production mode and loads `.env.production`
 
 Optional: `.dev.vars` is only for `wrangler dev` (e.g. Worker secrets). Not needed for `VITE_BASE_URL` if you only use .env.
 
-## Storage (S3-compatible, e.g. R2)
+## Storage (Cloudflare R2)
 
-For avatar upload and file storage, set in `.dev.vars` (local) or Wrangler secrets (production), and set `websiteConfig.storage.enable` to `true` in `src/config/website.ts`:
+Storage uses the **R2 bucket binding** in `wrangler.jsonc` (no S3 env vars or SDK).
 
-- `STORAGE_REGION` – e.g. `auto` for Cloudflare R2
-- `STORAGE_ENDPOINT` – S3 endpoint URL (e.g. R2 bucket endpoint)
-- `STORAGE_ACCESS_KEY_ID` – S3 access key
-- `STORAGE_SECRET_ACCESS_KEY` – S3 secret key
-- `STORAGE_BUCKET_NAME` – Bucket name
-- `STORAGE_PUBLIC_URL` – (optional) Custom public URL for files
-- `STORAGE_FORCE_PATH_STYLE` – (optional) Set to `false` to disable path-style
+1. In `wrangler.jsonc`, an R2 bucket is already bound as `FILES` (see `r2_buckets`).
+2. Set `websiteConfig.storage.enable` to `true` in `src/config/website.ts`.
+3. Optional: set `STORAGE_PUBLIC_URL` in `.dev.vars` or Wrangler secrets if you use a custom domain for the bucket. If unset, files are served via the same-origin route `/api/storage/file?key=...`.

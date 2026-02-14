@@ -68,7 +68,7 @@ export const websiteConfig: WebsiteConfig = {
   },
   storage: {
     enable: false,
-    provider: 's3',
+    provider: 'r2',
   },
   payment: {
     provider: 'stripe',

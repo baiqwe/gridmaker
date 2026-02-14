@@ -1,6 +1,6 @@
 import { websiteConfig } from '@/config/website';
 import { storageConfig } from './config/storage-config';
-import { S3Provider } from './provider/s3';
+import { R2Provider } from './provider/r2';
 import type { StorageConfig, StorageProvider, UploadFileResult } from './types';
 
 export const defaultStorageConfig: StorageConfig = storageConfig;
@@ -16,8 +16,8 @@ export const getStorageProvider = (): StorageProvider => {
 
 export const initializeStorageProvider = (): StorageProvider => {
   if (!storageProvider) {
-    if (websiteConfig.storage?.provider === 's3') {
-      storageProvider = new S3Provider();
+    if (websiteConfig.storage?.provider === 'r2') {
+      storageProvider = new R2Provider();
     } else {
       throw new Error(
         `Unsupported storage provider: ${websiteConfig.storage?.provider}`
