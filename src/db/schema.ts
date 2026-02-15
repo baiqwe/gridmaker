@@ -2,9 +2,13 @@ import * as authSchema from './auth.schema';
 import * as appSchema from './app.schema';
 
 /**
- * Single schema for Drizzle (getDb + drizzle-kit).
- * Auth tables from auth.schema; app tables from app.schema.
+ * Re-export all tables so drizzle-kit can discover them when reading this file.
+ * https://orm.drizzle.team/docs/drizzle-kit-generate
  */
+export * from './auth.schema';
+export * from './app.schema';
+
+/** Single schema object for getDb(d1, { schema }). */
 export const schema = {
   ...authSchema,
   ...appSchema,

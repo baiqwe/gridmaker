@@ -8,9 +8,3 @@ import { schema } from "./schema";
 export function getDb(d1: D1Database) {
   return drizzle(d1, { schema });
 }
-
-/** Better Auth tables */
-export * from './auth.schema';
-/** Application tables */
-export * from './app.schema';
-export { schema } from './schema';
