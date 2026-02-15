@@ -6,7 +6,6 @@ import type {
   SendTemplateParams,
 } from './types';
 import { ResendProvider } from './provider/resend';
-import { getTemplate } from './render';
 
 export { getTemplate } from './render';
 export type {

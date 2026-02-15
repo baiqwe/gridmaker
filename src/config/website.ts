@@ -35,28 +35,22 @@ export const websiteConfig: WebsiteConfig = {
     defaultLoginRedirect: '/dashboard',
   },
   analytics: {
+    enable: true,
     enableVercelAnalytics: false,
     enableSpeedInsights: false,
   },
   auth: {
+    enable: true,
     enableGoogleLogin: true,
     enableCredentialLogin: true,
-  },
-  i18n: {
-    defaultLocale: 'en',
-    locales: {
-      en: { flag: '🇺🇸', name: 'English', hreflang: 'en' },
-    },
   },
   blog: {
     enable: true,
     paginationSize: 6,
     relatedPostsSize: 3,
   },
-  docs: {
-    enable: false,
-  },
   mail: {
+    enable: true,
     provider: 'resend',
     fromEmail: 'MkFast <noreply@mksaas.link>',
     supportEmail: 'MkFast <support@mksaas.link>',
@@ -74,17 +68,13 @@ export const websiteConfig: WebsiteConfig = {
     provider: 'stripe',
   },
   price: {
+    enable: true,
     plans: {
       free: {
         id: 'free',
         prices: [],
         isFree: true,
         isLifetime: false,
-        credits: {
-          enable: true,
-          amount: 50,
-          expireDays: 30,
-        },
       },
       pro: {
         id: 'pro',
@@ -107,11 +97,6 @@ export const websiteConfig: WebsiteConfig = {
         isFree: false,
         isLifetime: false,
         popular: true,
-        credits: {
-          enable: true,
-          amount: 1000,
-          expireDays: 30,
-        },
       },
       lifetime: {
         id: 'lifetime',
@@ -126,70 +111,6 @@ export const websiteConfig: WebsiteConfig = {
         ],
         isFree: false,
         isLifetime: true,
-        credits: {
-          enable: true,
-          amount: 1000,
-          expireDays: 30,
-        },
-      },
-    },
-  },
-  credits: {
-    enableCredits: false,
-    enablePackagesForFreePlan: false,
-    registerGiftCredits: {
-      enable: true,
-      amount: 50,
-      expireDays: 30,
-    },
-    packages: {
-      basic: {
-        id: 'basic',
-        popular: false,
-        amount: 100,
-        expireDays: 30,
-        price: {
-          priceId: '',
-          amount: 990,
-          currency: 'USD',
-          allowPromotionCode: true,
-        },
-      },
-      standard: {
-        id: 'standard',
-        popular: true,
-        amount: 200,
-        expireDays: 30,
-        price: {
-          priceId: '',
-          amount: 1490,
-          currency: 'USD',
-          allowPromotionCode: true,
-        },
-      },
-      premium: {
-        id: 'premium',
-        popular: false,
-        amount: 500,
-        expireDays: 30,
-        price: {
-          priceId: '',
-          amount: 3990,
-          currency: 'USD',
-          allowPromotionCode: true,
-        },
-      },
-      enterprise: {
-        id: 'enterprise',
-        popular: false,
-        amount: 1000,
-        expireDays: 30,
-        price: {
-          priceId: '',
-          amount: 6990,
-          currency: 'USD',
-          allowPromotionCode: true,
-        },
       },
     },
   },

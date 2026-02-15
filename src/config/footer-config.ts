@@ -12,15 +12,11 @@ export function getFooterLinks(): MenuItemConfig[] {
   const productItems: MenuItemConfig[] = [
     { title: m.features, href: Routes.Features, external: false },
     { title: m.pricing, href: Routes.Pricing, external: false },
-    { title: m.faq, href: Routes.FAQ, external: false },
   ];
 
   const resourcesItems: MenuItemConfig[] = [];
   if (websiteConfig.blog?.enable) {
     resourcesItems.push({ title: m.blog, href: Routes.Blog, external: false });
-  }
-  if (websiteConfig.docs?.enable) {
-    resourcesItems.push({ title: m.docs, href: Routes.Docs, external: false });
   }
 
   const companyItems: MenuItemConfig[] = [

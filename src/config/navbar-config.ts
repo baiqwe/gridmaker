@@ -24,9 +24,6 @@ export function getNavbarLinks(): MenuItemConfig[] {
   if (websiteConfig.blog?.enable) {
     links.push({ title: m.blog, href: Routes.Blog, external: false });
   }
-  if (websiteConfig.docs?.enable) {
-    links.push({ title: m.docs, href: Routes.Docs, external: false });
-  }
   links.push({
     title: m.pages,
     items: [

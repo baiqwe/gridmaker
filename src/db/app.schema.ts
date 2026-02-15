@@ -4,3 +4,5 @@
  */
 
 // Example: export const myTable = sqliteTable('my_table', { ... });
+
+export {};
