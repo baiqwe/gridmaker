@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { getDb } from '@/db';
 import { user } from '@/db/auth.schema';
-import { requireSession, unauthorizedResponse } from '@/lib/require-session';
+import { requireSession, unauthorizedResponse } from '@/lib/session';
 import { and, asc, count as countFn, desc, or, sql } from 'drizzle-orm';
 
 const SORT_FIELD_MAP: Record<

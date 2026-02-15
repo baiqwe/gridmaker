@@ -1,6 +1,5 @@
 /**
- * Centralized UI messages (English). Replace this file with localized strings for i18n.
- * Structure aligns with MkSaaS en.json for easier migration.
+ * Centralized UI messages (English).
  */
 export const messages = {
   site: {

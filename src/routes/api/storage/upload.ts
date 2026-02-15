@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { websiteConfig } from '@/config/website';
 import { MAX_FILE_SIZE } from '@/lib/constants';
-import { requireSession, unauthorizedResponse } from '@/lib/require-session';
+import { requireSession, unauthorizedResponse } from '@/lib/session';
 import { uploadFile } from '@/storage';
 import { StorageError } from '@/storage/types';
 
