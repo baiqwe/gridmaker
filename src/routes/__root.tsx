@@ -88,13 +88,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <Analytics>
-          <ThemeProvider>
-            <RootLayout>{children}</RootLayout>
-            <Toaster richColors position="top-right" offset={64} />
-            <TailwindIndicator />
-          </ThemeProvider>
-          {/* <TanStackDevtools
+        <ThemeProvider>
+          <RootLayout>{children}</RootLayout>
+          <Toaster richColors position="top-right" offset={64} />
+          <TailwindIndicator />
+          <Analytics />
+        </ThemeProvider>
+        <TanStackDevtools
             config={{
               position: 'bottom-right',
             }}
@@ -105,9 +105,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               },
               TanStackQueryDevtools,
             ]}
-          /> */}
-          <Scripts />
-        </Analytics>
+          />
+        <Scripts />
       </body>
     </html>
   );

@@ -5,22 +5,19 @@ import { PlausibleAnalytics } from './plausible-analytics';
 import { UmamiAnalytics } from './umami-analytics';
 
 /**
- * Unified analytics: renders all script-based analytics (only in production, when env vars are set).
- * Uses import.meta.env.PROD (Vite built-in) — not in clientEnv because clientPrefix is VITE_* only.
+ * Renders all script-based analytics (only in production, when env vars are set).
+ * Place as sibling in body, e.g. next to Toaster — no need to wrap app content.
  */
-export function Analytics({ children }: { children: React.ReactNode }) {
+export function Analytics() {
+  if (!import.meta.env.PROD) return null;
+
   return (
     <>
-      {children}
-      {import.meta.env.PROD && (
-        <>
-          <GoogleAnalytics />
-          <UmamiAnalytics />
-          <PlausibleAnalytics />
-          <DataFastAnalytics />
-          <ClarityAnalytics />
-        </>
-      )}
+      <GoogleAnalytics />
+      <UmamiAnalytics />
+      <PlausibleAnalytics />
+      <DataFastAnalytics />
+      <ClarityAnalytics />
     </>
   );
 }
