@@ -8,7 +8,6 @@ import * as appSchema from './app.schema';
 export * from './auth.schema';
 export * from './app.schema';
 
-/** Single schema object for getDb(d1, { schema }). */
 export const schema = {
   ...authSchema,
   ...appSchema,

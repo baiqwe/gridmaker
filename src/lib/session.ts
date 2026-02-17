@@ -1,8 +1,7 @@
 import { auth } from '@/auth/auth';
 
 /**
- * Validates session for API routes using Better Auth.
- * @returns Session if valid, null otherwise
+ * Validates session for API routes
  */
 export async function requireSession(request: Request) {
   const session = await auth.api.getSession({

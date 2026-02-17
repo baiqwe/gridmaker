@@ -1,12 +1,11 @@
-const DEFAULT_BASE_URL = 'http://localhost:3000';
+/** Fallback when VITE_BASE_URL is not set in .env (see docs/env.md). */
+const DEFAULT_BASE_URL = 'http://localhost:8888';
 
 /**
- * Get the base URL. Value comes from Vite at build/dev time:
- * - pnpm dev: .env.local (or .env.development)
- * - pnpm build: .env.production (mode is production)
+ * Site origin (build-time). Read via import.meta.env; set in .env.local (dev) or .env.production (build).
  */
 export function getBaseUrl(): string {
-  return process.env.VITE_BASE_URL ?? DEFAULT_BASE_URL;
+  return import.meta.env.VITE_BASE_URL ?? DEFAULT_BASE_URL;
 }
 
 /**

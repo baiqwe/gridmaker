@@ -18,7 +18,7 @@ function getEnv(): StorageEnv {
 }
 
 /**
- * R2 storage config. Bucket is from Worker binding (FILES); only publicUrl is from env.
+ * R2 storage config
  */
 export const storageConfig: StorageConfig = (() => {
   const e = getEnv();

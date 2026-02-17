@@ -10,9 +10,9 @@ import { emailHarmony } from 'better-auth-harmony';
 import { admin, apiKey } from 'better-auth/plugins';
 
 /**
- * Better Auth Drizzle Adapter
- * https://www.better-auth.com/docs/adapters/drizzle
+ * Better Auth Configuration
  * https://www.better-auth.com/docs/reference/options
+ * https://www.better-auth.com/docs/adapters/drizzle
  */
 export const auth = betterAuth({
   baseURL: getBaseUrl(),
@@ -96,7 +96,7 @@ export const auth = betterAuth({
     // support API key management for user authentication
     apiKey(),
     // https://github.com/gekorm/better-auth-harmony
-    // Email normalization and validation to prevent duplicate registrations
+    // email normalization and validation to prevent duplicate registrations
     emailHarmony({
       // Don't allow login with any version of the unnormalized email address
       // e.g., user signed up with johndoe@googlemail.com can't login with john.doe@gmail.com

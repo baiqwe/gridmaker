@@ -28,6 +28,7 @@ const config = defineConfig({
       server: { entry: './server.ts' },
     }),
     viteReact(),
+    // https://developers.cloudflare.com/workers/vite-plugin/
     cloudflare({
       viteEnvironment: {
         name: 'ssr',
