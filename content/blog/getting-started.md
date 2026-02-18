@@ -20,11 +20,12 @@ This post walks you through the basics.
 Install dependencies and run the dev server:
 
 ```bash
-pnpm install
 pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+![img](https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80)
 
 ## Next steps
 

@@ -362,9 +362,10 @@ export const messages = {
   },
 
   common: {
-    settings: 'Settings',
     cancel: 'Cancel',
     logout: 'Log out',
+    loading: 'Loading',
+    settings: 'Settings',
     mode: {
       light: 'Light',
       dark: 'Dark',

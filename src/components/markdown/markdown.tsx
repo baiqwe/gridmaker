@@ -7,6 +7,7 @@ import parse, {
 import { renderMarkdown, type MarkdownResult } from '@/lib/markdown';
 import { useEffect, useState } from 'react';
 import { Link } from '@tanstack/react-router';
+import { messages } from '@/config/messages';
 
 type MarkdownProps = {
   content: string;
@@ -25,7 +26,7 @@ export function Markdown({ content, className }: MarkdownProps) {
   }, [content]);
 
   if (!result) {
-    return <div className={className}>Loading...</div>;
+    return <div className={className}>{messages.common.loading}…</div>;
   }
 
   const options: HTMLReactParserOptions = {
@@ -38,7 +39,7 @@ export function Markdown({ content, className }: MarkdownProps) {
           if (href?.startsWith('/')) {
             // Internal link - use your router's Link component
             return (
-              <Link to={href}>
+              <Link to={href} className='underline-offset-4 hover:underline'>
                 {domToReact(domNode.children as DOMNode[], options)}
               </Link>
             );

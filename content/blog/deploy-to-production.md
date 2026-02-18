@@ -30,6 +30,8 @@ pnpm deploy
 
 This runs `pnpm build` and then `wrangler deploy`. Make sure you have configured your account and bindings in `wrangler.toml` and environment variables.
 
+![img](https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80)
+
 ## Other platforms
 
 You can also deploy the static client and run the server on Node, or use adapters for Vercel, Netlify, etc. Check the project docs for your target platform.

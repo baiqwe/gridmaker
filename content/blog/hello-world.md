@@ -22,6 +22,8 @@ Normal paragraphs are supported. So are lists:
 
 You can add [links](https://example.com) and reference images. Keep the layout simple and readable.
 
+![img](https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&q=80)
+
 ## Code
 
 Inline `code` and blocks are just plain text in this simple setup. No syntax highlighting by design.

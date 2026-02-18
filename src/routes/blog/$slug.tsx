@@ -89,7 +89,6 @@ function BlogPostPage() {
           </Link>
 
           <article>
-            {/* Metadata: category, date */}
             <div className="mb-4 flex flex-wrap items-center gap-2 text-muted-foreground text-sm">
               <span className="rounded-full bg-muted px-2.5 py-0.5 font-medium capitalize">
                 {post.category}
@@ -108,7 +107,7 @@ function BlogPostPage() {
             )}
 
             <div className="mt-8">
-              <Markdown content={post.content} className='prose' />
+              <Markdown content={post.content} className='prose prose-neutral dark:prose-invert max-w-none' />
             </div>
           </article>
         </div>
