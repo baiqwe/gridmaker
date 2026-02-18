@@ -6,7 +6,7 @@ import {
   IconMailbox,
   IconShieldCheck,
 } from '@tabler/icons-react';
-import { Routes } from '@/routes';
+import { Routes } from '@/lib/routes';
 import type { MenuItemConfig } from '../types';
 import { websiteConfig } from './website';
 import { messages } from './messages';

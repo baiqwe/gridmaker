@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { RegisterForm } from '@/components/auth/register-form';
 import { messages } from '@/config/messages';
-import { Routes } from '@/routes';
+import { Routes } from '@/lib/routes';
 
 const m = messages.auth.register;
 const am = messages.auth.common;

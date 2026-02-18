@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { LoginForm } from '@/components/auth/login-form';
 import { messages } from '@/config/messages';
-import { Routes } from '@/routes';
+import { Routes } from '@/lib/routes';
 
 const m = messages.auth.login;
 const am = messages.auth.common;

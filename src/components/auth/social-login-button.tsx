@@ -5,7 +5,7 @@ import { messages } from '@/config/messages';
 import { websiteConfig } from '@/config/website';
 import { authClient } from '@/auth/auth-client';
 import { getBaseUrl } from '@/lib/urls';
-import { DEFAULT_LOGIN_REDIRECT, Routes } from '@/routes';
+import { DEFAULT_LOGIN_REDIRECT, Routes } from '@/lib/routes';
 import { IconBrandGoogleFilled, IconLoader2 } from '@tabler/icons-react';
 
 const m = messages.auth.social;

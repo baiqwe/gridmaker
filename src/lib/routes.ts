@@ -1,4 +1,4 @@
-import { websiteConfig } from './config/website';
+import { websiteConfig } from '../config/website';
 
 export const Routes = {
   Root: '/',

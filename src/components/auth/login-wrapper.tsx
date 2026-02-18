@@ -6,7 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Routes } from '@/routes';
+import { Routes } from '@/lib/routes';
 import { useRouter } from '@tanstack/react-router';
 import React, { useEffect, useState } from 'react';
 

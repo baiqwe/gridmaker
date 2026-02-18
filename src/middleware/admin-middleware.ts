@@ -2,7 +2,7 @@ import { auth } from '@/auth/auth';
 import { redirect } from '@tanstack/react-router';
 import { createMiddleware } from '@tanstack/react-start';
 import { getRequestHeaders } from '@tanstack/react-start/server';
-import { Routes } from '@/routes';
+import { Routes } from '@/lib/routes';
 
 const ADMIN_ROLE = 'admin';
 

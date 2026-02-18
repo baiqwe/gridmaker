@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input';
 import { websiteConfig } from '@/config/website';
 import { authClient } from '@/auth/auth-client';
 import { getBaseUrl } from '@/lib/urls';
-import { DEFAULT_LOGIN_REDIRECT, Routes } from '@/routes';
+import { DEFAULT_LOGIN_REDIRECT, Routes } from '@/lib/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconEye, IconEyeOff, IconLoader2 } from '@tabler/icons-react';
 import { useState } from 'react';

@@ -1,6 +1,6 @@
 import { AuthCard } from '@/components/auth/auth-card';
 import { messages } from '@/config/messages';
-import { Routes } from '@/routes';
+import { Routes } from '@/lib/routes';
 import { IconAlertTriangle } from '@tabler/icons-react';
 
 const m = messages.auth.error;

@@ -3,7 +3,7 @@ import { useScroll } from '@/hooks/use-scroll';
 import { authClient } from '@/auth/auth-client';
 import { isPathActive } from '@/lib/nav-utils';
 import { cn } from '@/lib/utils';
-import { Routes } from '@/routes';
+import { Routes } from '@/lib/routes';
 import { buttonVariants } from '@/components/ui/button';
 import {
   NavigationMenu,

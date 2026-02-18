@@ -2,7 +2,7 @@ import { DashboardSidebar } from '@/components/dashboard/dashboard-sidebar';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { Spinner } from '@/components/ui/spinner';
 import { authClient } from '@/auth/auth-client';
-import { Routes } from '@/routes';
+import { Routes } from '@/lib/routes';
 import { useNavigate } from '@tanstack/react-router';
 import { useEffect, type ReactNode } from 'react';
 

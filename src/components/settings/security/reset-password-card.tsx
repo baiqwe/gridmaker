@@ -11,7 +11,7 @@ import {
 import { authClient } from '@/auth/auth-client';
 import { cn } from '@/lib/utils';
 import { useNavigate } from '@tanstack/react-router';
-import { Routes } from '@/routes';
+import { Routes } from '@/lib/routes';
 
 interface ResetPasswordCardProps {
   className?: string;

@@ -14,7 +14,7 @@ import {
 import { websiteConfig } from '@/config/website';
 import { authClient } from '@/auth/auth-client';
 import { Link } from '@tanstack/react-router';
-import { Routes } from '@/routes';
+import { Routes } from '@/lib/routes';
 import type * as React from 'react';
 import { useEffect, useState } from 'react';
 

@@ -3,7 +3,7 @@ import {
   IconLayoutDashboard,
   IconSettings2,
 } from '@tabler/icons-react';
-import { Routes } from '@/routes';
+import { Routes } from '@/lib/routes';
 import type { MenuItemConfig } from '../types';
 import { messages } from './messages';
 
