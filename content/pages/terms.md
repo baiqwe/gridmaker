@@ -1,7 +1,7 @@
 ---
 title: Terms of Service
 description: The terms and conditions governing the use of our services
-date: 2025-03-10
+date: 2026-02-15
 ---
 
 ## Introduction

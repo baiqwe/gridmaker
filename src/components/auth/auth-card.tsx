@@ -27,7 +27,7 @@ export function AuthCard({
 }: AuthCardProps) {
   return (
     <Card
-      className={cn('shadow-xs border border-border', className)}
+      className={cn('shadow-xs border border-border pt-6', className)}
       size="default"
     >
       <CardHeader className="flex flex-col items-center">

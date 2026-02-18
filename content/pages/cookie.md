@@ -1,7 +1,7 @@
 ---
 title: Cookie Policy
 description: How we use cookies and similar technologies on our website
-date: 2025-03-10
+date: 2026-02-15
 ---
 
 ## Introduction

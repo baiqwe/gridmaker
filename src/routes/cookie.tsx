@@ -7,7 +7,7 @@ import { getCanonicalUrl } from '@/lib/urls';
 
 export const Route = createFileRoute('/cookie')({
   loader: () => {
-    const page = getPageBySlug('cookie-policy');
+    const page = getPageBySlug('cookie');
     if (!page) throw notFound();
     return { page };
   },

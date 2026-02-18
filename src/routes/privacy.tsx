@@ -7,7 +7,7 @@ import { getCanonicalUrl } from '@/lib/urls';
 
 export const Route = createFileRoute('/privacy')({
   loader: () => {
-    const page = getPageBySlug('privacy-policy');
+    const page = getPageBySlug('privacy');
     if (!page) throw notFound();
     return { page };
   },

@@ -52,7 +52,8 @@ export function LoginForm({
   const [isPending, setIsPending] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const credentialLoginEnabled = websiteConfig.auth?.enableCredentialLogin ?? false;
+  const credentialLoginEnabled =
+    websiteConfig.auth?.enableCredentialLogin ?? false;
 
   const LoginSchema = z.object({
     email: z.string().email({ message: m.emailRequired }),

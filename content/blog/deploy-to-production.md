@@ -1,7 +1,7 @@
 ---
 title: Deploy to Production
 description: How to build and deploy your MkFast app to Cloudflare Pages or other platforms.
-date: 2025-02-01
+date: 2026-02-13
 category: Guide
 image: https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80
 ---

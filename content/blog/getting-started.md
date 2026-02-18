@@ -1,7 +1,7 @@
 ---
 title: Getting Started with MkFast
 description: Quick guide to set up and run the MkFast template.
-date: 2025-01-20
+date: 2026-02-12
 category: Guide
 image: https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80
 ---

@@ -76,8 +76,6 @@ export const Route = createRootRouteWithContext<{
   errorComponent: DefaultCatchBoundary,
 });
 
-const DEFAULT_THEME = websiteConfig.ui?.mode?.defaultMode ?? 'system';
-
 /**
  * Root component (wrapped by shellComponent: RootDocument)
  * Only marketing pages get Navbar + Footer; auth/dashboard pages don't.
@@ -113,12 +111,7 @@ function RootComponent() {
  */
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      data-default-theme={DEFAULT_THEME}
-      className={DEFAULT_THEME === 'dark' ? 'dark' : undefined}
-      suppressHydrationWarning
-    >
+    <html lang="en">
       <head>
         <HeadContent />
       </head>

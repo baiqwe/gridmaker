@@ -1,7 +1,7 @@
 ---
 title: Hello World
 description: A simple introduction to the blog and what you can expect.
-date: 2025-01-15
+date: 2026-02-11
 category: General
 image: https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&q=80
 ---

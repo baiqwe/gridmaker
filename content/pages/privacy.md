@@ -1,7 +1,7 @@
 ---
 title: Privacy Policy
 description: Our commitment to protecting your privacy and personal data
-date: 2025-03-10
+date: 2026-02-15
 ---
 
 ## Introduction

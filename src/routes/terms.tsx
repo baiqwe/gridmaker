@@ -7,7 +7,7 @@ import { getCanonicalUrl } from '@/lib/urls';
 
 export const Route = createFileRoute('/terms')({
   loader: () => {
-    const page = getPageBySlug('terms-of-service');
+    const page = getPageBySlug('terms');
     if (!page) throw notFound();
     return { page };
   },
