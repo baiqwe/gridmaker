@@ -24,8 +24,10 @@ export const Routes = {
   PrivacyPolicy: '/privacy',
   CookiePolicy: '/cookie',
 
-  // App routes (same sidebar layout)
+  // Dashboard routes
   Dashboard: '/dashboard',
+
+  // Settings routes
   SettingsProfile: '/settings/profile',
   SettingsBilling: '/settings/billing',
   SettingsCredits: '/settings/credits',
@@ -33,7 +35,7 @@ export const Routes = {
   SettingsNotifications: '/settings/notifications',
 
   // Admin routes
-  AdminUsers: '/dashboard/admin/users',
+  AdminUsers: '/admin/users',
 } as const;
 
 export const DEFAULT_LOGIN_REDIRECT =

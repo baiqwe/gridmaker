@@ -15,10 +15,12 @@ import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as ManifestDotjsonRouteImport } from './routes/manifest[.]json'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SettingsIndexRouteImport } from './routes/settings/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as SettingsSecurityRouteImport } from './routes/settings/security'
 import { Route as SettingsProfileRouteImport } from './routes/settings/profile'
 import { Route as SettingsNotificationsRouteImport } from './routes/settings/notifications'
@@ -29,13 +31,13 @@ import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AuthForgotPasswordRouteImport } from './routes/auth/forgot-password'
 import { Route as AuthErrorRouteImport } from './routes/auth/error'
 import { Route as ApiContactRouteImport } from './routes/api/contact'
+import { Route as AdminUsersRouteImport } from './routes/admin/users'
 import { Route as pagesWaitlistRouteImport } from './routes/(pages)/waitlist'
 import { Route as pagesContactRouteImport } from './routes/(pages)/contact'
 import { Route as pagesAboutRouteImport } from './routes/(pages)/about'
 import { Route as legalsTermsRouteImport } from './routes/(legals)/terms'
 import { Route as legalsPrivacyRouteImport } from './routes/(legals)/privacy'
 import { Route as legalsCookieRouteImport } from './routes/(legals)/cookie'
-import { Route as DashboardAdminUsersRouteImport } from './routes/dashboard/admin/users'
 import { Route as ApiStorageUploadRouteImport } from './routes/api/storage/upload'
 import { Route as ApiStorageFileRouteImport } from './routes/api/storage/file'
 import { Route as ApiNewsletterUnsubscribeRouteImport } from './routes/api/newsletter/unsubscribe'
@@ -74,6 +76,11 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -93,6 +100,11 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
 } as any)
 const SettingsSecurityRoute = SettingsSecurityRouteImport.update({
   id: '/security',
@@ -144,6 +156,11 @@ const ApiContactRoute = ApiContactRouteImport.update({
   path: '/api/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AdminRoute,
+} as any)
 const pagesWaitlistRoute = pagesWaitlistRouteImport.update({
   id: '/(pages)/waitlist',
   path: '/waitlist',
@@ -173,11 +190,6 @@ const legalsCookieRoute = legalsCookieRouteImport.update({
   id: '/(legals)/cookie',
   path: '/cookie',
   getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardAdminUsersRoute = DashboardAdminUsersRouteImport.update({
-  id: '/admin/users',
-  path: '/admin/users',
-  getParentRoute: () => DashboardRoute,
 } as any)
 const ApiStorageUploadRoute = ApiStorageUploadRouteImport.update({
   id: '/api/storage/upload',
@@ -218,6 +230,7 @@ const ApiAdminUsersRoute = ApiAdminUsersRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/dashboard': typeof DashboardRouteWithChildren
   '/manifest.json': typeof ManifestDotjsonRoute
@@ -230,6 +243,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof pagesAboutRoute
   '/contact': typeof pagesContactRoute
   '/waitlist': typeof pagesWaitlistRoute
+  '/admin/users': typeof AdminUsersRoute
   '/api/contact': typeof ApiContactRoute
   '/auth/error': typeof AuthErrorRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
@@ -240,6 +254,7 @@ export interface FileRoutesByFullPath {
   '/settings/notifications': typeof SettingsNotificationsRoute
   '/settings/profile': typeof SettingsProfileRoute
   '/settings/security': typeof SettingsSecurityRoute
+  '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/settings/': typeof SettingsIndexRoute
@@ -250,7 +265,6 @@ export interface FileRoutesByFullPath {
   '/api/newsletter/unsubscribe': typeof ApiNewsletterUnsubscribeRoute
   '/api/storage/file': typeof ApiStorageFileRoute
   '/api/storage/upload': typeof ApiStorageUploadRoute
-  '/dashboard/admin/users': typeof DashboardAdminUsersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -264,6 +278,7 @@ export interface FileRoutesByTo {
   '/about': typeof pagesAboutRoute
   '/contact': typeof pagesContactRoute
   '/waitlist': typeof pagesWaitlistRoute
+  '/admin/users': typeof AdminUsersRoute
   '/api/contact': typeof ApiContactRoute
   '/auth/error': typeof AuthErrorRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
@@ -274,6 +289,7 @@ export interface FileRoutesByTo {
   '/settings/notifications': typeof SettingsNotificationsRoute
   '/settings/profile': typeof SettingsProfileRoute
   '/settings/security': typeof SettingsSecurityRoute
+  '/admin': typeof AdminIndexRoute
   '/blog': typeof BlogIndexRoute
   '/dashboard': typeof DashboardIndexRoute
   '/settings': typeof SettingsIndexRoute
@@ -284,11 +300,11 @@ export interface FileRoutesByTo {
   '/api/newsletter/unsubscribe': typeof ApiNewsletterUnsubscribeRoute
   '/api/storage/file': typeof ApiStorageFileRoute
   '/api/storage/upload': typeof ApiStorageUploadRoute
-  '/dashboard/admin/users': typeof DashboardAdminUsersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/dashboard': typeof DashboardRouteWithChildren
   '/manifest.json': typeof ManifestDotjsonRoute
@@ -301,6 +317,7 @@ export interface FileRoutesById {
   '/(pages)/about': typeof pagesAboutRoute
   '/(pages)/contact': typeof pagesContactRoute
   '/(pages)/waitlist': typeof pagesWaitlistRoute
+  '/admin/users': typeof AdminUsersRoute
   '/api/contact': typeof ApiContactRoute
   '/auth/error': typeof AuthErrorRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
@@ -311,6 +328,7 @@ export interface FileRoutesById {
   '/settings/notifications': typeof SettingsNotificationsRoute
   '/settings/profile': typeof SettingsProfileRoute
   '/settings/security': typeof SettingsSecurityRoute
+  '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/settings/': typeof SettingsIndexRoute
@@ -321,12 +339,12 @@ export interface FileRoutesById {
   '/api/newsletter/unsubscribe': typeof ApiNewsletterUnsubscribeRoute
   '/api/storage/file': typeof ApiStorageFileRoute
   '/api/storage/upload': typeof ApiStorageUploadRoute
-  '/dashboard/admin/users': typeof DashboardAdminUsersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/auth'
     | '/dashboard'
     | '/manifest.json'
@@ -339,6 +357,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/waitlist'
+    | '/admin/users'
     | '/api/contact'
     | '/auth/error'
     | '/auth/forgot-password'
@@ -349,6 +368,7 @@ export interface FileRouteTypes {
     | '/settings/notifications'
     | '/settings/profile'
     | '/settings/security'
+    | '/admin/'
     | '/blog/'
     | '/dashboard/'
     | '/settings/'
@@ -359,7 +379,6 @@ export interface FileRouteTypes {
     | '/api/newsletter/unsubscribe'
     | '/api/storage/file'
     | '/api/storage/upload'
-    | '/dashboard/admin/users'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -373,6 +392,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/waitlist'
+    | '/admin/users'
     | '/api/contact'
     | '/auth/error'
     | '/auth/forgot-password'
@@ -383,6 +403,7 @@ export interface FileRouteTypes {
     | '/settings/notifications'
     | '/settings/profile'
     | '/settings/security'
+    | '/admin'
     | '/blog'
     | '/dashboard'
     | '/settings'
@@ -393,10 +414,10 @@ export interface FileRouteTypes {
     | '/api/newsletter/unsubscribe'
     | '/api/storage/file'
     | '/api/storage/upload'
-    | '/dashboard/admin/users'
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/auth'
     | '/dashboard'
     | '/manifest.json'
@@ -409,6 +430,7 @@ export interface FileRouteTypes {
     | '/(pages)/about'
     | '/(pages)/contact'
     | '/(pages)/waitlist'
+    | '/admin/users'
     | '/api/contact'
     | '/auth/error'
     | '/auth/forgot-password'
@@ -419,6 +441,7 @@ export interface FileRouteTypes {
     | '/settings/notifications'
     | '/settings/profile'
     | '/settings/security'
+    | '/admin/'
     | '/blog/'
     | '/dashboard/'
     | '/settings/'
@@ -429,11 +452,11 @@ export interface FileRouteTypes {
     | '/api/newsletter/unsubscribe'
     | '/api/storage/file'
     | '/api/storage/upload'
-    | '/dashboard/admin/users'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
   DashboardRoute: typeof DashboardRouteWithChildren
   ManifestDotjsonRoute: typeof ManifestDotjsonRoute
@@ -502,6 +525,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -529,6 +559,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/blog/'
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/settings/security': {
       id: '/settings/security'
@@ -600,6 +637,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/(pages)/waitlist': {
       id: '/(pages)/waitlist'
       path: '/waitlist'
@@ -641,13 +685,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/cookie'
       preLoaderRoute: typeof legalsCookieRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/admin/users': {
-      id: '/dashboard/admin/users'
-      path: '/admin/users'
-      fullPath: '/dashboard/admin/users'
-      preLoaderRoute: typeof DashboardAdminUsersRouteImport
-      parentRoute: typeof DashboardRoute
     }
     '/api/storage/upload': {
       id: '/api/storage/upload'
@@ -701,6 +738,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminRouteChildren {
+  AdminUsersRoute: typeof AdminUsersRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminUsersRoute: AdminUsersRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 interface AuthRouteChildren {
   AuthErrorRoute: typeof AuthErrorRoute
   AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute
@@ -721,12 +770,10 @@ const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 interface DashboardRouteChildren {
   DashboardIndexRoute: typeof DashboardIndexRoute
-  DashboardAdminUsersRoute: typeof DashboardAdminUsersRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardIndexRoute: DashboardIndexRoute,
-  DashboardAdminUsersRoute: DashboardAdminUsersRoute,
 }
 
 const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
@@ -753,6 +800,7 @@ const SettingsRouteWithChildren = SettingsRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
   DashboardRoute: DashboardRouteWithChildren,
   ManifestDotjsonRoute: ManifestDotjsonRoute,

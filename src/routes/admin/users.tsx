@@ -5,7 +5,7 @@ import { messages } from '@/config/messages';
 
 const m = messages.dashboard.admin.users;
 
-export const Route = createFileRoute('/dashboard/admin/users')({
+export const Route = createFileRoute('/admin/users')({
   component: AdminUsersPage,
 });
 
