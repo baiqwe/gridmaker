@@ -44,23 +44,26 @@ export function Navbar({ scroll = true }: NavbarProps) {
   const [menuValue, setMenuValue] = useState<string | undefined>();
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
+  const showBarBg = scroll && scrolled;
 
   useEffect(() => setMounted(true), []);
   useEffect(() => setMenuValue(undefined), [pathname]);
-
-  const barBg =
-    scroll && !scrolled
-      ? 'bg-transparent'
-      : 'bg-muted/50 backdrop-blur-md border-b';
 
   return (
     <section
       className={cn(
         'sticky inset-x-0 top-0 z-40 py-4 transition-all duration-300',
-        barBg
+        showBarBg && 'border-b'
       )}
     >
-      <Container className="px-4">
+      {showBarBg && (
+        <div
+          className="absolute inset-0 z-0 bg-muted/50 backdrop-blur-md"
+          aria-hidden
+        />
+      )}
+      <div className="relative z-10">
+        <Container className="px-4">
         <nav className="hidden lg:flex lg:items-center lg:justify-between lg:gap-4">
           <Link to="/" className="flex items-center gap-2 shrink-0">
             <Logo />
@@ -199,7 +202,8 @@ export function Navbar({ scroll = true }: NavbarProps) {
         </nav>
 
         <NavbarMobile className="lg:hidden" />
-      </Container>
+        </Container>
+      </div>
     </section>
   );
 }
