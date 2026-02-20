@@ -44,16 +44,18 @@ export const adminMiddleware = createMiddleware().server(async ({ next }) => {
  * Admin API middleware: same check as adminMiddleware but returns 401/403 Response for API routes.
  * Use with createFileRoute server: { middleware: [adminApiMiddleware], handlers: { ... } }.
  */
-export const adminApiMiddleware = createMiddleware().server(async ({ next }) => {
-  const headers = getRequestHeaders();
-  const session = await auth.api.getSession({ headers });
+export const adminApiMiddleware = createMiddleware().server(
+  async ({ next }) => {
+    const headers = getRequestHeaders();
+    const session = await auth.api.getSession({ headers });
 
-  if (!session?.user) {
-    return unauthorizedResponse();
-  }
-  if (session.user.role !== ADMIN_ROLE) {
-    return forbiddenResponse();
-  }
+    if (!session?.user) {
+      return unauthorizedResponse();
+    }
+    if (session.user.role !== ADMIN_ROLE) {
+      return forbiddenResponse();
+    }
 
-  return await next();
-});
+    return await next();
+  }
+);

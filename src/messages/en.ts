@@ -32,6 +32,10 @@ export const messages = {
       title: 'Waitlist',
       description: 'Join the waitlist',
     },
+    roadmap: {
+      title: 'Roadmap',
+      description: 'Future plans',
+    },
     cookiePolicy: {
       title: 'Cookie Policy',
       description: 'Cookie policy',
@@ -43,6 +47,27 @@ export const messages = {
     termsOfService: {
       title: 'Terms of Service',
       description: 'Terms of service',
+    },
+    changelog: {
+      title: 'Changelog',
+      description: 'Release notes',
+    },
+  },
+
+  changelog: {
+    title: 'Changelog',
+    subtitle: 'Release notes and product updates',
+    description: 'Release notes and product updates',
+  },
+
+  roadmap: {
+    title: 'Roadmap',
+    description: 'Explore our future plans and upcoming features',
+    subtitle: 'Explore our future plans and upcoming features',
+    columns: {
+      backlog: 'Backlog',
+      inProgress: 'In Progress',
+      done: 'Done',
     },
   },
 

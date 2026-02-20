@@ -2,8 +2,10 @@ import {
   IconBuilding,
   IconCookie,
   IconFileText,
+  IconHistory,
   IconMail,
   IconMailbox,
+  IconRoute,
   IconShieldCheck,
 } from '@tabler/icons-react';
 import { Routes } from '@/lib/routes';
@@ -46,6 +48,20 @@ export function getNavbarLinks(): MenuItemConfig[] {
         description: m.waitlist.description,
         href: Routes.Waitlist,
         icon: IconMailbox,
+        external: false,
+      },
+      {
+        title: m.changelog.title,
+        description: m.changelog.description,
+        href: Routes.Changelog,
+        icon: IconHistory,
+        external: false,
+      },
+      {
+        title: m.roadmap.title,
+        description: m.roadmap.description,
+        href: Routes.Roadmap,
+        icon: IconRoute,
         external: false,
       },
       {

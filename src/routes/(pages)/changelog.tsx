@@ -1,12 +1,12 @@
-import { createFileRoute, notFound } from '@tanstack/react-router';
-import Container from '@/components/layout/container';
 import { ReleaseCard } from '@/components/changelog/release-card';
-import { getChangelogReleases, type ChangelogRelease } from '@/lib/changelog';
+import Container from '@/components/layout/container';
 import { websiteConfig } from '@/config/website';
-import { messages } from '@/messages';
+import { getChangelogReleases } from '@/lib/changelog';
 import { getCanonicalUrl } from '@/lib/urls';
+import { messages } from '@/messages';
+import { createFileRoute, notFound } from '@tanstack/react-router';
 
-const m = messages.changelogPage;
+const m = messages.changelog;
 
 export const Route = createFileRoute('/(pages)/changelog')({
   loader: () => {
@@ -19,7 +19,7 @@ export const Route = createFileRoute('/(pages)/changelog')({
       {
         title: `${m.title} | ${websiteConfig.metadata?.name}`,
       },
-      { name: 'description', content: m.subtitle },
+      { name: 'description', content: m.description },
     ],
     links: [{ rel: 'canonical', href: getCanonicalUrl('/changelog') }],
   }),
