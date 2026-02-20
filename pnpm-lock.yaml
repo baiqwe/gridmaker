@@ -122,9 +122,6 @@ importers:
       input-otp:
         specifier: ^1.4.2
         version: 1.4.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      marked:
-        specifier: ^15.0.8
-        version: 15.0.12
       nanoid:
         specifier: ^5.1.6
         version: 5.1.6
