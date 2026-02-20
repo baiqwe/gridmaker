@@ -1,3 +1,4 @@
+import { messages } from '@/messages';
 import React, { type ReactElement } from 'react';
 import type { EmailTemplate } from './types';
 import ContactMessage from './templates/contact-message';
@@ -11,14 +12,6 @@ const EmailTemplates = {
   subscribeNewsletter: SubscribeNewsletter,
   contactMessage: ContactMessage,
 } as const;
-
-// Subject line for each template (used by mail provider only)
-const subjectByTemplate: Record<EmailTemplate, string> = {
-  forgotPassword: 'Reset your password',
-  verifyEmail: 'Verify your email',
-  subscribeNewsletter: 'Thanks for subscribing',
-  contactMessage: 'Contact Message from Website',
-};
 
 export async function renderEmailHtml(email: ReactElement): Promise<string> {
   const reactDomServer = (await import('react-dom/server')) as {
@@ -73,6 +66,6 @@ export async function getTemplate({
   );
   const html = await renderEmailHtml(email);
   const text = toPlainText(html);
-  const subject = subjectByTemplate[template];
+  const subject = messages.mail[template].subject;
   return { html, text, subject };
 }

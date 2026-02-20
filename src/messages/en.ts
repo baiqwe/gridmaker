@@ -355,20 +355,24 @@ export const messages = {
       copyright: 'All Rights Reserved',
     },
     contactMessage: {
+      subject: 'Contact Message from Website',
       name: 'Name:',
       email: 'Email:',
       message: 'Message:',
     },
     forgotPassword: {
+      subject: 'Reset your password',
       greeting: 'Hi,',
       body: 'Please click the link below to reset your password.',
       button: 'Reset password',
     },
     subscribeNewsletter: {
+      subject: 'Thanks for subscribing',
       title: 'Thanks for subscribing',
       body: 'Thank you for subscribing to the newsletter. We will keep you updated with the latest news and updates.',
     },
     verifyEmail: {
+      subject: 'Verify your email',
       greeting: 'Hi,',
       body: 'Please click the link below to verify your email address.',
       button: 'Confirm email',
