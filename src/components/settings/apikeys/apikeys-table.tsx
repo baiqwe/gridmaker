@@ -340,10 +340,7 @@ export function ApiKeysTable({
             <TableBody>
               {loading ? (
                 Array.from({ length: pageSize }).map((_, index) => (
-                  <TableRowSkeleton
-                    key={index}
-                    columns={columns.length}
-                  />
+                  <TableRowSkeleton key={index} columns={columns.length} />
                 ))
               ) : table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (

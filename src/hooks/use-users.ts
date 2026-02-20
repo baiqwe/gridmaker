@@ -78,7 +78,7 @@ export function useUsers(
   });
 }
 
-/** 
+/**
  * Ban user via Better Auth admin plugin; invalidates users list on success.
  */
 export function useBanUser() {
@@ -100,7 +100,7 @@ export function useBanUser() {
   });
 }
 
-/** 
+/**
  * Unban user via Better Auth admin plugin; invalidates users list on success.
  */
 export function useUnbanUser() {
