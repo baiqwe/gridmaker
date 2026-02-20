@@ -5,8 +5,7 @@ import { PlausibleAnalytics } from './plausible-analytics';
 import { UmamiAnalytics } from './umami-analytics';
 
 /**
- * Renders all script-based analytics (only in production, when env vars are set).
- * Place as sibling in body, e.g. next to Toaster — no need to wrap app content.
+ * Renders all script-based analytics (only in production)
  */
 export function Analytics() {
   if (!import.meta.env.PROD) return null;

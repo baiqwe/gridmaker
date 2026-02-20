@@ -8,6 +8,10 @@ import tailwindcss from '@tailwindcss/vite';
 import { cloudflare } from '@cloudflare/vite-plugin';
 import contentCollections from '@content-collections/vite';
 
+/**
+ * Vite configuration
+ * https://vite.dev/config/
+ */
 const config = defineConfig({
   resolve: {
     alias: {

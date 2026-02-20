@@ -17,7 +17,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
           <img
             src={post.image}
             alt=""
-            className="object-cover transition-transform hover:scale-[1.02]"
+            className="object-cover transition-transform hover:scale-[1.05]"
           />
         </div>
       )}
@@ -32,7 +32,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
           </span>
         </div>
         {/* Title + description */}
-        <div className="mt-3 flex min-h-[4.5rem] flex-1 flex-col">
+        <div className="mt-3 flex min-h-18 flex-1 flex-col">
           <h3 className="line-clamp-2 text-lg font-semibold">{post.title}</h3>
           {post.description && (
             <p className="mt-2 line-clamp-2 text-muted-foreground text-sm leading-relaxed">
