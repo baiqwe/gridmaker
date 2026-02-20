@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 
 export function BlogPagination({
   currentPage,

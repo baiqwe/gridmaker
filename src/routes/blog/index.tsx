@@ -4,7 +4,7 @@ import { BlogGrid } from '@/components/blog/blog-grid';
 import { BlogPagination } from '@/components/blog/blog-pagination';
 import { getPaginatedPosts } from '@/lib/blog';
 import { websiteConfig } from '@/config/website';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import { getCanonicalUrl } from '@/lib/urls';
 
 export const Route = createFileRoute('/blog/')({

@@ -9,7 +9,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { messages } from "@/config/messages";
+import { messages } from '@/messages';
 import { cn } from "@/lib/utils";
 
 const t = messages.common.table;

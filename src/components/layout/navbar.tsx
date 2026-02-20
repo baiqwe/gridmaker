@@ -24,7 +24,7 @@ import { IconArrowUpRight } from '@tabler/icons-react';
 import { Link, useLocation } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { websiteConfig } from '@/config/website';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 
 const navTriggerClass =
   'rounded-lg px-2.5 py-1.5 text-sm font-medium bg-transparent text-muted-foreground cursor-pointer hover:bg-accent hover:text-accent-foreground data-active:font-semibold data-active:bg-transparent data-active:text-accent-foreground';

@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { DashboardHeader } from '@/components/dashboard/dashboard-header';
 import { AdminUsersContent } from '@/components/admin/admin-users-content';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 
 const m = messages.admin.users;
 

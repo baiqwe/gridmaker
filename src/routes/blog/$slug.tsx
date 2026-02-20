@@ -3,7 +3,7 @@ import Container from '@/components/layout/container';
 import { Markdown } from '@/components/markdown/markdown';
 import { getPostBySlug } from '@/lib/blog';
 import { websiteConfig } from '@/config/website';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import { getCanonicalUrl, getImageUrl } from '@/lib/urls';
 import { IconArrowLeft } from '@tabler/icons-react';
 import { formatDate } from '@/lib/formatter';

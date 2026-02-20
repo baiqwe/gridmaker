@@ -18,7 +18,7 @@ import { Logo } from '@/components/layout/logo';
 import { ModeSwitcherHorizontal } from '@/components/theme/mode-switcher-horizontal';
 import { UserButtonMobile } from '@/components/layout/user-button-mobile';
 import { LoginWrapper } from '@/components/auth/login-wrapper';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import { websiteConfig } from '@/config/website';
 
 const mobileLinkClass =

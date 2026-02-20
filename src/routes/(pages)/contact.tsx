@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import Container from '@/components/layout/container';
 import { ContactFormCard } from '@/components/contact/contact-form-card';
 import { websiteConfig } from '@/config/website';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import { getCanonicalUrl } from '@/lib/urls';
 
 const m = messages.contact;

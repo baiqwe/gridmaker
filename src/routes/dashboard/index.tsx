@@ -1,6 +1,6 @@
 import { DashboardHeader } from '@/components/dashboard/dashboard-header';
 import { SectionCards } from '@/components/dashboard/section-cards';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/dashboard/')({

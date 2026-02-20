@@ -12,7 +12,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import type { AdminUser } from '@/hooks/use-users';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import {
   type ColumnDef,
   type ColumnFiltersState,

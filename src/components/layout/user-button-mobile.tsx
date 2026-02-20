@@ -1,6 +1,6 @@
 import { authClient } from '@/auth/auth-client';
 import { getAvatarLinks } from '@/config/avatar-config';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import type { User } from '@/auth/auth-types';
 import { IconLogout } from '@tabler/icons-react';
 import { Link, useRouter } from '@tanstack/react-router';

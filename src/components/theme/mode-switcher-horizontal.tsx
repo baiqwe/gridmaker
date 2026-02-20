@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { websiteConfig } from '@/config/website';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import { cn } from '@/lib/utils';
 import { IconDeviceDesktop, IconMoon, IconSun } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';

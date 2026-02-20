@@ -34,7 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { messages } from "@/config/messages";
+import { messages } from '@/messages';
 import { useDebouncedCallback } from "@/hooks/use-debounced-callback";
 import { getDefaultFilterOperator, getFilterOperators } from "@/components/data-table/lib/data-table";
 import { formatDate } from "@/components/data-table/lib/format";

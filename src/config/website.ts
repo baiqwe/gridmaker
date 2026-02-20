@@ -1,5 +1,5 @@
 import type { WebsiteConfig } from '../types';
-import { messages } from './messages';
+import { messages } from '@/messages';
 
 /**
  * Website config

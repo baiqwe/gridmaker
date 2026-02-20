@@ -3,7 +3,7 @@ import Container from '@/components/layout/container';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { buttonVariants } from '@/components/ui/button';
 import { websiteConfig } from '@/config/website';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import { getCanonicalUrl } from '@/lib/urls';
 import { cn } from '@/lib/utils';
 import { IconBrandX, IconMail } from '@tabler/icons-react';

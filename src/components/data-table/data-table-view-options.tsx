@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import type { Table } from '@tanstack/react-table';
 import { IconSettings2 } from '@tabler/icons-react';
 import * as React from 'react';

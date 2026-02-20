@@ -11,7 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { getCommonPinningStyles } from "@/components/data-table/lib/data-table";
-import { messages } from "@/config/messages";
+import { messages } from '@/messages';
 import { cn } from "@/lib/utils";
 
 interface DataTableProps<TData> extends React.ComponentProps<"div"> {

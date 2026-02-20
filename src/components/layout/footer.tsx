@@ -6,7 +6,7 @@ import { Logo } from '@/components/layout/logo';
 import { SocialIcon } from '@/components/layout/social-icons';
 import { Link } from '@tanstack/react-router';
 import { websiteConfig } from '@/config/website';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 
 export function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
   const footerLinks = getFooterLinks();

@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { UserAvatar } from './user-avatar';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import type { User } from '@/auth/auth-types';

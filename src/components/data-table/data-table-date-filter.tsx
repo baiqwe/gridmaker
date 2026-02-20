@@ -11,7 +11,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
-import { messages } from "@/config/messages";
+import { messages } from '@/messages';
 import { formatDate } from "@/components/data-table/lib/format";
 
 const t = messages.common.table;

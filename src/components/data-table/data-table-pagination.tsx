@@ -14,7 +14,7 @@ import {
   IconChevronsLeft,
   IconChevronsRight,
 } from '@tabler/icons-react';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 
 const t = messages.common.table;
 

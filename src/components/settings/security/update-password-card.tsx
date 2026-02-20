@@ -1,4 +1,4 @@
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import { FormError } from '@/components/layout/form-error';
 import { Button } from '@/components/ui/button';
 import {

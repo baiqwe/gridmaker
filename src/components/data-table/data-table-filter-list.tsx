@@ -46,7 +46,7 @@ import type {
   FilterOperator,
   JoinOperator,
 } from "@/components/data-table/types/data-table";
-import { messages } from "@/config/messages";
+import { messages } from '@/messages';
 
 const t = messages.common.table;
 

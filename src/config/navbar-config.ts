@@ -9,7 +9,7 @@ import {
 import { Routes } from '@/lib/routes';
 import type { MenuItemConfig } from '../types';
 import { websiteConfig } from './website';
-import { messages } from './messages';
+import { messages } from '@/messages';
 
 const m = messages.nav;
 

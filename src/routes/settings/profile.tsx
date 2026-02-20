@@ -1,7 +1,7 @@
 import { DashboardLayout } from '@/components/dashboard/dashboard-layout';
 import { UpdateAvatarCard } from '@/components/settings/profile/update-avatar-card';
 import { UpdateNameCard } from '@/components/settings/profile/update-name-card';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import { createFileRoute } from '@tanstack/react-router';
 
 const m = messages.settings.profile;

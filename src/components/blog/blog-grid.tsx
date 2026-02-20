@@ -1,5 +1,5 @@
 import type { BlogPost } from '@/lib/blog';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import { BlogCard } from './blog-card';
 
 export function BlogGrid({ posts }: { posts: BlogPost[] }) {

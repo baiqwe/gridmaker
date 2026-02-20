@@ -1,5 +1,6 @@
 /**
- * Centralized UI messages (English).
+ * English UI messages.
+ * For English-only site: keep this file and set index.ts to export from './en'.
  */
 export const messages = {
   site: {

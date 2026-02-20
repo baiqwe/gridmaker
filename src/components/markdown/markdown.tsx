@@ -7,7 +7,7 @@ import parse, {
 import { renderMarkdown, type MarkdownResult } from '@/lib/markdown';
 import { useEffect, useState } from 'react';
 import { Link } from '@tanstack/react-router';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 
 type MarkdownProps = {
   content: string;

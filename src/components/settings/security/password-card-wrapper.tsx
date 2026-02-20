@@ -1,4 +1,4 @@
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import {
   Card,
   CardContent,

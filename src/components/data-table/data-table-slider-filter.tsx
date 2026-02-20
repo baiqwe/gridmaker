@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
 import { Slider } from "@/components/ui/slider";
-import { messages } from "@/config/messages";
+import { messages } from '@/messages';
 import { cn } from "@/lib/utils";
 
 const t = messages.common.table;

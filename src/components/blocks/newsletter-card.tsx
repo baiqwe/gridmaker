@@ -1,4 +1,4 @@
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import { websiteConfig } from '@/config/website';
 import { HeaderSection } from '@/components/layout/header-section';
 import { FormError } from '@/components/layout/form-error';

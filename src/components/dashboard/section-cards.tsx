@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 
 const m = messages.dashboard.sectionCards;
 

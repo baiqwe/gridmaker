@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { ResetPasswordForm } from '@/components/auth/reset-password-form';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 
 const m = messages.auth.resetPassword;
 

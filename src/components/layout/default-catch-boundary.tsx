@@ -2,7 +2,7 @@ import { Link } from '@tanstack/react-router';
 import type { ErrorComponentProps } from '@tanstack/react-router';
 import { Logo } from '@/components/layout/logo';
 import { buttonVariants } from '@/components/ui/button';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import { cn } from '@/lib/utils';
 
 const m = messages.catchBoundary;

@@ -17,7 +17,7 @@ import { cn } from '@/lib/utils';
 import { Routes } from '@/lib/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconLoader2 } from '@tabler/icons-react';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 

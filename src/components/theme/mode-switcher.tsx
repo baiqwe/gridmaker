@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { IconDeviceDesktop, IconMoon, IconSun } from '@tabler/icons-react';
 import { useTheme } from '@/components/theme/theme-provider';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 
 const m = messages.common;
 

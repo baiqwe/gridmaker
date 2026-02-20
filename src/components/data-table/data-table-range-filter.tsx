@@ -2,7 +2,7 @@ import type { Column } from "@tanstack/react-table";
 import * as React from "react";
 
 import { Input } from "@/components/ui/input";
-import { messages } from "@/config/messages";
+import { messages } from '@/messages';
 import { cn } from "@/lib/utils";
 import type { ExtendedColumnFilter } from "@/components/data-table/types/data-table";
 

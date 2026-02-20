@@ -16,7 +16,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import { authClient } from '@/auth/auth-client';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';

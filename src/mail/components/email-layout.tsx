@@ -9,7 +9,7 @@ import {
   Text,
 } from '@react-email/components';
 import { websiteConfig } from '@/config/website';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 
 interface EmailLayoutProps {
   children: React.ReactNode;

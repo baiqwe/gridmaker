@@ -30,7 +30,7 @@ import {
 } from "@/components/ui/select";
 import { dataTableConfig } from "@/components/data-table/config/data-table";
 import { cn } from "@/lib/utils";
-import { messages } from "@/config/messages";
+import { messages } from '@/messages';
 
 const t = messages.common.table;
 

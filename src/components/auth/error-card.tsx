@@ -1,5 +1,5 @@
 import { AuthCard } from '@/components/auth/auth-card';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import { Routes } from '@/lib/routes';
 import { IconAlertTriangle } from '@tabler/icons-react';
 

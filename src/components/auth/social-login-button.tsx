@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { DividerWithText } from '@/components/auth/divider-with-text';
 import { Button } from '@/components/ui/button';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import { websiteConfig } from '@/config/website';
 import { authClient } from '@/auth/auth-client';
 import { getBaseUrl } from '@/lib/urls';

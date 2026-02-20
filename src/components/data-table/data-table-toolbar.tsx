@@ -2,7 +2,7 @@ import type { Column, Table } from "@tanstack/react-table";
 import { IconX } from "@tabler/icons-react";
 import * as React from "react";
 
-import { messages } from "@/config/messages";
+import { messages } from '@/messages';
 import { DataTableDateFilter } from "@/components/data-table/data-table-date-filter";
 import { DataTableFacetedFilter } from "@/components/data-table/data-table-faceted-filter";
 import { DataTableSliderFilter } from "@/components/data-table/data-table-slider-filter";

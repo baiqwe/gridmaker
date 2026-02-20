@@ -20,7 +20,7 @@ import { IconEye, IconEyeOff, IconLoader2 } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import { SocialLoginButton } from './social-login-button';
 
 const m = messages.auth.register;

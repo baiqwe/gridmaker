@@ -10,8 +10,8 @@ async function fetchStatus(email: string): Promise<{ subscribed: boolean }> {
   const url = `${getBaseUrl()}/api/newsletter/status?email=${encodeURIComponent(email)}`;
   const res = await fetch(url);
   const data = await res.json();
-  if (!res.ok || !data?.success) {
-    throw new Error(data?.error ?? 'Failed to check newsletter status');
+  if (!res.ok) {
+    throw new Error('Failed to check newsletter status: ' + res.statusText);
   }
   return { subscribed: !!data.subscribed };
 }

@@ -20,7 +20,7 @@ import type { Option } from '@/components/data-table/types/data-table';
 import type { Column } from '@tanstack/react-table';
 import { IconCheck, IconCirclePlus, IconCircleX } from '@tabler/icons-react';
 import * as React from 'react';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 
 const t = messages.common.table;
 

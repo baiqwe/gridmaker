@@ -1,7 +1,7 @@
 import EmailButton from '../components/email-button';
 import EmailLayout from '../components/email-layout';
 import { Text } from '@react-email/components';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 
 const m = messages.mail.forgotPassword;
 

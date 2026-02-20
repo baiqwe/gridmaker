@@ -26,7 +26,7 @@ import { useState } from 'react';
 import { useTheme } from '@/components/theme/theme-provider';
 import { UserAvatar } from '@/components/layout/user-avatar';
 import { authClient } from '@/auth/auth-client';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import { useRouter } from '@tanstack/react-router';
 import { toast } from 'sonner';
 

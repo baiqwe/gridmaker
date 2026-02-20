@@ -18,7 +18,7 @@ import { Routes } from '@/lib/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconEye, IconEyeOff, IconLoader2 } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
-import { messages } from '@/config/messages';
+import { messages } from '@/messages';
 import * as z from 'zod';
 
 const m = messages.auth.resetPassword;
