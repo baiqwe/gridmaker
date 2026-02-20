@@ -1,4 +1,4 @@
-import { DashboardSidebar } from '@/components/dashboard/dashboard-sidebar';
+import { DashboardSidebar } from '@/components/layout/dashboard-sidebar';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { Spinner } from '@/components/ui/spinner';
 import { authClient } from '@/auth/auth-client';

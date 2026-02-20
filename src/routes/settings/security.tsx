@@ -1,4 +1,4 @@
-import { DashboardLayout } from '@/components/dashboard/dashboard-layout';
+import { DashboardLayout } from '@/components/layout/dashboard-layout';
 import { DeleteAccountCard } from '@/components/settings/security/delete-account-card';
 import { PasswordCardWrapper } from '@/components/settings/security/password-card-wrapper';
 import { messages } from '@/messages';

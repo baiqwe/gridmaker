@@ -1,4 +1,4 @@
-import { DashboardLayout } from '@/components/dashboard/dashboard-layout';
+import { DashboardLayout } from '@/components/layout/dashboard-layout';
 import { ApiKeysPageClient } from '@/components/settings/apikeys/apikeys-page-client';
 import { messages } from '@/messages';
 import { createFileRoute } from '@tanstack/react-router';

@@ -1,4 +1,4 @@
-import { DashboardLayout } from '@/components/dashboard/dashboard-layout';
+import { DashboardLayout } from '@/components/layout/dashboard-layout';
 import { UpdateAvatarCard } from '@/components/settings/profile/update-avatar-card';
 import { UpdateNameCard } from '@/components/settings/profile/update-name-card';
 import { messages } from '@/messages';

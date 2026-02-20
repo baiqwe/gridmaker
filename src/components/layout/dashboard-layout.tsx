@@ -1,5 +1,5 @@
-import { DashboardHeader } from '@/components/dashboard/dashboard-header';
-import type { DashboardBreadcrumbItem } from '@/components/dashboard/dashboard-header';
+import { DashboardHeader } from '@/components/layout/dashboard-header';
+import type { DashboardBreadcrumbItem } from '@/components/layout/dashboard-header';
 
 interface DashboardLayoutProps {
   breadcrumbs: DashboardBreadcrumbItem[];

@@ -1,5 +1,5 @@
 import { ChartAreaInteractive } from '@/components/dashboard/chart-area-interactive';
-import { DashboardHeader } from '@/components/dashboard/dashboard-header';
+import { DashboardHeader } from '@/components/layout/dashboard-header';
 import { DataTable } from '@/components/dashboard/data-table';
 import { SectionCards } from '@/components/dashboard/section-cards';
 import { messages } from '@/messages';

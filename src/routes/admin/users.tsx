@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { DashboardHeader } from '@/components/dashboard/dashboard-header';
+import { DashboardHeader } from '@/components/layout/dashboard-header';
 import { AdminUsersContent } from '@/components/admin/admin-users-content';
 import { messages } from '@/messages';
 
