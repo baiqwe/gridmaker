@@ -8,6 +8,7 @@ import { getBaseUrl } from '@/lib/urls';
 import type { auth } from './auth';
 
 /**
+ * Better Auth Client Configuration
  * https://www.better-auth.com/docs/integrations/tanstack
  */
 export const authClient = createAuthClient({

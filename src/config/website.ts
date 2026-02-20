@@ -45,6 +45,7 @@ export const websiteConfig: WebsiteConfig = {
     enable: true,
     enableGoogleLogin: true,
     enableCredentialLogin: true,
+    enableDeleteUser: true,
   },
   blog: {
     enable: true,

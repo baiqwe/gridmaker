@@ -78,6 +78,7 @@ export interface AuthConfig {
   enable: boolean;                 // Whether to enable the auth
   enableGoogleLogin?: boolean;     // Whether to enable google login
   enableCredentialLogin?: boolean; // Whether to enable email/password login
+  enableDeleteUser?: boolean;      // Whether to enable user deletion
 }
 
 /** Blog configuration */
