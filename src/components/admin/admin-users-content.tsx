@@ -62,8 +62,7 @@ export function AdminUsersContent() {
   if (!isSameSorting(sortFromUrl, defaultSorting)) {
     lastNonDefaultSortRef.current = sortFromUrl;
   }
-  const effectiveSort =
-    lastNonDefaultSortRef.current ?? sortFromUrl;
+  const effectiveSort = lastNonDefaultSortRef.current ?? sortFromUrl;
 
   // API expects { id, value: string }; TanStack Table expects value: string[] for filters.
   const clientFilters = [

@@ -28,7 +28,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import type { ApiKeyRow } from '@/hooks/use-apikeys';
+import type { ApiKey } from '@/db/types';
 import { formatDate } from '@/lib/formatter';
 import { messages } from '@/messages';
 import {
@@ -73,7 +73,7 @@ function toDate(value: number | Date | undefined | null): Date | null {
 }
 
 interface ApiKeysTableProps {
-  data: ApiKeyRow[];
+  data: ApiKey[];
   total: number;
   pageIndex: number;
   pageSize: number;
@@ -104,7 +104,7 @@ export function ApiKeysTable({
   const [newKeyValue, setNewKeyValue] = useState('');
   const [copied, setCopied] = useState(false);
 
-  const columns: ColumnDef<ApiKeyRow>[] = useMemo(
+  const columns: ColumnDef<ApiKey>[] = useMemo(
     () => [
       {
         id: 'name',

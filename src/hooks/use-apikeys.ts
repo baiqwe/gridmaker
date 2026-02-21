@@ -1,4 +1,5 @@
 import { authClient } from '@/auth/auth-client';
+import type { ApiKey } from '@/db/types';
 import {
   keepPreviousData,
   useMutation,
@@ -12,15 +13,6 @@ export const apiKeysKeys = {
   list: (params: { pageIndex: number; pageSize: number }) =>
     [...apiKeysKeys.lists(), params] as const,
 };
-
-/** API key row as returned by Better Auth list */
-export interface ApiKeyRow {
-  id: string;
-  name: string | null;
-  start: string | null;
-  createdAt?: number | Date;
-  expiresAt?: number | Date | null;
-}
 
 export function useApiKeys(pageIndex: number, pageSize: number) {
   return useQuery({
@@ -39,7 +31,7 @@ export function useApiKeys(pageIndex: number, pageSize: number) {
         throw new Error(result.error.message || 'Failed to fetch API keys');
       }
 
-      const items = (result.data ?? []) as ApiKeyRow[];
+      const items = (result.data ?? []) as ApiKey[];
       return { items, total: items.length };
     },
     placeholderData: keepPreviousData,

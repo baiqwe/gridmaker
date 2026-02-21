@@ -17,18 +17,14 @@ import { z } from 'zod';
 
 const SORT_FIELD_MAP: Record<
   string,
-  | typeof user.name
-  | typeof user.email
-  | typeof user.createdAt
+  typeof user.name | typeof user.email | typeof user.createdAt
 > = {
   name: user.name,
   email: user.email,
   createdAt: user.createdAt,
 };
 
-function normalizeSortId(
-  raw: string
-): 'name' | 'email' | 'createdAt' {
+function normalizeSortId(raw: string): 'name' | 'email' | 'createdAt' {
   const s = (raw ?? 'createdAt').trim();
   if (s.toLowerCase() === 'name') return 'name';
   if (s.toLowerCase() === 'email') return 'email';
@@ -97,10 +93,7 @@ export const listUsers = createServerFn({ method: 'GET' })
     console.log('listUsers SELECT:', selectSql.sql, selectSql.params);
     console.log('listUsers COUNT:', countSql.sql, countSql.params);
 
-    const [items, [{ count }]] = await Promise.all([
-      selectQuery,
-      countQuery,
-    ]);
+    const [items, [{ count }]] = await Promise.all([selectQuery, countQuery]);
 
     return {
       items: items.map((row) => ({
