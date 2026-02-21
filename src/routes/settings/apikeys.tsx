@@ -1,5 +1,5 @@
 import { DashboardLayout } from '@/components/layout/dashboard-layout';
-import { ApiKeysPageClient } from '@/components/settings/apikeys/apikeys-page-client';
+import { ApiKeysPageContent } from '@/components/settings/apikeys/apikeys-page-client';
 import { messages } from '@/messages';
 import { createFileRoute } from '@tanstack/react-router';
 
@@ -21,7 +21,7 @@ function ApiKeysPage() {
       title={m.title}
       description={m.description}
     >
-      <ApiKeysPageClient />
+      <ApiKeysPageContent />
     </DashboardLayout>
   );
 }

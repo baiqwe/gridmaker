@@ -1,5 +1,3 @@
-'use client';
-
 import { ApiKeysTable } from '@/components/settings/apikeys/apikeys-table';
 import {
   useApiKeys,
@@ -12,7 +10,7 @@ import { useState } from 'react';
 
 const t = messages.settings.apiKeys;
 
-export function ApiKeysPageClient() {
+export function ApiKeysPageContent() {
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
 
