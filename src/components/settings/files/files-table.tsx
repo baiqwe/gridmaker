@@ -1,7 +1,7 @@
 'use client';
 
 import { DataTablePagination } from '@/components/data-table/data-table-pagination';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -20,6 +20,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Switch } from '@/components/ui/switch';
 import {
   Table,
   TableBody,
@@ -28,8 +29,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import type { ApiKeyRow } from '@/hooks/use-apikeys';
-import { formatDate } from '@/lib/formatter';
+import type { UserFiles } from '@/db/types';
+import { formatBytes, formatDate } from '@/lib/formatter';
+import { getFileAccessUrl } from '@/lib/urls';
+import { cn } from '@/lib/utils';
 import { messages } from '@/messages';
 import {
   type ColumnDef,
@@ -40,15 +43,14 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import {
-  IconCheck,
-  IconCopy,
   IconDots,
+  IconExternalLink,
   IconPlus,
   IconTrash,
 } from '@tabler/icons-react';
 import { useMemo, useState } from 'react';
 
-const t = messages.settings.apiKeys;
+const t = messages.settings.files;
 
 function TableRowSkeleton({ columns }: { columns: number }) {
   return (
@@ -62,72 +64,81 @@ function TableRowSkeleton({ columns }: { columns: number }) {
   );
 }
 
-function maskApiKey(start: string | null | undefined): string {
-  if (!start) return '••••••••••••••••';
-  return `${start}••••••••••••`;
-}
-
 function toDate(value: number | Date | undefined | null): Date | null {
   if (value == null) return null;
   return value instanceof Date ? value : new Date(value);
 }
 
-interface ApiKeysTableProps {
-  data: ApiKeyRow[];
+interface FilesTableProps {
+  data: UserFiles[];
   total: number;
   pageIndex: number;
   pageSize: number;
   loading?: boolean;
-  creating?: boolean;
+  uploading?: boolean;
   onPageChange: (page: number) => void;
   onPageSizeChange: (size: number) => void;
-  onDelete: (keyId: string) => void;
-  onCreate: (name: string) => Promise<{ key: string } | undefined>;
+  onDelete: (id: string) => void;
+  onUpload: (params: {
+    file: File;
+    isPublic?: boolean;
+    description?: string;
+  }) => Promise<void>;
 }
 
-export function ApiKeysTable({
+export function FilesTable({
   data,
   total,
   pageIndex,
   pageSize,
   loading,
-  creating,
+  uploading,
   onPageChange,
   onPageSizeChange,
   onDelete,
-  onCreate,
-}: ApiKeysTableProps) {
+  onUpload,
+}: FilesTableProps) {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [createDialogOpen, setCreateDialogOpen] = useState(false);
-  const [newKeyName, setNewKeyName] = useState('');
-  const [newKeyDialogOpen, setNewKeyDialogOpen] = useState(false);
-  const [newKeyValue, setNewKeyValue] = useState('');
-  const [copied, setCopied] = useState(false);
+  const [uploadOpen, setUploadOpen] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isPublic, setIsPublic] = useState(false);
+  const [description, setDescription] = useState('');
 
-  const columns: ColumnDef<ApiKeyRow>[] = useMemo(
+  const columns: ColumnDef<UserFiles>[] = useMemo(
     () => [
       {
-        id: 'name',
-        accessorKey: 'name',
-        header: t.columns.name,
+        id: 'originalName',
+        accessorKey: 'originalName',
+        header: t.columns.originalName,
         cell: ({ row }) => (
-          <div className="flex items-center gap-2">
-            <span className="font-medium">{row.original.name ?? '—'}</span>
-          </div>
+          <span className="font-medium">
+            {row.original.originalName ?? '—'}
+          </span>
         ),
-        minSize: 120,
-        size: 140,
+        minSize: 140,
+        size: 180,
         enableSorting: false,
       },
       {
-        id: 'key',
-        accessorKey: 'start',
-        header: t.columns.key,
+        id: 'contentType',
+        accessorKey: 'contentType',
+        header: t.columns.contentType,
         cell: ({ row }) => (
-          <span className="font-mono">{maskApiKey(row.original.start)}</span>
+          <span className="text-muted-foreground text-sm">
+            {row.original.contentType ?? '—'}
+          </span>
         ),
-        minSize: 180,
-        size: 220,
+        minSize: 100,
+        size: 120,
+        enableSorting: false,
+      },
+      {
+        id: 'size',
+        accessorKey: 'size',
+        header: t.columns.size,
+        cell: ({ row }) => formatBytes(row.original.size ?? 0),
+        minSize: 80,
+        size: 100,
         enableSorting: false,
       },
       {
@@ -135,40 +146,49 @@ export function ApiKeysTable({
         accessorKey: 'createdAt',
         header: t.columns.createdAt,
         cell: ({ row }) => {
-          const d = toDate(row.original.createdAt);
+          const d = toDate(row.original.createdAt ?? null);
           return d ? formatDate(d) : '—';
         },
-        minSize: 140,
-        size: 160,
+        minSize: 110,
+        size: 120,
         enableSorting: false,
       },
       {
-        id: 'expiresAt',
-        accessorKey: 'expiresAt',
-        header: t.columns.expiresAt,
+        id: 'accessLink',
+        header: t.columns.accessLink,
         cell: ({ row }) => {
-          const d = toDate(row.original.expiresAt ?? null);
-          return d ? formatDate(d) : t.never;
+          const url = getFileAccessUrl(row.original.r2Key);
+          return (
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'h-8 gap-1')}
+            >
+              <IconExternalLink className="size-3.5" />
+              {t.openLink}
+            </a>
+          );
         },
-        minSize: 140,
-        size: 160,
+        minSize: 100,
+        size: 110,
         enableSorting: false,
       },
       {
         id: 'actions',
         header: t.columns.actions,
         cell: ({ row }) => {
-          const keyId = row.original.id;
+          const id = row.original.id;
           return (
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
+              <DropdownMenuTrigger>
                 <Button variant="ghost" size="icon">
                   <IconDots className="size-4" />
                   <span className="sr-only">{t.columns.actions}</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => onDelete(keyId)}>
+                <DropdownMenuItem onClick={() => onDelete(id)}>
                   <IconTrash className="mr-2 size-4" />
                   {t.delete}
                 </DropdownMenuItem>
@@ -213,110 +233,91 @@ export function ApiKeysTable({
     enableMultiSort: false,
   });
 
-  const handleCreate = async () => {
-    if (!newKeyName.trim()) return;
-    const result = await onCreate(newKeyName.trim());
-    setNewKeyName('');
-    setCreateDialogOpen(false);
-
-    if (result?.key) {
-      setNewKeyValue(result.key);
-      setNewKeyDialogOpen(true);
-    }
+  const handleUpload = async () => {
+    if (!selectedFile) return;
+    await onUpload({
+      file: selectedFile,
+      isPublic,
+      description: description || undefined,
+    });
+    setSelectedFile(null);
+    setDescription('');
+    setIsPublic(false);
+    setUploadOpen(false);
   };
 
-  const handleCopyKey = async () => {
-    await navigator.clipboard.writeText(newKeyValue);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const handleCloseNewKeyDialog = () => {
-    setNewKeyDialogOpen(false);
-    setNewKeyValue('');
-    setCopied(false);
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    setSelectedFile(file ?? null);
   };
 
   return (
     <div className="w-full space-y-4">
       <div className="flex items-center justify-between">
-        <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
-          <DialogTrigger asChild>
+        <Dialog open={uploadOpen} onOpenChange={setUploadOpen}>
+          <DialogTrigger>
             <Button>
               <IconPlus className="size-4" />
-              {t.createButton}
+              {t.uploadButton}
             </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>{t.createDialogTitle}</DialogTitle>
-              <DialogDescription>{t.createDialogDescription}</DialogDescription>
+              <DialogTitle>{t.uploadDialogTitle}</DialogTitle>
+              <DialogDescription>{t.uploadDialogDescription}</DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
-              <div className="flex items-center gap-4">
-                <Label htmlFor="key-name" className="shrink-0">
-                  {t.keyNameLabel}
-                </Label>
+              <div className="grid gap-2">
+                <Label htmlFor="file-input">{t.fileLabel}</Label>
                 <Input
-                  id="key-name"
-                  placeholder={t.keyNamePlaceholder}
-                  value={newKeyName}
-                  onChange={(e) => setNewKeyName(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !creating) handleCreate();
-                  }}
-                  disabled={creating}
+                  id="file-input"
+                  type="file"
+                  onChange={handleFileChange}
+                  disabled={uploading}
+                />
+                {selectedFile && (
+                  <span className="text-muted-foreground text-sm">
+                    {selectedFile.name} ({formatBytes(selectedFile.size)})
+                  </span>
+                )}
+              </div>
+              <div className="flex items-center gap-2">
+                <Switch
+                  id="is-public"
+                  checked={isPublic}
+                  onCheckedChange={setIsPublic}
+                />
+                <Label htmlFor="is-public">{t.isPublicLabel}</Label>
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="description">{t.descriptionLabel}</Label>
+                <Input
+                  id="description"
+                  placeholder={t.descriptionPlaceholder}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  disabled={uploading}
                 />
               </div>
             </div>
             <DialogFooter>
               <Button
                 variant="outline"
-                onClick={() => setCreateDialogOpen(false)}
-                disabled={creating}
+                onClick={() => setUploadOpen(false)}
+                disabled={uploading}
               >
                 {t.cancel}
               </Button>
-              <Button onClick={handleCreate} disabled={creating}>
-                {creating ? t.creating : t.create}
+              <Button
+                onClick={handleUpload}
+                disabled={!selectedFile || uploading}
+              >
+                {uploading ? t.uploading : t.upload}
               </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
       </div>
-
-      <Dialog open={newKeyDialogOpen} onOpenChange={handleCloseNewKeyDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{t.newKeyDialogTitle}</DialogTitle>
-            <DialogDescription>{t.newKeyDialogDescription}</DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="flex items-center gap-2">
-              <Input
-                readOnly
-                value={newKeyValue}
-                className="font-mono text-sm"
-              />
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={handleCopyKey}
-                className="shrink-0"
-              >
-                {copied ? (
-                  <IconCheck className="size-4 text-green-500" />
-                ) : (
-                  <IconCopy className="size-4" />
-                )}
-              </Button>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button onClick={handleCloseNewKeyDialog}>{t.done}</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
 
       <div className="relative flex flex-col gap-4 overflow-auto">
         <div className="overflow-hidden rounded-lg border">

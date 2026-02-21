@@ -13,7 +13,7 @@ import { ThemeProvider } from '@/components/theme/theme-provider';
 import { TailwindIndicator } from '@/integrations/tailwindcss/tailwind-indicator';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
-import { NotFound } from '@/components/layout/not-found';
+import { DefaultNotFound } from '@/components/layout/default-not-found';
 import { Toaster } from '@/components/shared/toaster';
 import { websiteConfig } from '@/config/website';
 import TanStackQueryDevtools from '../integrations/tanstack-query/devtools';
@@ -72,7 +72,7 @@ export const Route = createRootRouteWithContext<{
   // shellComponent automatically wraps root component, errorComponent, and notFoundComponent
   shellComponent: RootDocument,
   component: RootComponent,
-  notFoundComponent: NotFound,
+  notFoundComponent: DefaultNotFound,
   errorComponent: DefaultCatchBoundary,
 });
 

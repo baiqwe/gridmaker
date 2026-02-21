@@ -40,3 +40,14 @@ export function formatDateTime(date: Date): string {
   const second = String(date.getSeconds()).padStart(2, '0');
   return `${year}/${month}/${day} ${hour}:${minute}:${second}`;
 }
+
+/**
+ * Format bytes to human readable format
+ * @param bytes - Size in bytes
+ * @returns Formatted string (e.g. "1.5 MB")
+ */
+export function formatBytes(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}

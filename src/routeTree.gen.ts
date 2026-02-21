@@ -24,6 +24,7 @@ import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as SettingsSecurityRouteImport } from './routes/settings/security'
 import { Route as SettingsProfileRouteImport } from './routes/settings/profile'
 import { Route as SettingsNotificationsRouteImport } from './routes/settings/notifications'
+import { Route as SettingsFilesRouteImport } from './routes/settings/files'
 import { Route as SettingsApikeysRouteImport } from './routes/settings/apikeys'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as AuthResetPasswordRouteImport } from './routes/auth/reset-password'
@@ -31,6 +32,7 @@ import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AuthForgotPasswordRouteImport } from './routes/auth/forgot-password'
 import { Route as AuthErrorRouteImport } from './routes/auth/error'
+import { Route as ApiUserFilesRouteImport } from './routes/api/user-files'
 import { Route as ApiContactRouteImport } from './routes/api/contact'
 import { Route as AdminUsersRouteImport } from './routes/admin/users'
 import { Route as testsTestErrorRouteImport } from './routes/(tests)/test-error'
@@ -43,6 +45,7 @@ import { Route as pagesAboutRouteImport } from './routes/(pages)/about'
 import { Route as legalsTermsRouteImport } from './routes/(legals)/terms'
 import { Route as legalsPrivacyRouteImport } from './routes/(legals)/privacy'
 import { Route as legalsCookieRouteImport } from './routes/(legals)/cookie'
+import { Route as ApiUserFilesIdRouteImport } from './routes/api/user-files.$id'
 import { Route as ApiStorageUploadRouteImport } from './routes/api/storage/upload'
 import { Route as ApiStorageFileRouteImport } from './routes/api/storage/file'
 import { Route as ApiNewsletterUnsubscribeRouteImport } from './routes/api/newsletter/unsubscribe'
@@ -126,6 +129,11 @@ const SettingsNotificationsRoute = SettingsNotificationsRouteImport.update({
   path: '/notifications',
   getParentRoute: () => SettingsRoute,
 } as any)
+const SettingsFilesRoute = SettingsFilesRouteImport.update({
+  id: '/files',
+  path: '/files',
+  getParentRoute: () => SettingsRoute,
+} as any)
 const SettingsApikeysRoute = SettingsApikeysRouteImport.update({
   id: '/apikeys',
   path: '/apikeys',
@@ -160,6 +168,11 @@ const AuthErrorRoute = AuthErrorRouteImport.update({
   id: '/error',
   path: '/error',
   getParentRoute: () => AuthRoute,
+} as any)
+const ApiUserFilesRoute = ApiUserFilesRouteImport.update({
+  id: '/api/user-files',
+  path: '/api/user-files',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ApiContactRoute = ApiContactRouteImport.update({
   id: '/api/contact',
@@ -221,6 +234,11 @@ const legalsCookieRoute = legalsCookieRouteImport.update({
   path: '/cookie',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiUserFilesIdRoute = ApiUserFilesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ApiUserFilesRoute,
+} as any)
 const ApiStorageUploadRoute = ApiStorageUploadRouteImport.update({
   id: '/api/storage/upload',
   path: '/api/storage/upload',
@@ -279,6 +297,7 @@ export interface FileRoutesByFullPath {
   '/test-error': typeof testsTestErrorRoute
   '/admin/users': typeof AdminUsersRoute
   '/api/contact': typeof ApiContactRoute
+  '/api/user-files': typeof ApiUserFilesRouteWithChildren
   '/auth/error': typeof AuthErrorRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/login': typeof AuthLoginRoute
@@ -286,6 +305,7 @@ export interface FileRoutesByFullPath {
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/settings/apikeys': typeof SettingsApikeysRoute
+  '/settings/files': typeof SettingsFilesRoute
   '/settings/notifications': typeof SettingsNotificationsRoute
   '/settings/profile': typeof SettingsProfileRoute
   '/settings/security': typeof SettingsSecurityRoute
@@ -300,6 +320,7 @@ export interface FileRoutesByFullPath {
   '/api/newsletter/unsubscribe': typeof ApiNewsletterUnsubscribeRoute
   '/api/storage/file': typeof ApiStorageFileRoute
   '/api/storage/upload': typeof ApiStorageUploadRoute
+  '/api/user-files/$id': typeof ApiUserFilesIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -319,6 +340,7 @@ export interface FileRoutesByTo {
   '/test-error': typeof testsTestErrorRoute
   '/admin/users': typeof AdminUsersRoute
   '/api/contact': typeof ApiContactRoute
+  '/api/user-files': typeof ApiUserFilesRouteWithChildren
   '/auth/error': typeof AuthErrorRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/login': typeof AuthLoginRoute
@@ -326,6 +348,7 @@ export interface FileRoutesByTo {
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/settings/apikeys': typeof SettingsApikeysRoute
+  '/settings/files': typeof SettingsFilesRoute
   '/settings/notifications': typeof SettingsNotificationsRoute
   '/settings/profile': typeof SettingsProfileRoute
   '/settings/security': typeof SettingsSecurityRoute
@@ -340,6 +363,7 @@ export interface FileRoutesByTo {
   '/api/newsletter/unsubscribe': typeof ApiNewsletterUnsubscribeRoute
   '/api/storage/file': typeof ApiStorageFileRoute
   '/api/storage/upload': typeof ApiStorageUploadRoute
+  '/api/user-files/$id': typeof ApiUserFilesIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -363,6 +387,7 @@ export interface FileRoutesById {
   '/(tests)/test-error': typeof testsTestErrorRoute
   '/admin/users': typeof AdminUsersRoute
   '/api/contact': typeof ApiContactRoute
+  '/api/user-files': typeof ApiUserFilesRouteWithChildren
   '/auth/error': typeof AuthErrorRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/login': typeof AuthLoginRoute
@@ -370,6 +395,7 @@ export interface FileRoutesById {
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/settings/apikeys': typeof SettingsApikeysRoute
+  '/settings/files': typeof SettingsFilesRoute
   '/settings/notifications': typeof SettingsNotificationsRoute
   '/settings/profile': typeof SettingsProfileRoute
   '/settings/security': typeof SettingsSecurityRoute
@@ -384,6 +410,7 @@ export interface FileRoutesById {
   '/api/newsletter/unsubscribe': typeof ApiNewsletterUnsubscribeRoute
   '/api/storage/file': typeof ApiStorageFileRoute
   '/api/storage/upload': typeof ApiStorageUploadRoute
+  '/api/user-files/$id': typeof ApiUserFilesIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -408,6 +435,7 @@ export interface FileRouteTypes {
     | '/test-error'
     | '/admin/users'
     | '/api/contact'
+    | '/api/user-files'
     | '/auth/error'
     | '/auth/forgot-password'
     | '/auth/login'
@@ -415,6 +443,7 @@ export interface FileRouteTypes {
     | '/auth/reset-password'
     | '/blog/$slug'
     | '/settings/apikeys'
+    | '/settings/files'
     | '/settings/notifications'
     | '/settings/profile'
     | '/settings/security'
@@ -429,6 +458,7 @@ export interface FileRouteTypes {
     | '/api/newsletter/unsubscribe'
     | '/api/storage/file'
     | '/api/storage/upload'
+    | '/api/user-files/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -448,6 +478,7 @@ export interface FileRouteTypes {
     | '/test-error'
     | '/admin/users'
     | '/api/contact'
+    | '/api/user-files'
     | '/auth/error'
     | '/auth/forgot-password'
     | '/auth/login'
@@ -455,6 +486,7 @@ export interface FileRouteTypes {
     | '/auth/reset-password'
     | '/blog/$slug'
     | '/settings/apikeys'
+    | '/settings/files'
     | '/settings/notifications'
     | '/settings/profile'
     | '/settings/security'
@@ -469,6 +501,7 @@ export interface FileRouteTypes {
     | '/api/newsletter/unsubscribe'
     | '/api/storage/file'
     | '/api/storage/upload'
+    | '/api/user-files/$id'
   id:
     | '__root__'
     | '/'
@@ -491,6 +524,7 @@ export interface FileRouteTypes {
     | '/(tests)/test-error'
     | '/admin/users'
     | '/api/contact'
+    | '/api/user-files'
     | '/auth/error'
     | '/auth/forgot-password'
     | '/auth/login'
@@ -498,6 +532,7 @@ export interface FileRouteTypes {
     | '/auth/reset-password'
     | '/blog/$slug'
     | '/settings/apikeys'
+    | '/settings/files'
     | '/settings/notifications'
     | '/settings/profile'
     | '/settings/security'
@@ -512,6 +547,7 @@ export interface FileRouteTypes {
     | '/api/newsletter/unsubscribe'
     | '/api/storage/file'
     | '/api/storage/upload'
+    | '/api/user-files/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -534,6 +570,7 @@ export interface RootRouteChildren {
   testsTest404Route: typeof testsTest404Route
   testsTestErrorRoute: typeof testsTestErrorRoute
   ApiContactRoute: typeof ApiContactRoute
+  ApiUserFilesRoute: typeof ApiUserFilesRouteWithChildren
   BlogSlugRoute: typeof BlogSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ApiAdminUsersRoute: typeof ApiAdminUsersRoute
@@ -652,6 +689,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsNotificationsRouteImport
       parentRoute: typeof SettingsRoute
     }
+    '/settings/files': {
+      id: '/settings/files'
+      path: '/files'
+      fullPath: '/settings/files'
+      preLoaderRoute: typeof SettingsFilesRouteImport
+      parentRoute: typeof SettingsRoute
+    }
     '/settings/apikeys': {
       id: '/settings/apikeys'
       path: '/apikeys'
@@ -700,6 +744,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth/error'
       preLoaderRoute: typeof AuthErrorRouteImport
       parentRoute: typeof AuthRoute
+    }
+    '/api/user-files': {
+      id: '/api/user-files'
+      path: '/api/user-files'
+      fullPath: '/api/user-files'
+      preLoaderRoute: typeof ApiUserFilesRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/contact': {
       id: '/api/contact'
@@ -784,6 +835,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/cookie'
       preLoaderRoute: typeof legalsCookieRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/api/user-files/$id': {
+      id: '/api/user-files/$id'
+      path: '/$id'
+      fullPath: '/api/user-files/$id'
+      preLoaderRoute: typeof ApiUserFilesIdRouteImport
+      parentRoute: typeof ApiUserFilesRoute
     }
     '/api/storage/upload': {
       id: '/api/storage/upload'
@@ -881,6 +939,7 @@ const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
 
 interface SettingsRouteChildren {
   SettingsApikeysRoute: typeof SettingsApikeysRoute
+  SettingsFilesRoute: typeof SettingsFilesRoute
   SettingsNotificationsRoute: typeof SettingsNotificationsRoute
   SettingsProfileRoute: typeof SettingsProfileRoute
   SettingsSecurityRoute: typeof SettingsSecurityRoute
@@ -889,6 +948,7 @@ interface SettingsRouteChildren {
 
 const SettingsRouteChildren: SettingsRouteChildren = {
   SettingsApikeysRoute: SettingsApikeysRoute,
+  SettingsFilesRoute: SettingsFilesRoute,
   SettingsNotificationsRoute: SettingsNotificationsRoute,
   SettingsProfileRoute: SettingsProfileRoute,
   SettingsSecurityRoute: SettingsSecurityRoute,
@@ -897,6 +957,18 @@ const SettingsRouteChildren: SettingsRouteChildren = {
 
 const SettingsRouteWithChildren = SettingsRoute._addFileChildren(
   SettingsRouteChildren,
+)
+
+interface ApiUserFilesRouteChildren {
+  ApiUserFilesIdRoute: typeof ApiUserFilesIdRoute
+}
+
+const ApiUserFilesRouteChildren: ApiUserFilesRouteChildren = {
+  ApiUserFilesIdRoute: ApiUserFilesIdRoute,
+}
+
+const ApiUserFilesRouteWithChildren = ApiUserFilesRoute._addFileChildren(
+  ApiUserFilesRouteChildren,
 )
 
 const rootRouteChildren: RootRouteChildren = {
@@ -919,6 +991,7 @@ const rootRouteChildren: RootRouteChildren = {
   testsTest404Route: testsTest404Route,
   testsTestErrorRoute: testsTestErrorRoute,
   ApiContactRoute: ApiContactRoute,
+  ApiUserFilesRoute: ApiUserFilesRouteWithChildren,
   BlogSlugRoute: BlogSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ApiAdminUsersRoute: ApiAdminUsersRoute,

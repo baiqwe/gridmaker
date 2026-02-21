@@ -45,3 +45,13 @@ export function getStripeDashboardCustomerUrl(customerId: string): string {
   }
   return `https://dashboard.stripe.com/customers/${customerId}`;
 }
+
+/**
+ * Get the access URL for a file stored in R2
+ * @param r2Key - The R2 storage key
+ * @returns The file access URL
+ */
+export function getFileAccessUrl(r2Key: string): string {
+  if (typeof window === 'undefined') return '';
+  return `${window.location.origin}/api/storage/file?key=${encodeURIComponent(r2Key)}`;
+}

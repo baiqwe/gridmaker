@@ -3,6 +3,8 @@ import { getRequestHeaders } from '@tanstack/react-start/server';
 import { authApiMiddleware } from '@/middleware/auth-middleware';
 import { auth } from '@/auth/auth';
 import { websiteConfig } from '@/config/website';
+import { getDb } from '@/db';
+import { userFiles } from '@/db/app.schema';
 import { uploadFile } from '@/storage';
 import { StorageError, UploadError } from '@/storage/types';
 
@@ -26,6 +28,9 @@ export const Route = createFileRoute('/api/storage/upload')({
           const formData = await request.formData();
           const file = formData.get('file') as File | null;
           const folder = (formData.get('folder') as string | null) ?? undefined;
+          const isPublicRaw = formData.get('isPublic') as string | null;
+          const description =
+            (formData.get('description') as string | null) ?? undefined;
 
           if (!file) {
             return Response.json(
@@ -41,6 +46,28 @@ export const Route = createFileRoute('/api/storage/upload')({
             userId,
             requestOrigin: origin,
           });
+
+          if (userId && result.metadata) {
+            const isPublic =
+              isPublicRaw === 'true' ||
+              isPublicRaw === '1' ||
+              isPublicRaw === 'yes';
+            const db = getDb();
+            const now = result.metadata.uploadedAt;
+            await db.insert(userFiles).values({
+              id: result.metadata.id,
+              userId,
+              filename: result.metadata.filename,
+              originalName: result.metadata.originalName,
+              contentType: result.metadata.contentType,
+              size: result.metadata.size,
+              r2Key: result.metadata.r2Key,
+              createdAt: now,
+              updatedAt: now,
+              isPublic: isPublic ?? null,
+              description: description ?? null,
+            });
+          }
 
           return Response.json({ ...result, url: result.url });
         } catch (error) {

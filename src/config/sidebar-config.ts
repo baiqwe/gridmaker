@@ -1,5 +1,6 @@
 import {
   IconBell,
+  IconFileUpload,
   IconKey,
   IconLayoutDashboard,
   IconLock,
@@ -53,6 +54,12 @@ export function getSidebarLinks(): MenuItemConfig[] {
           title: m.security,
           icon: IconLock,
           href: Routes.SettingsSecurity,
+          external: false,
+        },
+        {
+          title: m.files,
+          icon: IconFileUpload,
+          href: Routes.SettingsFiles,
           external: false,
         },
         {

@@ -33,6 +33,7 @@ export const Routes = {
   SettingsBilling: '/settings/billing',
   SettingsCredits: '/settings/credits',
   SettingsSecurity: '/settings/security',
+  SettingsFiles: '/settings/files',
   SettingsApiKeys: '/settings/apikeys',
   SettingsNotifications: '/settings/notifications',
 

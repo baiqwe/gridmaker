@@ -1,15 +1,15 @@
 import { DashboardLayout } from '@/components/layout/dashboard-layout';
-import { ApiKeysPageContent } from '@/components/settings/apikeys/apikeys-page-content';
+import { FilesPageContent } from '@/components/settings/files/files-page-content';
 import { messages } from '@/messages';
 import { createFileRoute } from '@tanstack/react-router';
 
-const m = messages.settings.apiKeys;
+const m = messages.settings.files;
 
-export const Route = createFileRoute('/settings/apikeys')({
-  component: ApiKeysPage,
+export const Route = createFileRoute('/settings/files')({
+  component: FilesPage,
 });
 
-function ApiKeysPage() {
+function FilesPage() {
   const breadcrumbs = [
     { label: messages.common.settings, isCurrentPage: false },
     { label: m.title, isCurrentPage: true },
@@ -21,7 +21,7 @@ function ApiKeysPage() {
       title={m.title}
       description={m.description}
     >
-      <ApiKeysPageContent />
+      <FilesPageContent />
     </DashboardLayout>
   );
 }
