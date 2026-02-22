@@ -178,7 +178,7 @@ export function RegisterForm({
               disabled={isPending}
               size="lg"
               type="submit"
-              className="cursor-pointer w-full flex items-center justify-center gap-2"
+              className="w-full flex items-center justify-center gap-2"
             >
               {isPending && (
                 <IconLoader2 className="mr-2 size-4 animate-spin" />

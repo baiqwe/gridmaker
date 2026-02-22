@@ -124,7 +124,6 @@ export function UpdateAvatarCard({ className }: UpdateAvatarCardProps) {
             size="sm"
             onClick={handleUploadClick}
             disabled={uploadMutation.isPending}
-            className="cursor-pointer"
           >
             {uploadMutation.isPending ? m.uploading : m.uploadAvatar}
           </Button>

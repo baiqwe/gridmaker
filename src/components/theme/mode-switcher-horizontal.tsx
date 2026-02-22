@@ -39,7 +39,7 @@ export function ModeSwitcherHorizontal() {
         variant="ghost"
         size="icon"
         className={cn(
-          'size-6 rounded-full p-0 cursor-pointer',
+          'size-6 rounded-full p-0',
           theme === 'light' && 'bg-muted text-foreground'
         )}
         onClick={() => setTheme('light')}
@@ -51,7 +51,7 @@ export function ModeSwitcherHorizontal() {
         variant="ghost"
         size="icon"
         className={cn(
-          'size-6 rounded-full p-0 cursor-pointer',
+          'size-6 rounded-full p-0',
           theme === 'dark' && 'bg-muted text-foreground'
         )}
         onClick={() => setTheme('dark')}
@@ -63,7 +63,7 @@ export function ModeSwitcherHorizontal() {
         variant="ghost"
         size="icon"
         className={cn(
-          'size-6 rounded-full p-0 cursor-pointer',
+          'size-6 rounded-full p-0',
           theme === 'system' && 'bg-muted text-foreground'
         )}
         onClick={() => setTheme('system')}

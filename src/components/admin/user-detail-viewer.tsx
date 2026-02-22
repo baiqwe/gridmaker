@@ -105,7 +105,7 @@ export function UserDetailViewer({ user }: UserDetailViewerProps) {
         <DrawerTrigger asChild>
           <Button
             variant="link"
-            className="w-fit cursor-pointer px-0 text-left text-foreground"
+            className="w-fit px-0 text-left text-foreground"
           >
             <span className="font-medium hover:underline hover:underline-offset-4">
               {user.name}
@@ -154,7 +154,7 @@ export function UserDetailViewer({ user }: UserDetailViewerProps) {
                 </span>
                 <Badge
                   variant="outline"
-                  className="w-fit cursor-pointer px-1.5 text-sm hover:bg-accent"
+                  className="w-fit px-1.5 text-sm hover:bg-accent"
                   onClick={() => {
                     navigator.clipboard.writeText(user.email);
                     toast.success(m.emailCopied);
@@ -207,7 +207,7 @@ export function UserDetailViewer({ user }: UserDetailViewerProps) {
                 variant="destructive"
                 onClick={handleUnban}
                 disabled={unbanUserMutation.isPending}
-                className="mt-4 cursor-pointer"
+                className="mt-4"
               >
                 {unbanUserMutation.isPending && (
                   <IconLoader2 className="mr-2 size-4 animate-spin" />
@@ -240,7 +240,7 @@ export function UserDetailViewer({ user }: UserDetailViewerProps) {
                     type="button"
                     onClick={() => setCalendarOpen((o) => !o)}
                     className={cn(
-                      'flex h-9 w-full cursor-pointer items-center justify-start gap-1.5 px-2.5 text-sm font-normal outline-none hover:bg-muted hover:text-foreground rounded-lg',
+                      'flex h-9 w-full items-center justify-start gap-1.5 px-2.5 text-sm font-normal outline-none hover:bg-muted hover:text-foreground rounded-lg',
                       !banExpiresAt && 'text-muted-foreground'
                     )}
                   >
@@ -269,7 +269,7 @@ export function UserDetailViewer({ user }: UserDetailViewerProps) {
                 type="submit"
                 variant="destructive"
                 disabled={banUserMutation.isPending || !banReason?.trim()}
-                className="mt-4 cursor-pointer"
+                className="mt-4"
               >
                 {banUserMutation.isPending && (
                   <IconLoader2 className="mr-2 size-4 animate-spin" />

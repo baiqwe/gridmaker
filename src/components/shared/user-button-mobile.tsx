@@ -51,7 +51,7 @@ export function UserButtonMobile({ user }: UserButtonMobileProps) {
           <UserAvatar
             name={user.name ?? null}
             image={user.image ?? null}
-            className="size-8 shrink-0 border cursor-pointer"
+            className="size-8 shrink-0 border"
           />
         </button>
       </DrawerTrigger>

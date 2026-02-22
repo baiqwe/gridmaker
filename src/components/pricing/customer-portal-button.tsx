@@ -56,7 +56,7 @@ export function CustomerPortalButton({
     <Button
       variant={variant}
       size={size}
-      className={cn(className, 'cursor-pointer')}
+      className={className}
       onClick={handleClick}
       disabled={isLoading}
     >

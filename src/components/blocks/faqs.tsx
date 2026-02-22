@@ -36,7 +36,7 @@ export default function FaqSection() {
                 value={item.id}
                 className="border-dashed"
               >
-                <AccordionTrigger className="cursor-pointer text-base hover:no-underline">
+                <AccordionTrigger className="text-base hover:no-underline">
                   {item.question}
                 </AccordionTrigger>
                 <AccordionContent>

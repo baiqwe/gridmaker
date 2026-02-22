@@ -73,7 +73,7 @@ function AboutPage() {
                       rel="noopener noreferrer"
                       className={cn(
                         buttonVariants({ variant: 'outline' }),
-                        'cursor-pointer rounded-lg'
+                        'rounded-lg'
                       )}
                     >
                       <IconBrandX className="mr-1 size-4" />
@@ -85,7 +85,7 @@ function AboutPage() {
                       href={supportEmailHref}
                       className={cn(
                         buttonVariants(),
-                        'cursor-pointer rounded-lg inline-flex items-center'
+                        'rounded-lg inline-flex items-center'
                       )}
                     >
                       <IconMail className="mr-1 size-4" />

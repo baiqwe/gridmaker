@@ -35,22 +35,19 @@ export function ModeSwitcher() {
       <DropdownMenuContent align="end">
         <DropdownMenuItem
           onClick={() => setTheme('light')}
-          className="cursor-pointer"
-        >
+          >
           <IconSun className="mr-2 size-4" />
           {m.mode.light}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme('dark')}
-          className="cursor-pointer"
-        >
+          >
           <IconMoon className="mr-2 size-4" />
           {m.mode.dark}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme('system')}
-          className="cursor-pointer"
-        >
+          >
           <IconDeviceDesktop className="mr-2 size-4" />
           {m.mode.system}
         </DropdownMenuItem>

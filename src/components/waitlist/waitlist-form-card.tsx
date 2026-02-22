@@ -86,7 +86,6 @@ export function WaitlistFormCard() {
             <Button
               type="submit"
               disabled={isPending}
-              className="cursor-pointer"
             >
               {isPending ? m.subscribing : m.subscribe}
             </Button>

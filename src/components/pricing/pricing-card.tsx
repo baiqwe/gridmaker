@@ -118,7 +118,7 @@ export function PricingCard({
               to={Routes.Login}
               className={cn(
                 buttonVariants({ variant: 'outline' }),
-                'mt-4 w-full cursor-pointer'
+                'mt-4 w-full'
               )}
             >
               {card.getStartedForFree}
@@ -137,7 +137,7 @@ export function PricingCard({
               planId={plan.id}
               priceId={price.priceId}
               metadata={metadata}
-              className="mt-4 w-full cursor-pointer"
+              className="mt-4 w-full"
             >
               {plan.isLifetime ? card.getLifetimeAccess : card.getStarted}
             </CheckoutButton>
@@ -150,7 +150,7 @@ export function PricingCard({
               to={Routes.Login}
               className={cn(
                 buttonVariants({ variant: 'default' }),
-                'mt-4 w-full cursor-pointer'
+                'mt-4 w-full'
               )}
             >
               {card.getStarted}

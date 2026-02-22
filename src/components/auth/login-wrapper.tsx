@@ -51,7 +51,7 @@ export function LoginWrapper({
   };
 
   if (!mounted) {
-    return <span className="cursor-pointer">{children}</span>;
+    return <span>{children}</span>;
   }
 
   if (mode === 'modal') {
@@ -81,7 +81,7 @@ export function LoginWrapper({
   }
 
   return (
-    <span onClick={handleRedirect} className="cursor-pointer">
+    <span onClick={handleRedirect}>
       {children}
     </span>
   );

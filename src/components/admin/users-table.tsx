@@ -139,7 +139,7 @@ export function UsersTable({
             <div className="flex items-center gap-2">
               <Badge
                 variant="outline"
-                className="text-sm px-1.5 cursor-pointer hover:bg-accent"
+                className="text-sm px-1.5 hover:bg-accent"
                 onClick={() => {
                   navigator.clipboard.writeText(u.email);
                   toast.success(m.emailCopied);
@@ -339,7 +339,7 @@ export function UsersTable({
               <button
                 type="button"
                 aria-label={m.clearSearch}
-                className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer text-muted-foreground transition-colors hover:text-foreground"
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
                 onClick={() => {
                   onSearch('');
                   onPageChange(0);

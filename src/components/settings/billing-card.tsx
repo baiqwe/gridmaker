@@ -113,7 +113,6 @@ export function BillingCard() {
         <CardFooter className={footerClass}>
           <Button
             variant="outline"
-            className="cursor-pointer"
             onClick={handleRetry}
           >
             <IconRefresh className="size-4 mr-1" />
@@ -142,7 +141,7 @@ export function BillingCard() {
         <CardFooter className={footerClass}>
           <Link
             to={Routes.Pricing}
-            className={cn(buttonVariants({ variant: 'default' }), 'cursor-pointer')}
+            className={buttonVariants({ variant: 'default' })}
           >
             {m.upgradePlan}
           </Link>
@@ -226,7 +225,7 @@ export function BillingCard() {
         {isFreePlan && (
           <Link
             to={Routes.Pricing}
-            className={cn(buttonVariants({ variant: 'default' }), 'cursor-pointer')}
+            className={buttonVariants({ variant: 'default' })}
           >
             {m.upgradePlan}
           </Link>

@@ -44,7 +44,7 @@ export function UserButton({ user }: UserButtonProps) {
         <UserAvatar
           name={user.name ?? null}
           image={user.image ?? null}
-          className="size-8 border cursor-pointer"
+          className="size-8 border"
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-64">
@@ -60,7 +60,7 @@ export function UserButton({ user }: UserButtonProps) {
         {avatarLinks.map((item) =>
           item.href ? (
             <Link key={item.title} to={item.href} className="block">
-              <DropdownMenuItem className="cursor-pointer">
+              <DropdownMenuItem>
                 {item.icon ? <item.icon className="mr-2 size-4" /> : null}
                 {item.title}
               </DropdownMenuItem>
@@ -69,7 +69,6 @@ export function UserButton({ user }: UserButtonProps) {
         )}
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          className="cursor-pointer"
           onClick={async (event) => {
             event.preventDefault();
             setOpen(false);

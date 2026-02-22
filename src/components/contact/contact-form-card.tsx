@@ -116,7 +116,6 @@ export function ContactFormCard() {
             <Button
               type="submit"
               disabled={isPending}
-              className="cursor-pointer"
             >
               {isPending ? m.sending : m.send}
             </Button>

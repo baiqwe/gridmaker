@@ -92,7 +92,7 @@ export function NewsletterCard() {
               />
               <Button
                 type="submit"
-                className="h-12 rounded-l-none cursor-pointer"
+                className="h-12 rounded-l-none"
                 disabled={isPending}
               >
                 {isPending ? (

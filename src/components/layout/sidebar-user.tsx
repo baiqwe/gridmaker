@@ -76,7 +76,7 @@ export function SidebarUser({ user }: SidebarUserProps) {
             render={
               <SidebarMenuButton
                 size="lg"
-                className="cursor-pointer data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
               >
                 <UserAvatar
                   name={user.name ?? null}
@@ -116,27 +116,24 @@ export function SidebarUser({ user }: SidebarUserProps) {
                 <>
                   <DropdownMenuSeparator />
                   <DropdownMenuSub>
-                    <DropdownMenuSubTrigger className="cursor-pointer">
+                    <DropdownMenuSubTrigger>
                       <ThemeIcon className="mr-2 size-4" />
                       {m.mode.theme}
                     </DropdownMenuSubTrigger>
                     <DropdownMenuSubContent>
                       <DropdownMenuItem
-                        className="cursor-pointer"
                         onClick={() => setTheme('light')}
                       >
                         <IconSun className="mr-2 size-4" />
                         {m.mode.light}
                       </DropdownMenuItem>
                       <DropdownMenuItem
-                        className="cursor-pointer"
                         onClick={() => setTheme('dark')}
                       >
                         <IconMoon className="mr-2 size-4" />
                         {m.mode.dark}
                       </DropdownMenuItem>
                       <DropdownMenuItem
-                        className="cursor-pointer"
                         onClick={() => setTheme('system')}
                       >
                         <IconDeviceDesktop className="mr-2 size-4" />
@@ -149,7 +146,6 @@ export function SidebarUser({ user }: SidebarUserProps) {
 
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                className="cursor-pointer"
                 onClick={async (event) => {
                   event.preventDefault();
                   setOpen(false);

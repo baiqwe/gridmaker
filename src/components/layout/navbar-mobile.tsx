@@ -89,7 +89,7 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
                     type="button"
                     variant="outline"
                     size="lg"
-                    className="w-full cursor-pointer"
+                    className="w-full"
                     onClick={() => setOpen(false)}
                   >
                     {messages.auth.common.login}

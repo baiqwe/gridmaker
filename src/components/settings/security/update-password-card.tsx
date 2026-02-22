@@ -149,7 +149,7 @@ export function UpdatePasswordCard({ className }: UpdatePasswordCardProps) {
                         type="button"
                         variant="ghost"
                         size="sm"
-                        className="cursor-pointer absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                        className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                         onClick={() => setShowNew(!showNew)}
                       >
                         {showNew ? (
@@ -174,7 +174,6 @@ export function UpdatePasswordCard({ className }: UpdatePasswordCardProps) {
             <Button
               type="submit"
               disabled={isSaving}
-              className="cursor-pointer"
             >
               {isSaving ? m.saving : m.save}
             </Button>

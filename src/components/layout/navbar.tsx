@@ -27,7 +27,7 @@ import { websiteConfig } from '@/config/website';
 import { messages } from '@/messages';
 
 const navTriggerClass =
-  'rounded-lg px-2.5 py-1.5 text-sm font-medium bg-transparent text-muted-foreground cursor-pointer hover:bg-accent hover:text-accent-foreground data-active:font-semibold data-active:bg-transparent data-active:text-accent-foreground';
+  'rounded-lg px-2.5 py-1.5 text-sm font-medium bg-transparent text-muted-foreground hover:bg-accent hover:text-accent-foreground data-active:font-semibold data-active:bg-transparent data-active:text-accent-foreground';
 
 const navDropdownItemClass =
   'group flex items-center gap-4 rounded-md p-2 text-sm font-medium no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground';
@@ -182,10 +182,7 @@ export function Navbar({ scroll = true }: NavbarProps) {
                   <LoginWrapper mode="modal" asChild>
                     <button
                       type="button"
-                      className={cn(
-                        buttonVariants({ variant: 'outline', size: 'sm' }),
-                        'cursor-pointer'
-                      )}
+                      className={buttonVariants({ variant: 'outline', size: 'sm' })}
                     >
                       {messages.auth.common.login}
                     </button>

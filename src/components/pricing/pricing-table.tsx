@@ -75,7 +75,7 @@ export function PricingTable({
             {hasMonthly && (
               <ToggleGroupItem
                 value="month"
-                className="cursor-pointer rounded-md px-3 py-0 text-sm data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
+                className="rounded-md px-3 py-0 text-sm data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
               >
                 {m.monthly}
               </ToggleGroupItem>
@@ -83,7 +83,7 @@ export function PricingTable({
             {hasYearly && (
               <ToggleGroupItem
                 value="year"
-                className="cursor-pointer rounded-md px-3 py-0 text-sm data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
+                className="rounded-md px-3 py-0 text-sm data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
               >
                 {m.yearly}
               </ToggleGroupItem>

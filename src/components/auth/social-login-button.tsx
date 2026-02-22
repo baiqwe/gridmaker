@@ -59,7 +59,7 @@ export function SocialLoginButton({
       {websiteConfig.auth.enableGoogleLogin && (
         <Button
           size="lg"
-          className="w-full cursor-pointer"
+          className="w-full"
           variant="outline"
           onClick={() => onClick('google')}
           disabled={isLoading === 'google'}

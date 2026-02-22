@@ -141,7 +141,7 @@ export function ResetPasswordForm() {
             disabled={isPending}
             size="lg"
             type="submit"
-            className="w-full cursor-pointer"
+            className="w-full"
           >
             {isPending && <IconLoader2 className="mr-2 size-4 animate-spin" />}
             <span>{m.reset}</span>
