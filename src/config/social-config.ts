@@ -61,9 +61,9 @@ export function getSocialLinks(): MenuItemConfig[] {
   if (config?.telegram) {
     social.push({ title: 'Telegram', href: config.telegram, icon: IconBrandTelegram, external: true });
   }
-  const supportEmailHref = getMailtoUrl(websiteConfig.mail?.supportEmail);
-  if (supportEmailHref) {
-    social.push({ title: 'Email', href: supportEmailHref, icon: IconMail, external: true });
+  const supportEmail = getMailtoUrl(websiteConfig.mail?.supportEmail);
+  if (supportEmail) {
+    social.push({ title: 'Email', href: supportEmail, icon: IconMail, external: true });
   }
   return social;
 }

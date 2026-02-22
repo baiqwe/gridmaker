@@ -25,7 +25,7 @@ export const Route = createFileRoute('/(pages)/about')({
 
 function AboutPage() {
   const twitter = websiteConfig.social?.twitter;
-  const supportEmailHref = getMailtoUrl(websiteConfig.mail?.supportEmail);
+  const supportEmail = getMailtoUrl(websiteConfig.mail?.supportEmail);
 
   return (
     <Container className="py-16 px-4">
@@ -75,9 +75,9 @@ function AboutPage() {
                       {m.followUs}
                     </a>
                   )}
-                  {supportEmailHref && (
+                  {supportEmail && (
                     <a
-                      href={supportEmailHref}
+                      href={supportEmail}
                       className={cn(
                         buttonVariants(),
                         'rounded-lg inline-flex items-center'

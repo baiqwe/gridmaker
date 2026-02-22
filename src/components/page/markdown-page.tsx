@@ -17,7 +17,7 @@ export function MarkdownPage({ page }: { page: PageDoc }) {
             {description}
           </p>
         )}
-        {date != null && (
+        {date && (
           <p className="text-center text-sm text-muted-foreground">
             {formatDate(new Date(date))}
           </p>
