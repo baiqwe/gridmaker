@@ -75,6 +75,7 @@ export const websiteConfig: WebsiteConfig = {
     provider: 'r2',
     maxFileSize: 10 * 1024 * 1024, // 10MB
     allowedTypes: ['.jpg', '.jpeg', '.png', '.webp'],
+    userFilesFolder: 'userfiles',
   },
   payment: {
     provider: 'stripe',

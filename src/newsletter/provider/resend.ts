@@ -1,3 +1,4 @@
+import { serverEnv } from '@/env/server';
 import type {
   CheckSubscribeStatusParams,
   NewsletterProvider,
@@ -13,10 +14,9 @@ import { Resend } from 'resend';
 export class ResendNewsletterProvider implements NewsletterProvider {
   private resend: Resend;
 
-  constructor(apiKey: string) {
-    if (!apiKey) {
-      throw new Error('RESEND_API_KEY is required.');
-    }
+  constructor() {
+    const apiKey = serverEnv.RESEND_API_KEY;
+    if (!apiKey) throw new Error('RESEND_API_KEY is required for newsletter.');
     this.resend = new Resend(apiKey);
   }
 

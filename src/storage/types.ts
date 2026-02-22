@@ -21,14 +21,6 @@ export const DEFAULT_USER_FILES_FOLDER = 'userfiles';
 export const DEFAULT_AVATARS_FOLDER = 'avatars';
 
 /**
- * Storage config
- */
-export interface StorageConfig {
-  maxFileSize: number; // Max file size in bytes, default 10MB
-  allowedTypes: string[]; // Allowed file extensions or MIME types. e.g. ['.jpg', '.png', 'image/webp']. Empty = all allowed.
-}
-
-/**
  * Cloudflare R2 bucket interface used by the storage provider
  */
 export interface R2BucketInterface {

@@ -1,6 +1,4 @@
 import { websiteConfig } from '@/config/website';
-import { serverEnv } from '@/env/server';
-import { getBaseUrl } from '@/lib/urls';
 import { DiscordProvider } from './provider/discord';
 import { FeishuProvider } from './provider/feishu';
 import type {
@@ -12,21 +10,8 @@ import type {
 type ProviderFactory = () => NotificationProvider;
 
 const providerRegistry: Record<NotificationProviderName, ProviderFactory> = {
-  discord: () => {
-    const webhookUrl = serverEnv.DISCORD_WEBHOOK_URL;
-    if (!webhookUrl) throw new Error('DISCORD_WEBHOOK_URL is required.');
-    const logoPath = websiteConfig.metadata?.images?.logoLight;
-    return new DiscordProvider({
-      webhookUrl,
-      botName: `${websiteConfig.metadata?.name ?? 'App Bot'}`,
-      avatarUrl: logoPath ? `${getBaseUrl()}${logoPath}` : undefined,
-    });
-  },
-  feishu: () => {
-    const webhookUrl = serverEnv.FEISHU_WEBHOOK_URL;
-    if (!webhookUrl) throw new Error('FEISHU_WEBHOOK_URL is required.');
-    return new FeishuProvider({ webhookUrl });
-  },
+  discord: () => new DiscordProvider(),
+  feishu: () => new FeishuProvider(),
 };
 
 let notificationProvider: NotificationProvider | null = null;

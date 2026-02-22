@@ -1,3 +1,4 @@
+import { serverEnv } from '@/env/server';
 import type {
   CheckSubscribeStatusParams,
   NewsletterProvider,
@@ -14,9 +15,14 @@ export class BeehiivNewsletterProvider implements NewsletterProvider {
   private client: BeehiivClient;
   private publicationId: string;
 
-  constructor(apiKey: string, publicationId: string) {
-    if (!apiKey) throw new Error('BEEHIIV_API_KEY is required.');
-    if (!publicationId) throw new Error('BEEHIIV_PUBLICATION_ID is required.');
+  constructor() {
+    const apiKey = serverEnv.BEEHIIV_API_KEY;
+    const publicationId = serverEnv.BEEHIIV_PUBLICATION_ID;
+    if (!apiKey || !publicationId) {
+      throw new Error(
+        'BEEHIIV_API_KEY and BEEHIIV_PUBLICATION_ID are required for newsletter.'
+      );
+    }
     this.client = new BeehiivClient({ token: apiKey });
     this.publicationId = publicationId;
   }

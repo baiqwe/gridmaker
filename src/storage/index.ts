@@ -2,30 +2,17 @@ import { websiteConfig } from '@/config/website';
 import { R2Provider } from './provider/r2';
 import type {
   FileMetadata,
-  StorageConfig,
   StorageProvider,
   StorageProviderName,
   UploadFileResult,
 } from './types';
-import { DEFAULT_ALLOWED_TYPES, DEFAULT_MAX_FILE_SIZE } from './types';
-
-function buildStorageConfig(): StorageConfig {
-  const config = websiteConfig.storage;
-  return {
-    maxFileSize: config?.maxFileSize ?? DEFAULT_MAX_FILE_SIZE,
-    allowedTypes: config?.allowedTypes ?? DEFAULT_ALLOWED_TYPES,
-  };
-}
 
 let storageProvider: StorageProvider | null = null;
 
 type ProviderFactory = () => StorageProvider;
 
-/**
- * Registry of storage provider factories.
- */
 const providerRegistry: Record<StorageProviderName, ProviderFactory> = {
-  r2: () => new R2Provider(buildStorageConfig()),
+  r2: () => new R2Provider(),
 };
 
 function createProvider(): StorageProvider {

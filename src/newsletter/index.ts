@@ -1,4 +1,3 @@
-import { serverEnv } from '@/env/server';
 import { websiteConfig } from '@/config/website';
 import { BeehiivNewsletterProvider } from './provider/beehiiv';
 import { ResendNewsletterProvider } from './provider/resend';
@@ -6,25 +5,9 @@ import type { NewsletterProvider, NewsletterProviderName } from './types';
 
 type ProviderFactory = () => NewsletterProvider;
 
-/**
- * Registry of newsletter provider factories
- **/
 const providerRegistry: Record<NewsletterProviderName, ProviderFactory> = {
-  resend: () => {
-    const apiKey = serverEnv.RESEND_API_KEY;
-    if (!apiKey) throw new Error('RESEND_API_KEY is required for newsletter.');
-    return new ResendNewsletterProvider(apiKey);
-  },
-  beehiiv: () => {
-    const apiKey = serverEnv.BEEHIIV_API_KEY;
-    const publicationId = serverEnv.BEEHIIV_PUBLICATION_ID;
-    if (!apiKey || !publicationId) {
-      throw new Error(
-        'BEEHIIV_API_KEY and BEEHIIV_PUBLICATION_ID are required for newsletter.'
-      );
-    }
-    return new BeehiivNewsletterProvider(apiKey, publicationId);
-  },
+  resend: () => new ResendNewsletterProvider(),
+  beehiiv: () => new BeehiivNewsletterProvider(),
 };
 
 function createProvider(): NewsletterProvider {

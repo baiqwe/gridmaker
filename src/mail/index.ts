@@ -1,4 +1,3 @@
-import { serverEnv } from '@/env/server';
 import { websiteConfig } from '@/config/website';
 import type {
   MailProvider,
@@ -12,17 +11,8 @@ let mailProvider: MailProvider | null = null;
 
 type ProviderFactory = () => MailProvider;
 
-/**
- * Registry of mail provider factories
- **/
 const providerRegistry: Record<MailProviderName, ProviderFactory> = {
-  resend: () => {
-    const apiKey = serverEnv.RESEND_API_KEY;
-    if (!apiKey) throw new Error('RESEND_API_KEY is required.');
-    const from = websiteConfig.mail?.fromEmail;
-    if (!from) throw new Error('mail.fromEmail is required in websiteConfig.');
-    return new ResendProvider({ apiKey, from });
-  },
+  resend: () => new ResendProvider(),
 };
 
 function createProvider(): MailProvider {

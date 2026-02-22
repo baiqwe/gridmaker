@@ -1,13 +1,10 @@
+import { websiteConfig } from '@/config/website';
+import { serverEnv } from '@/env/server';
+import { getBaseUrl } from '@/lib/urls';
 import type {
   NotificationProvider,
   SendPaymentNotificationParams,
 } from '../types';
-
-interface DiscordProviderOptions {
-  webhookUrl: string;
-  botName: string;
-  avatarUrl?: string;
-}
 
 /**
  * Send a message to Discord via webhook.
@@ -31,10 +28,13 @@ export class DiscordProvider implements NotificationProvider {
   private botName: string;
   private avatarUrl?: string;
 
-  constructor(options: DiscordProviderOptions) {
-    this.webhookUrl = options.webhookUrl;
-    this.botName = options.botName;
-    this.avatarUrl = options.avatarUrl;
+  constructor() {
+    const webhookUrl = serverEnv.DISCORD_WEBHOOK_URL;
+    if (!webhookUrl) throw new Error('DISCORD_WEBHOOK_URL is required.');
+    const logoPath = websiteConfig.metadata?.images?.logoLight;
+    this.webhookUrl = webhookUrl;
+    this.botName = websiteConfig.metadata?.name ?? 'Bot';
+    this.avatarUrl = logoPath ? `${getBaseUrl()}${logoPath}` : undefined;
   }
 
   getProviderName(): string {

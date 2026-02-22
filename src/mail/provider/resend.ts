@@ -1,3 +1,5 @@
+import { websiteConfig } from '@/config/website';
+import { serverEnv } from '@/env/server';
 import { getTemplate } from '../render';
 import type {
   MailProvider,
@@ -8,14 +10,6 @@ import type {
 import { Resend } from 'resend';
 
 /**
- * Options to create Resend provider (API key from env or Cloudflare bindings).
- */
-interface ResendProviderOptions {
-  apiKey: string;
-  from: string;
-}
-
-/**
  * Resend mail provider implementation.
  * https://resend.com/docs
  */
@@ -23,14 +17,11 @@ export class ResendProvider implements MailProvider {
   private resend: Resend;
   private from: string;
 
-  constructor(options: ResendProviderOptions) {
-    const { apiKey, from } = options;
-    if (!apiKey) {
-      throw new Error('RESEND_API_KEY is required.');
-    }
-    if (!from) {
-      throw new Error('mail.fromEmail is required.');
-    }
+  constructor() {
+    const apiKey = serverEnv.RESEND_API_KEY;
+    const from = websiteConfig.mail?.fromEmail;
+    if (!apiKey) throw new Error('RESEND_API_KEY is required.');
+    if (!from) throw new Error('mail.fromEmail is required.');
     this.resend = new Resend(apiKey);
     this.from = from;
   }

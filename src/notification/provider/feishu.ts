@@ -1,11 +1,8 @@
+import { serverEnv } from '@/env/server';
 import type {
   NotificationProvider,
   SendPaymentNotificationParams,
 } from '../types';
-
-interface FeishuProviderOptions {
-  webhookUrl: string;
-}
 
 /**
  * Send a message to Feishu via webhook.
@@ -27,8 +24,10 @@ async function sendMessage(
 export class FeishuProvider implements NotificationProvider {
   private webhookUrl: string;
 
-  constructor(options: FeishuProviderOptions) {
-    this.webhookUrl = options.webhookUrl;
+  constructor() {
+    const webhookUrl = serverEnv.FEISHU_WEBHOOK_URL;
+    if (!webhookUrl) throw new Error('FEISHU_WEBHOOK_URL is required.');
+    this.webhookUrl = webhookUrl;
   }
 
   getProviderName(): string {
