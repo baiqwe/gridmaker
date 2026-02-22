@@ -2,27 +2,18 @@ import { env } from 'cloudflare:workers';
 import {
   type FileMetadata,
   type R2BucketInterface,
-  type StorageConfig,
   type UploadFileParams,
   type UploadFileResult,
   type ValidationResult,
   ConfigurationError,
+  DEFAULT_ALLOWED_TYPES,
+  DEFAULT_MAX_FILE_SIZE,
   DEFAULT_USER_FILES_FOLDER,
   R2_ERROR_CODES,
   StorageError,
-  UploadError,
+  UploadError
 } from '../types';
-
-/**
- * Get R2 bucket binding (env.BUCKET)
- */
-function getFilesBucket(): R2BucketInterface {
-  const bucket = env.BUCKET;
-  if (!bucket) {
-    throw new ConfigurationError('R2 bucket binding BUCKET is not configured.');
-  }
-  return bucket;
-}
+import { websiteConfig } from '@/config/website';
 
 const success = <T>(data: T): ValidationResult<T> => ({ success: true, data });
 const fail = (error: string, code?: string): ValidationResult<never> => ({
@@ -31,19 +22,18 @@ const fail = (error: string, code?: string): ValidationResult<never> => ({
   code,
 });
 
-/**
- * Sanitize filename to prevent path traversal and keep storage key safe
- */
-function sanitizeFilename(filename: string): string {
-  return filename.replace(/[^a-zA-Z0-9._-]/g, '_').slice(0, 255);
+interface FileValidatorConfig {
+  maxFileSize: number;
+  allowedTypes: string[];
 }
 
-/**
- * Create file validator from config (size + allowed types by extension)
- */
-function createFileValidator(config: StorageConfig) {
-  const { maxFileSize, allowedTypes } = config;
+type FileValidator = ReturnType<typeof createFileValidator>;
 
+/**
+ * Create file validator from config. Pure function, easy to test and reuse.
+ */
+function createFileValidator(config: FileValidatorConfig) {
+  const { maxFileSize, allowedTypes } = config;
   return {
     validateFile(
       file: File | Blob,
@@ -57,7 +47,6 @@ function createFileValidator(config: StorageConfig) {
           'FILE_TOO_LARGE'
         );
       }
-
       if (allowedTypes.length > 0 && originalName) {
         const ext =
           originalName.lastIndexOf('.') === -1
@@ -65,12 +54,12 @@ function createFileValidator(config: StorageConfig) {
             : originalName
                 .slice(originalName.lastIndexOf('.') + 1)
                 .toLowerCase();
-        const normalized = allowedTypes.map((t) =>
+        const normalized = allowedTypes.map((t: string) =>
           t.startsWith('.') ? t.slice(1).toLowerCase() : t.toLowerCase()
         );
         if (!ext || !normalized.includes(ext)) {
           const formatted = allowedTypes
-            .map((t) => (t.startsWith('.') ? t : `.${t}`))
+            .map((t: string) => (t.startsWith('.') ? t : `.${t}`))
             .join(', ');
           return fail(
             `${R2_ERROR_CODES.INVALID_FILE_TYPE}. Supported: ${formatted}`,
@@ -78,10 +67,16 @@ function createFileValidator(config: StorageConfig) {
           );
         }
       }
-
       return success(true);
     },
   };
+}
+
+/**
+ * Sanitize filename to prevent path traversal and keep storage key safe
+ */
+function sanitizeFilename(filename: string): string {
+  return filename.replace(/[^a-zA-Z0-9._-]/g, '_').slice(0, 255);
 }
 
 function generateId(): string {
@@ -96,12 +91,21 @@ function generateId(): string {
 export class R2Provider {
   private readonly bucket: R2BucketInterface;
   private readonly userFilesFolder: string;
-  private validator: ReturnType<typeof createFileValidator>;
+  private readonly validator: FileValidator;
 
-  constructor(config: StorageConfig) {
-    this.bucket = getFilesBucket();
-    this.userFilesFolder = DEFAULT_USER_FILES_FOLDER;
-    this.validator = createFileValidator(config);
+  constructor() {
+    this.bucket = env.BUCKET;
+    if (!this.bucket) {
+      throw new ConfigurationError('R2 bucket binding BUCKET is not configured.');
+    }
+    this.userFilesFolder =
+      websiteConfig.storage?.userFilesFolder ?? DEFAULT_USER_FILES_FOLDER;
+    this.validator = createFileValidator({
+      maxFileSize:
+        websiteConfig.storage?.maxFileSize ?? DEFAULT_MAX_FILE_SIZE,
+      allowedTypes:
+        websiteConfig.storage?.allowedTypes ?? DEFAULT_ALLOWED_TYPES,
+    });
   }
 
   getProviderName(): string {
@@ -112,7 +116,7 @@ export class R2Provider {
     return this.bucket;
   }
 
-  /** Build same-origin proxy URL for a key. */
+  /** Build same-origin proxy URL for a key */
   getPublicUrl(key: string, requestOrigin?: string): string {
     if (requestOrigin) {
       return `${requestOrigin}/api/storage/file?key=${encodeURIComponent(key)}`;
