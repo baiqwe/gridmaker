@@ -75,6 +75,11 @@
 }
 
 @theme inline {
+  /* font set: Noto Sans (body), Noto Serif, Noto Sans Mono (code), Bricolage Grotesque (headings) */
+  --font-sans: "Noto Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Noto Serif", ui-serif, Georgia, serif;
+  --font-mono: "Noto Sans Mono", ui-monospace, monospace;
+  --font-heading: "Bricolage Grotesque", ui-sans-serif, sans-serif;
   --border-width: 1px;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -121,10 +126,22 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply font-sans bg-background text-foreground;
+    @apply font-sans bg-background text-foreground antialiased;
   }
   html {
     @apply font-sans;
+  }
+  code {
+    font-family: var(--font-mono);
+  }
+  /* Use Bricolage Grotesque for headings (MkSaaS style) */
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose h5,
+  .prose h6 {
+    font-family: var(--font-heading);
   }
 }
 
