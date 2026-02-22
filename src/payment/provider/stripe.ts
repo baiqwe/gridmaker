@@ -179,7 +179,6 @@ export class StripeProvider implements PaymentProvider {
       successUrl,
       cancelUrl,
       metadata,
-      locale,
     } = params;
 
     try {
@@ -233,13 +232,6 @@ export class StripeProvider implements PaymentProvider {
       // Add customer to checkout session
       checkoutParams.customer = customerId;
 
-      // Add locale if provided
-      if (locale) {
-        checkoutParams.locale = this.mapLocaleToStripeLocale(
-          locale
-        ) as Stripe.Checkout.SessionCreateParams.Locale;
-      }
-
       // Add payment intent data for one-time payments
       if (price.type === PaymentTypes.ONE_TIME) {
         checkoutParams.payment_intent_data = {
@@ -287,17 +279,12 @@ export class StripeProvider implements PaymentProvider {
   public async createCustomerPortal(
     params: CreatePortalParams
   ): Promise<PortalResult> {
-    const { customerId, returnUrl, locale } = params;
+    const { customerId, returnUrl } = params;
 
     try {
       const session = await this.stripe.billingPortal.sessions.create({
         customer: customerId,
-        return_url: returnUrl ?? '',
-        locale: locale
-          ? (this.mapLocaleToStripeLocale(
-              locale
-            ) as Stripe.BillingPortal.SessionCreateParams.Locale)
-          : undefined,
+        return_url: returnUrl ?? ''
       });
 
       return {
@@ -320,7 +307,7 @@ export class StripeProvider implements PaymentProvider {
   ): Promise<void> {
     try {
       // Verify the event signature if webhook secret is available
-      const event = this.stripe.webhooks.constructEvent(
+      const event = await this.stripe.webhooks.constructEventAsync(
         payload,
         signature,
         this.webhookSecret
@@ -1016,66 +1003,6 @@ export class StripeProvider implements PaymentProvider {
     };
 
     return statusMap[status] || 'failed';
-  }
-
-  /**
-   * Map application locale to Stripe's supported locales
-   * @param locale Application locale (e.g., 'en', 'zh-CN')
-   * @returns Stripe locale string
-   */
-  private mapLocaleToStripeLocale(locale: string): string {
-    // Stripe supported locales as of 2023:
-    // https://stripe.com/docs/js/appendix/supported_locales
-    const stripeLocales = [
-      'bg',
-      'cs',
-      'da',
-      'de',
-      'el',
-      'en',
-      'es',
-      'et',
-      'fi',
-      'fil',
-      'fr',
-      'hr',
-      'hu',
-      'id',
-      'it',
-      'ja',
-      'ko',
-      'lt',
-      'lv',
-      'ms',
-      'mt',
-      'nb',
-      'nl',
-      'pl',
-      'pt',
-      'ro',
-      'ru',
-      'sk',
-      'sl',
-      'sv',
-      'th',
-      'tr',
-      'vi',
-      'zh',
-    ];
-
-    // First check if the exact locale is supported
-    if (stripeLocales.includes(locale)) {
-      return locale;
-    }
-
-    // If not, try to get the base language
-    const baseLocale = locale.split('-')[0];
-    if (stripeLocales.includes(baseLocale)) {
-      return baseLocale;
-    }
-
-    // Default to auto to let Stripe detect the language
-    return 'auto';
   }
 
   /**
