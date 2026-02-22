@@ -3,7 +3,6 @@ import { getSocialLinks } from '@/config/social-config';
 import { cn } from '@/lib/utils';
 import Container from '@/components/layout/container';
 import { Logo } from '@/components/shared/logo';
-import { SocialIcon } from '@/components/shared/social-icons';
 import { Link } from '@tanstack/react-router';
 import { websiteConfig } from '@/config/website';
 import { messages } from '@/messages';
@@ -27,18 +26,21 @@ export function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
               {messages.footer.tagline}
             </p>
             <div className="flex items-center gap-4 py-2">
-              {socialLinks?.map((link) => (
-                <a
-                  key={link.key}
-                  href={link.href ?? '#'}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={link.title}
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border hover:bg-accent hover:text-accent-foreground"
-                >
-                  <SocialIcon iconKey={link.key} className="size-4" />
-                </a>
-              ))}
+              {socialLinks?.map((link) => {
+                const Icon = link.icon;
+                return (
+                  <a
+                    key={link.title}
+                    href={link.href ?? '#'}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={link.title}
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border hover:bg-accent hover:text-accent-foreground"
+                  >
+                    {Icon ? <Icon className="size-4" /> : null}
+                  </a>
+                );
+              })}
             </div>
           </div>
 
