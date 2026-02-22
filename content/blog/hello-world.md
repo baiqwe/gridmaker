@@ -16,6 +16,8 @@ Normal paragraphs are supported. So are lists:
 - Item two
 - Item three
 
+The blog is powered by **content-collections**: each post is a Markdown file under `content/blog/` with frontmatter for `title`, `description`, `date`, `category`, and `image`. The template uses `@tailwindcss/typography` for readable prose and applies a dedicated heading font (Bricolage Grotesque) in `src/styles.css`.
+
 ## Images and links
 
 You can add [links](https://example.com) and reference images. Keep the layout simple and readable.
@@ -24,6 +26,10 @@ You can add [links](https://example.com) and reference images. Keep the layout s
 
 ## Code
 
-Inline `code` and blocks are just plain text in this simple setup. No syntax highlighting by design.
+Inline `code` and blocks are supported. Code blocks use the mono font (Noto Sans Mono) and get a muted background in dark mode. No syntax highlighting by design in this minimal setup.
+
+```bash
+pnpm dev
+```
 
 Thanks for reading.

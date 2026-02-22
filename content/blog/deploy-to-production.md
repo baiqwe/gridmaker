@@ -1,6 +1,6 @@
 ---
 title: Deploy to Production
-description: How to build and deploy your MkFast app to Cloudflare Pages or other platforms.
+description: How to build and deploy your TanStack Starter app to Cloudflare Workers.
 date: 2026-02-13
 category: Guide
 image: https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80
@@ -16,7 +16,7 @@ Create an optimized production build:
 pnpm build
 ```
 
-The output goes to `dist/` by default. For Cloudflare, the worker entry and assets are in `dist/server/` and `dist/client/`.
+The output goes to `dist/` by default. For Cloudflare, the worker entry and assets live under `dist/server/` and `dist/client/`. The build uses the Cloudflare Vite plugin, so the bundle is ready for Workers.
 
 ## Deploy to Cloudflare
 
@@ -26,12 +26,12 @@ If you use the included Wrangler setup:
 pnpm deploy
 ```
 
-This runs `pnpm build` and then `wrangler deploy`. Make sure you have configured your account and bindings in `wrangler.toml` and environment variables.
+This runs `pnpm build` and then `wrangler deploy`. Configure your account and bindings in `wrangler.toml` (or `wrangler.jsonc`) and set any required environment variables or secrets with `wrangler secret`.
 
 ![img](https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80)
 
 ## Other platforms
 
-You can also deploy the static client and run the server on Node, or use adapters for Vercel, Netlify, etc. Check the project docs for your target platform.
+You can also serve the built app on Node with the appropriate adapter, or use community adapters for Vercel, Netlify, etc. Check the TanStack Start docs for your target platform.
 
 Good luck with your launch.

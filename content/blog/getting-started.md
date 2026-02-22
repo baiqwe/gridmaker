@@ -1,12 +1,12 @@
 ---
-title: Getting Started with MkFast
-description: Quick guide to set up and run the MkFast template.
+title: Getting Started with TanStack Starter
+description: Quick guide to set up and run the TanStack Starter template.
 date: 2026-02-12
 category: Guide
 image: https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80
 ---
 
-This post walks you through the basics.
+This post walks you through the basics of running and customizing the TanStack Starter template.
 
 ## Prerequisites
 
@@ -18,6 +18,7 @@ This post walks you through the basics.
 Install dependencies and run the dev server:
 
 ```bash
+pnpm install
 pnpm dev
 ```
 
@@ -25,8 +26,10 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ![img](https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80)
 
+Blog posts live in `content/blog/` as Markdown files. The collection is defined in `content-collections.ts` with fields: `title`, `description`, `date`, `category`, `content`, and `image`. The slug is derived from the file path (e.g. `getting-started.md` → `getting-started`).
+
 ## Next steps
 
-- Configure your blog and newsletter in `websiteConfig`
-- Add more posts under `content/blog/`
-- Customize the layout and components as needed.
+- Toggle the blog and set pagination in `src/config/website.ts` under `blog.enable` and `blog.paginationSize`.
+- Add more posts under `content/blog/`; they will show up on the blog list and in the route `/blog/$slug`.
+- Customize the layout and blocks in `src/components/blocks/` and `src/routes/` as needed.
