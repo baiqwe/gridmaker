@@ -64,6 +64,10 @@ export const websiteConfig: WebsiteConfig = {
     provider: 'resend',
     autoSubscribeAfterSignUp: false,
   },
+  notification: {
+    enable: true,
+    provider: 'discord',
+  },
   storage: {
     enable: true,
     provider: 'r2',

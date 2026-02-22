@@ -13,6 +13,7 @@ export interface WebsiteConfig {
   blog?: BlogConfig;
   mail?: MailConfig;
   newsletter?: NewsletterConfig;
+  notification?: NotificationConfig;
   storage?: StorageConfig;
   payment?: PaymentConfig;
   price?: PriceConfig;
@@ -102,6 +103,12 @@ export interface NewsletterConfig {
   enable: boolean;                    // Whether to enable the newsletter
   provider?: 'resend' | 'beehiiv';    // The newsletter provider
   autoSubscribeAfterSignUp?: boolean; // Whether to automatically subscribe users after sign up
+}
+
+/** Notification configuration */
+export interface NotificationConfig {
+  enable: boolean;                    // Whether to enable the notification
+  provider?: 'discord' | 'feishu';    // The notification provider
 }
 
 /** Storage configuration */

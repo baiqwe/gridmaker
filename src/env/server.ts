@@ -19,6 +19,10 @@ export const serverEnv = createEnv({
     BEEHIIV_API_KEY: z.string().optional(),
     BEEHIIV_PUBLICATION_ID: z.string().optional(),
 
+    // Notification (Discord and Feishu)
+    DISCORD_WEBHOOK_URL: z.string().optional(),
+    FEISHU_WEBHOOK_URL: z.string().optional(),
+
     // Payment (Stripe)
     STRIPE_SECRET_KEY: z.string().optional(),
     STRIPE_WEBHOOK_SECRET: z.string().optional(),
