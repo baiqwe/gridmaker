@@ -11,7 +11,7 @@ import {
   DEFAULT_USER_FILES_FOLDER,
   R2_ERROR_CODES,
   StorageError,
-  UploadError
+  UploadError,
 } from '../types';
 import { websiteConfig } from '@/config/website';
 
@@ -96,13 +96,14 @@ export class R2Provider {
   constructor() {
     this.bucket = env.BUCKET;
     if (!this.bucket) {
-      throw new ConfigurationError('R2 bucket binding BUCKET is not configured.');
+      throw new ConfigurationError(
+        'R2 bucket binding BUCKET is not configured.'
+      );
     }
     this.userFilesFolder =
       websiteConfig.storage?.userFilesFolder ?? DEFAULT_USER_FILES_FOLDER;
     this.validator = createFileValidator({
-      maxFileSize:
-        websiteConfig.storage?.maxFileSize ?? DEFAULT_MAX_FILE_SIZE,
+      maxFileSize: websiteConfig.storage?.maxFileSize ?? DEFAULT_MAX_FILE_SIZE,
       allowedTypes:
         websiteConfig.storage?.allowedTypes ?? DEFAULT_ALLOWED_TYPES,
     });

@@ -17,6 +17,15 @@ count.txt
 __unconfig*
 todos.json
 
+# claude code
+.claude
+
+# conductor
+.conductor
+
+# kiro
+.kiro
+
 # Auto Claude data directory
 .auto-claude/
 
