@@ -55,7 +55,7 @@ function StatusIcon({ status }: { status: PaymentStatus }) {
   }
 }
 
-export type PaymentCardProps = {
+type PaymentCardProps = {
   sessionId: string | undefined;
   callback?: string;
 };

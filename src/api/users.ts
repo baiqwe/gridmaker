@@ -41,8 +41,6 @@ const listUsersInputSchema = z.object({
   status: z.enum(['active', 'inactive']).optional(),
 });
 
-export type ListUsersInput = z.infer<typeof listUsersInputSchema>;
-
 export const listUsers = createServerFn({ method: 'GET' })
   .inputValidator(listUsersInputSchema)
   .middleware([adminApiMiddleware])

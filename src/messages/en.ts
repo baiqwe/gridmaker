@@ -4,10 +4,10 @@
  */
 export const messages = {
   site: {
-    name: 'MkFast',
-    title: 'MkFast - Make AI SaaS in days',
+    name: 'Tanstack Starter',
+    title: 'Ship with TanStack Start & Cloudflare, fast and cheap',
     description:
-      'Make AI SaaS in days. Build and ship your AI-powered product with a modern stack and best practices.',
+      'Tanstack Starter is the complete Tanstack Start boilerplate for building profitable SaaS, packed with AI, auth, payments, blog, database, storage, email, newsletter, dashboard, SEO and more, deployed on Cloudflare Workers',
   },
 
   nav: {
@@ -72,7 +72,7 @@ export const messages = {
   },
 
   footer: {
-    tagline: 'Make AI SaaS in days, simply and effortlessly',
+    tagline: 'The complete Tanstack Start boilerplate for building profitable SaaS, packed with AI, auth, payments, blog, database, storage, email, newsletter, dashboard, SEO and more, deployed on Cloudflare Workers',
     rightsReserved: 'All Rights Reserved',
   },
 
@@ -525,7 +525,7 @@ export const messages = {
     description: 'Learn more about our mission and how we can help you',
     bio: 'We help you make SaaS faster',
     introduction:
-      '👋 Hi there! This is MkFast, an AI SaaS template built with modern technologies, helping you build your SaaS faster and better. If you have any questions, please welcome to contact us for free.',
+      '👋 Hi there! This is Tanstack Starter, the complete Tanstack Start boilerplate for building profitable SaaS, packed with AI, auth, payments, blog, database, storage, newsletter, dashboard, SEO and more. If you have any questions, please welcome to contact us for free.',
     followUs: 'Follow us on X',
     contactUs: 'Contact us',
   },

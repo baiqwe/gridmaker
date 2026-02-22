@@ -1,11 +1,5 @@
 import { getCurrentPlan } from '@/api/payment';
-import type { PricePlan, Subscription } from '@/payment/types';
 import { useQuery } from '@tanstack/react-query';
-
-export type CurrentPlanResult = {
-  currentPlan: PricePlan | null;
-  subscription: Subscription | null;
-};
 
 export function useCurrentPlan(userId: string | undefined) {
   return useQuery({

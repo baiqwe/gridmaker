@@ -17,7 +17,7 @@ export default function HeroSection() {
                 className="hover:bg-accent group mx-auto flex w-fit items-center gap-2 rounded-full border p-1 pl-4"
               >
                 <span className="text-foreground text-sm">
-                  Introducing MkFast – the best AI SaaS boilerplate
+                  Introducing Tanstack Starter
                 </span>
                 <span className="flex size-6">
                   <IconArrowRight className="m-auto size-3" />
@@ -25,12 +25,11 @@ export default function HeroSection() {
               </a>
 
               <h1 className="mt-8 text-balance text-5xl font-bold lg:mt-16 xl:text-[5rem]">
-                Make AI SaaS in days, simply and effortlessly
+                Ship with TanStack Start & Cloudflare, fast and cheap
               </h1>
 
               <p className="mx-auto mt-8 max-w-4xl text-balance text-lg text-muted-foreground">
-                MkFast is a modern SaaS starter with auth, payments, and AI
-                features. Build your product faster with a solid foundation.
+                The complete Tanstack Start boilerplate for building profitable SaaS, packed with AI, auth, payments, blog, database, storage, email, newsletter, dashboard, SEO and more, deployed on Cloudflare Workers
               </p>
 
               <div className="mt-12 flex flex-row items-center justify-center gap-4">

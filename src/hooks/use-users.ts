@@ -3,8 +3,7 @@ import { listUsers } from '@/api/users';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { ColumnSort } from '@tanstack/react-table';
 
-/** Sorting state for users list */
-export type UsersSortingState = ColumnSort[];
+type UsersSortingState = ColumnSort[];
 
 interface SimpleFilter {
   id: string;
