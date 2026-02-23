@@ -123,9 +123,7 @@ export function ApiKeysTable({
         id: 'key',
         accessorKey: 'start',
         header: t.columns.key,
-        cell: ({ row }) => (
-          <span className="font-mono">{maskApiKey(row.original.start)}</span>
-        ),
+        cell: ({ row }) => <span>{maskApiKey(row.original.start)}</span>,
         minSize: 180,
         size: 220,
         enableSorting: false,
@@ -293,11 +291,7 @@ export function ApiKeysTable({
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="flex items-center gap-2">
-              <Input
-                readOnly
-                value={newKeyValue}
-                className="font-mono text-sm"
-              />
+              <Input readOnly value={newKeyValue} className="text-sm" />
               <Button
                 variant="outline"
                 size="icon"

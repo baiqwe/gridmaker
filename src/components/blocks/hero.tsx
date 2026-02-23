@@ -52,7 +52,7 @@ export default function HeroSection() {
               </a>
 
               {/* title */}
-              <h1 className="font-heading mt-8 text-balance text-5xl font-bold lg:mt-16 xl:text-[5rem]">
+              <h1 className="mt-8 text-balance text-5xl font-bold lg:mt-16 xl:text-[5rem]">
                 {m.title}
               </h1>
 

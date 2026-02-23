@@ -24,8 +24,7 @@ const m = {
       name: 'Alex Chen',
       role: 'Engineer, Tech Co',
       image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Alex',
-      quote:
-        'Clean code, great DX. We extended it for our use case easily.',
+      quote: 'Clean code, great DX. We extended it for our use case easily.',
     },
     'item-4': {
       name: 'Maria Garcia',
