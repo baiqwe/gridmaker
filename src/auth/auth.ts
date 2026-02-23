@@ -1,8 +1,10 @@
+import type { User } from 'better-auth';
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { tanstackStartCookies } from 'better-auth/tanstack-start';
 import { getDb } from '@/db';
 import { sendEmail } from '@/mail';
+import { subscribe } from '@/newsletter';
 import { getBaseUrl } from '@/lib/urls';
 import { serverEnv } from '@/env/server';
 import { websiteConfig } from '@/config/website';
@@ -93,6 +95,16 @@ export const auth = betterAuth({
       enabled: websiteConfig.auth?.enableDeleteUser ?? false,
     },
   },
+  databaseHooks: {
+    // https://www.better-auth.com/docs/concepts/database#database-hooks
+    user: {
+      create: {
+        after: async (user) => {
+          await onCreateUser(user);
+        },
+      },
+    },
+  },
   plugins: [
     // https://www.better-auth.com/docs/integrations/tanstack
     tanstackStartCookies(),
@@ -120,8 +132,35 @@ export const auth = betterAuth({
   onAPIError: {
     // https://www.better-auth.com/docs/reference/options#onapierror
     errorURL: '/auth/error',
-    onError: (error, ctx) => {
+    onError: (error, _ctx) => {
       console.error('auth error:', error);
     },
   },
 });
+
+/**
+ * Runs after a new user is created. Auto-subscribes to newsletter when enabled.
+ */
+async function onCreateUser(user: User) {
+  const newsletter = websiteConfig.newsletter;
+  if (
+    !user.email ||
+    !newsletter?.enable ||
+    !newsletter.autoSubscribeAfterSignUp
+  ) {
+    return;
+  }
+  // Delay to avoid rate limiting (e.g. Resend 1 email/sec) and let verification email send first
+  setTimeout(async () => {
+    try {
+      const subscribed = await subscribe(user.email!);
+      if (!subscribed) {
+        console.error(`Failed to subscribe user ${user.email} to newsletter`);
+      } else {
+        console.log(`User ${user.email} subscribed to newsletter`);
+      }
+    } catch (error) {
+      console.error('Newsletter subscription error:', error);
+    }
+  }, 2000);
+}
