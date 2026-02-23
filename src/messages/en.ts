@@ -5,7 +5,7 @@
 export const messages = {
   site: {
     name: 'TanStack Starter',
-    title: 'Ship Faster, Cost Less',
+    title: 'TanStack Starter - Ship Faster, Cost Less',
     description:
       'TanStack Starter is the complete TanStack Start boilerplate for building profitable SaaS, packed with AI, auth, payments, storage, email, newsletter, blog, dashboard, SEO and more, fully deployed on Cloudflare Workers',
   },

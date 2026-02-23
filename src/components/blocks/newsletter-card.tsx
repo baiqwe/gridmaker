@@ -28,7 +28,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export function NewsletterCard() {
+export default function NewsletterCard() {
   const enabled = websiteConfig.newsletter?.enable ?? false;
   const [error, setError] = useState<string | undefined>();
   const subscribeMutation = useSubscribeNewsletter();
