@@ -182,10 +182,13 @@ export function Navbar({ scroll = true }: NavbarProps) {
                   <LoginWrapper mode="modal" asChild>
                     <button
                       type="button"
-                      className={buttonVariants({
-                        variant: 'outline',
-                        size: 'sm',
-                      })}
+                      className={cn(
+                        buttonVariants({
+                          variant: 'outline',
+                          size: 'sm',
+                        }),
+                        'cursor-pointer'
+                      )}
                     >
                       {messages.auth.common.login}
                     </button>
