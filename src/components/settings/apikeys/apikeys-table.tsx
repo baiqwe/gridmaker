@@ -1,7 +1,7 @@
 'use client';
 
 import { DataTablePagination } from '@/components/data-table/data-table-pagination';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -30,6 +30,7 @@ import {
 } from '@/components/ui/table';
 import type { ApiKey } from '@/db/types';
 import { formatDate } from '@/lib/formatter';
+import { cn } from '@/lib/utils';
 import { messages } from '@/messages';
 import {
   type ColumnDef,
@@ -159,11 +160,11 @@ export function ApiKeysTable({
           const keyId = row.original.id;
           return (
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <IconDots className="size-4" />
-                  <span className="sr-only">{t.columns.actions}</span>
-                </Button>
+              <DropdownMenuTrigger
+                className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
+              >
+                <IconDots className="size-4" />
+                <span className="sr-only">{t.columns.actions}</span>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onClick={() => onDelete(keyId)}>
@@ -239,11 +240,11 @@ export function ApiKeysTable({
     <div className="w-full space-y-4">
       <div className="flex items-center justify-between">
         <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
-          <DialogTrigger asChild>
-            <Button>
-              <IconPlus className="size-4" />
-              {t.createButton}
-            </Button>
+          <DialogTrigger
+            className={cn(buttonVariants({ variant: 'default', size: 'default' }))}
+          >
+            <IconPlus className="size-4" />
+            {t.createButton}
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
