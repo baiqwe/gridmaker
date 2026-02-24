@@ -13,8 +13,7 @@ export const newsletterKeys = {
 export function useNewsletterStatus(email: string | undefined) {
   return useQuery({
     queryKey: newsletterKeys.status(email ?? ''),
-    queryFn: ({ signal }) =>
-      getNewsletterStatus({ data: { email: email! }, signal }),
+    queryFn: () => getNewsletterStatus({ data: { email: email! } }),
     enabled: !!email,
     staleTime: 5 * 60 * 1000,
   });
