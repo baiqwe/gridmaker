@@ -204,11 +204,11 @@ export function FilesTable({
           const id = row.original.id;
           return (
             <DropdownMenu>
-              <DropdownMenuTrigger>
-                <Button variant="ghost" size="icon">
-                  <IconDots className="size-4" />
-                  <span className="sr-only">{t.columns.actions}</span>
-                </Button>
+              <DropdownMenuTrigger
+                className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
+              >
+                <IconDots className="size-4" />
+                <span className="sr-only">{t.columns.actions}</span>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onClick={() => onDelete(id)}>
@@ -278,11 +278,11 @@ export function FilesTable({
     <div className="w-full space-y-4">
       <div className="flex items-center justify-between">
         <Dialog open={uploadOpen} onOpenChange={setUploadOpen}>
-          <DialogTrigger>
-            <Button>
-              <IconPlus className="size-4" />
-              {t.uploadButton}
-            </Button>
+          <DialogTrigger
+            className={cn(buttonVariants({ variant: 'default', size: 'default' }))}
+          >
+            <IconPlus className="size-4" />
+            {t.uploadButton}
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
