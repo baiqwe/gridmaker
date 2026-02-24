@@ -618,7 +618,7 @@ export const messages = {
 
   common: {
     cancel: 'Cancel',
-    loading: 'Loading',
+    loading: 'Loading...',
     settings: 'Settings',
     mode: {
       theme: 'Theme',

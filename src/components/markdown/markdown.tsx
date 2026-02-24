@@ -26,7 +26,7 @@ export function Markdown({ content, className }: MarkdownProps) {
   }, [content]);
 
   if (!result) {
-    return <div className={className}>{messages.common.loading}…</div>;
+    return <div className={className}>{messages.common.loading}</div>;
   }
 
   const options: HTMLReactParserOptions = {
@@ -75,8 +75,13 @@ export function Markdown({ content, className }: MarkdownProps) {
               return child;
             }
           );
+          // Map HTML 'class' to React 'className' to avoid invalid DOM property
+          const { class: classAttr, ...restAttribs } = domNode.attribs;
+          const codeAttribs = classAttr
+            ? { ...restAttribs, className: classAttr }
+            : restAttribs;
           return (
-            <code {...domNode.attribs}>
+            <code {...codeAttribs}>
               {domToReact(processedChildren as DOMNode[], options)}
             </code>
           );
