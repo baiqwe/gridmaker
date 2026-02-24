@@ -13,7 +13,6 @@ TanStarter (mkfast-template) is a **TanStack Start** full-stack SaaS boilerplate
 ## Build, Database & Tooling
 
 - Build: `pnpm build` (Vite production build)
-- Preview: `pnpm preview` (preview production build)
 - Generate Cloudflare env types: `pnpm cf-typegen` (run after `pnpm install` via postinstall)
 - Auth schema: `pnpm auth:schema:generate` — generates `src/db/auth.schema.ts` from Better Auth
 - Drizzle: `pnpm db:generate` (migrations from schema), `pnpm db:push` (push schema to DB), `pnpm db:studio:local` / `pnpm db:studio:remote` (Drizzle Studio), `pnpm db:migrate:local` / `pnpm db:migrate:remote` (apply D1 migrations)
