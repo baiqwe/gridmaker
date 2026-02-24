@@ -6,7 +6,6 @@
     "dev": "vite dev --port 3000",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest run",
     "knip": "knip",
     "check": "biome check",
     "lint": "biome check --write .",
@@ -95,13 +94,11 @@
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.0.4",
     "drizzle-kit": "^0.31.9",
-    "jsdom": "^27.0.0",
     "knip": "^5.84.1",
     "react-email": "5.2.5",
     "tsx": "^4.21.0",
     "typescript": "^5.7.2",
     "vite": "^7.1.7",
-    "vitest": "^3.0.5",
     "wrangler": "^4.40.3"
   }
 }
