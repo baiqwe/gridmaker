@@ -3,7 +3,16 @@ import { buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { Link } from '@tanstack/react-router';
-import { IconChevronRight } from '@tabler/icons-react';
+import {
+  IconBrandCodesandbox,
+  IconBrandGoogleFilled,
+  IconBrandOpenai,
+  IconBrandReact,
+  IconBrandVisualStudio,
+  IconBrandWikipedia,
+  IconChevronRight,
+} from '@tabler/icons-react';
+import type { Icon } from '@tabler/icons-react';
 
 const m = {
   title: 'INTEGRATIONS',
@@ -35,27 +44,58 @@ const m = {
   },
 };
 
-const items = [
-  m.items['item-1'],
-  m.items['item-2'],
-  m.items['item-3'],
-  m.items['item-4'],
-  m.items['item-5'],
-  m.items['item-6'],
-] as const;
+// Brand colors (visible on both light and dark backgrounds)
+const BRAND_COLORS = {
+  openai: '#10a37f',
+  codesandbox: '#f38020',
+  react: '#61dafb',
+  vs: '#007acc',
+  wikipedia: '#636466',
+  google: '#4285f4',
+} as const;
+
+const items: Array<{
+  title: string;
+  description: string;
+  icon: Icon;
+  color: string;
+}> = [
+  { ...m.items['item-1'], icon: IconBrandOpenai, color: BRAND_COLORS.openai },
+  {
+    ...m.items['item-2'],
+    icon: IconBrandCodesandbox,
+    color: BRAND_COLORS.codesandbox,
+  },
+  { ...m.items['item-3'], icon: IconBrandReact, color: BRAND_COLORS.react },
+  { ...m.items['item-4'], icon: IconBrandVisualStudio, color: BRAND_COLORS.vs },
+  {
+    ...m.items['item-5'],
+    icon: IconBrandWikipedia,
+    color: BRAND_COLORS.wikipedia,
+  },
+  {
+    ...m.items['item-6'],
+    icon: IconBrandGoogleFilled,
+    color: BRAND_COLORS.google,
+  },
+];
 
 function IntegrationCard({
   title,
   description,
+  icon: Icon,
+  color,
 }: {
   title: string;
   description: string;
+  icon: Icon;
+  color: string;
 }) {
   return (
     <Card className="bg-transparent p-6 hover:bg-accent dark:hover:bg-card">
       <div className="relative">
         <div className="*:size-10">
-          <div className="size-10 rounded-lg bg-muted" />
+          <Icon className="size-10 shrink-0" style={{ color }} />
         </div>
 
         <div className="space-y-2 py-6">
@@ -100,6 +140,8 @@ export default function IntegrationSection() {
               key={item.title}
               title={item.title}
               description={item.description}
+              icon={item.icon}
+              color={item.color}
             />
           ))}
         </div>

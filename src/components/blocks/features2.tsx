@@ -56,7 +56,7 @@ export default function Features2Section() {
           </div>
 
           <div className="relative rounded-3xl border border-border/50 p-3 lg:col-span-3">
-            <div className="relative aspect-[76/59] rounded-2xl bg-gradient-to-b from-zinc-300 to-transparent p-px dark:from-zinc-700">
+            <div className="relative aspect-76/59 rounded-2xl bg-linear-to-b from-zinc-300 to-transparent p-px dark:from-zinc-700">
               <img
                 src="https://cdn.mksaas.com/blocks/dark-card.webp"
                 alt="Card illustration dark"

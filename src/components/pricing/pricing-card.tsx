@@ -185,7 +185,7 @@ export function PricingCard({
 
         {hasTrialPeriod && price && (
           <div className="my-4">
-            <span className="inline-block rounded-md border border-blue-200 bg-blue-100 px-2.5 py-1.5 text-xs font-medium text-blue-800 shadow-sm dark:border-blue-800 dark:bg-blue-900 dark:text-blue-200">
+            <span className="inline-block rounded-md border border-green-200 bg-green-100 px-2.5 py-1.5 text-xs font-medium text-green-800 shadow-sm dark:border-green-800 dark:bg-green-900 dark:text-green-200">
               {price.trialPeriodDays} {card.daysFreeTrial}
             </span>
           </div>

@@ -2,6 +2,14 @@ import { Logo } from '@/components/shared/logo';
 import { buttonVariants } from '@/components/ui/button';
 import { Link } from '@tanstack/react-router';
 import { cn } from '@/lib/utils';
+import {
+  IconBrandCodesandbox,
+  IconBrandGoogleFilled,
+  IconBrandOpenai,
+  IconBrandReact,
+  IconBrandVisualStudio,
+  IconBrandWikipedia,
+} from '@tabler/icons-react';
 
 const m = {
   title: 'Integrate with your favorite tools',
@@ -10,6 +18,25 @@ const m = {
   primaryButton: 'Get Started',
   secondaryButton: 'View Pricing',
 };
+
+// Same brand icons and colors as integration.tsx
+const BRAND_COLORS = {
+  openai: '#10a37f',
+  codesandbox: '#f38020',
+  react: '#61dafb',
+  vs: '#007acc',
+  wikipedia: '#636466',
+  google: '#4285f4',
+} as const;
+
+const BRAND_ICONS = [
+  { Icon: IconBrandOpenai, color: BRAND_COLORS.openai },
+  { Icon: IconBrandCodesandbox, color: BRAND_COLORS.codesandbox },
+  { Icon: IconBrandReact, color: BRAND_COLORS.react },
+  { Icon: IconBrandVisualStudio, color: BRAND_COLORS.vs },
+  { Icon: IconBrandWikipedia, color: BRAND_COLORS.wikipedia },
+  { Icon: IconBrandGoogleFilled, color: BRAND_COLORS.google },
+];
 
 function IntegrationCard({
   children,
@@ -31,7 +58,7 @@ function IntegrationCard({
         role="presentation"
         className={cn('absolute inset-0 rounded-xl border', borderClassName)}
       />
-      <div className="relative z-20 m-auto size-fit [&>*]:size-8 flex items-center justify-center">
+      <div className="relative z-20 m-auto size-fit *:size-8 flex items-center justify-center">
         {children}
       </div>
     </div>
@@ -39,6 +66,7 @@ function IntegrationCard({
 }
 
 export default function Integration2Section() {
+  const [b0, b1, b2, b3, b4, b5] = BRAND_ICONS;
   return (
     <section>
       <div className="bg-muted/50 py-24">
@@ -47,15 +75,15 @@ export default function Integration2Section() {
             <div className="relative mx-auto w-fit">
               <div className="mx-auto mb-2 flex w-fit justify-center gap-2">
                 <IntegrationCard>
-                  <div className="rounded bg-muted-foreground/20 size-8" />
+                  <b0.Icon className="size-8" style={{ color: b0.color }} />
                 </IntegrationCard>
                 <IntegrationCard>
-                  <div className="rounded bg-muted-foreground/20 size-8" />
+                  <b1.Icon className="size-8" style={{ color: b1.color }} />
                 </IntegrationCard>
               </div>
               <div className="mx-auto my-2 flex w-fit justify-center gap-2">
                 <IntegrationCard>
-                  <div className="rounded bg-muted-foreground/20 size-8" />
+                  <b2.Icon className="size-8" style={{ color: b2.color }} />
                 </IntegrationCard>
                 <IntegrationCard
                   borderClassName="border-black/25 dark:border-white/25"
@@ -64,15 +92,15 @@ export default function Integration2Section() {
                   <Logo />
                 </IntegrationCard>
                 <IntegrationCard>
-                  <div className="rounded bg-muted-foreground/20 size-8" />
+                  <b3.Icon className="size-8" style={{ color: b3.color }} />
                 </IntegrationCard>
               </div>
               <div className="mx-auto flex w-fit justify-center gap-2">
                 <IntegrationCard>
-                  <div className="rounded bg-muted-foreground/20 size-8" />
+                  <b4.Icon className="size-8" style={{ color: b4.color }} />
                 </IntegrationCard>
                 <IntegrationCard>
-                  <div className="rounded bg-muted-foreground/20 size-8" />
+                  <b5.Icon className="size-8" style={{ color: b5.color }} />
                 </IntegrationCard>
               </div>
             </div>

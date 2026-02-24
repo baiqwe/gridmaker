@@ -48,16 +48,16 @@ function HomePage() {
     <div className="flex flex-col">
       <HeroSection />
       <LogoCloudSection />
+      <StatsSection />
       <Features3Section />
       <FeaturesSection />
+      <CallToActionSection />
       <Features2Section />
       <IntegrationSection />
       <Integration2Section />
       <PricingSection />
       <FaqSection />
-      <CallToActionSection />
       <TestimonialsSection />
-      <StatsSection />
       <NewsletterCard />
     </div>
   );
