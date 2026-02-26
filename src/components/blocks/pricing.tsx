@@ -9,7 +9,7 @@ const m = {
 export default function PricingSection() {
   return (
     <section id="pricing" className="px-4 py-16">
-      <div className="mx-auto max-w-6xl space-y-16 px-6">
+      <div className="mx-auto max-w-6xl space-y-16">
         <HeaderSection
           subtitle={m.subtitle}
           subtitleAs="h2"
