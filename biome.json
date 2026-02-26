@@ -64,8 +64,6 @@
       },
       "correctness": {
         "useExhaustiveDependencies": "off",
-        "noUnusedVariables": "off",
-        "noUnusedFunctionParameters": "off",
         "noUnusedImports": "off",
         "useHookAtTopLevel": "off",
         "useParseIntRadix": "off"
