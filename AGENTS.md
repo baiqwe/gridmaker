@@ -1,55 +1,187 @@
+# AGENTS.md - Agent Coding Guidelines
+
+This document provides guidelines for AI agents working in this codebase.
+
 ## Project Overview
 
-TanStarter (mkfast-template) is a **TanStack Start** full-stack SaaS boilerplate that runs on **Cloudflare Workers**. It includes auth (Better Auth), payments (Stripe), database (Drizzle ORM + Cloudflare D1), storage (Cloudflare R2), email (Resend), newsletter (Resend / Beehiiv), blog (content-collections), dashboar (ShadcnUI + BaseUI + Tailwind CSS.), and deploy on Cloudflare Workers via wrangler. The app is built with Vite, React 19, TanStack Router, Drizzle ORM (D1), and
+This is **TanStarter** - a TanStack Start boilerplate for building SaaS applications on Cloudflare Workers. Built with React 19, TanStack Router, TanStack Query, Drizzle ORM, and Better Auth, Content Collections, ShadcnUI, and BaseUI.
 
-## Setup Commands
+## Build Commands
 
-- Install dependencies: `pnpm install`
-- Copy env: copy `.env.local.example` to `.env.local` and fill in values
-- Start dev server: `pnpm dev` (Vite on port 3000)
-- Lint/format: `pnpm check` (Biome check), `pnpm lint` (check + write), `pnpm format` (format only)
-- Deploy: `pnpm run deploy` (build then `wrangler deploy`)
+```bash
+# Development
+pnpm install                # Install dependencies
+pnpm dev                    # Start dev server on port 3000
+pnpm build                  # Build for production
 
-## Build, Database & Tooling
+# Linting & Formatting
+pnpm lint                   # Run Biome linter with auto-fix
+pnpm check                  # Run Biome linter (check only, no auto-fix)
+pnpm format                 # Format code with Biome
 
-- Build: `pnpm build` (Vite production build)
-- Generate Cloudflare env types: `pnpm cf-typegen` (run after `pnpm install` via postinstall)
-- Auth schema: `pnpm auth:schema:generate` — generates `src/db/auth.schema.ts` from Better Auth
-- Drizzle: `pnpm db:generate` (migrations from schema), `pnpm db:push` (push schema to DB), `pnpm db:studio:local` / `pnpm db:studio:remote` (Drizzle Studio), `pnpm db:migrate:local` / `pnpm db:migrate:remote` (apply D1 migrations)
-- Email preview: `pnpm email:dev` (React Email dev server on port 3333, templates in `src/mail/templates`)
-- Dead code: `pnpm knip`
+# Database
+pnpm db:generate            # Generate Drizzle types
+pnpm db:push                # Push schema to database
+pnpm db:migrate:local       # Run migrations locally
+pnpm db:migrate:remote      # Run migrations on remote
+pnpm db:studio:local        # Open local DB studio
+pnpm db:studio:remote       # Open remote DB studio
 
-## Project Structure
+# Auth
+pnpm auth:schema:generate   # Generate better-auth schema
 
-- `src/routes/` — TanStack Router file-based routes; do not edit `src/routeTree.gen.ts` (auto-generated)
-- `src/components/` — Reusable UI (e.g. `ui/`, blocks, auth, settings, layout)
-- `src/lib/` — Shared utilities and helpers
-- `src/db/` — Drizzle schema and migrations (Cloudflare D1); `auth.schema.ts` is generated
-- `src/auth/` — Better Auth config and API
-- `src/payment/`, `src/storage/`, `src/mail/`, `src/newsletter/`, `src/notification/` — Feature modules and providers
-- `src/api/` — API route handlers / server logic used by routes
-- `src/config/` — App config (website, navbar, footer, sidebar, etc.)
-- `src/env/` — Env validation (client/server)
-- `src/hooks/`, `src/middlewares/` — React hooks and route middlewares
-- `content/` — MDX/blog content for content-collections
-- `scripts/` — One-off scripts (e.g. DB name, wrangler parsing)
-- `docs/` — Project docs (env, db, storage, auth)
-- Config: `wrangler.jsonc` (Cloudflare), `drizzle.config.ts` / `drizzle.config.local.ts`, `biome.json`
+# Deployment
+pnpm deploy                 # Build and deploy to Cloudflare
 
-## Code Style & Naming
+# Other
+pnpm knip                   # Check for unused code/dependencies
+pnpm cf-typegen             # Generate Cloudflare types
+```
 
-- **Biome** (`biome.json`): two-space indent, **single quotes**, ES5 trailing commas, **semicolons**, line width 80. Use `pnpm check` / `pnpm lint` / `pnpm format` before committing.
-- Filenames: **kebab-case** (e.g. `dashboard-sidebar.tsx`). Hooks: **`use-`** prefix (e.g. `use-auth.ts`).
-- Prefer **named exports** for utilities and components. Keep server-only logic out of client bundles; use env from `src/env/` (client vs server).
-- Styling: Tailwind in `src/styles.css`; avoid scattering magic values; prefer design tokens or shared classes.
+## Code Style
 
-## Commit & PR Guidelines
+### Formatting (Biome)
 
-- Use **Conventional Commits** (`feat:`, `fix:`, `chore:`, etc.). Keep commits scoped; reference issue IDs in the body.
-- Update `.env.local.example` when adding or changing environment variables.
-- PRs: short summary, how you tested (commands + result), screenshots for UI, and callouts for config or docs. Run `pnpm check` before pushing; call out breaking changes.
+- **Indent**: 2 spaces
+- **Line width**: 80 characters
+- **Quotes**: Single quotes (`'`)
+- **Trailing commas**: ES5 style
+- **Semicolons**: Always required
 
-## Configuration & Secrets
+### Import Conventions
 
-- Do not commit `.env` or `.env.local`. Copy `.env.local.example` to `.env.local` and fill in secrets. Production secrets live in the deployment environment (e.g. Cloudflare).
-- Use scoped API keys for Stripe, Resend, OAuth, etc. Remove temporary debug logs before merging. See `docs/env.md` for variable reference.
+```typescript
+// Use path aliases (@/) for internal imports
+import { authClient } from '@/auth/client';
+import { getDb } from '@/db';
+import { user } from '@/db/auth.schema';
+
+// Order: external → internal → relative
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { cn } from '@/lib/utils';
+import { MyComponent } from './my-component';
+```
+
+### Naming Conventions
+
+- **Files**: kebab-case (e.g., `use-auth.ts`, `data-table.tsx`)
+- **Components**: PascalCase (e.g., `DataTable`, `LoginForm`)
+- **Hooks**: camelCase with `use` prefix (e.g., `useUserAccounts`, `useAuth`)
+- **Utilities**: camelCase (e.g., `cn`, `formatDate`)
+- **Constants**: SCREAMING_SNAKE_CASE for config values (e.g., `SORT_FIELD_MAP`)
+- **Types/Interfaces**: PascalCase (e.g., `User`, `ListUsersInput`)
+
+### TypeScript Guidelines
+
+- Use explicit types for function parameters and return types
+- Prefer `interface` over `type` for object shapes
+- Use `zod` for runtime validation (see `src/api/users.ts` for examples)
+- Avoid `any` - use `unknown` when type is truly unknown
+
+```typescript
+// Good
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+// Validation with Zod
+const listUsersInputSchema = z.object({
+  pageIndex: z.number().int().min(0),
+  pageSize: z.number().int().min(1).max(100),
+  search: z.string(),
+});
+```
+
+### Error Handling
+
+- Use explicit error throwing with descriptive messages
+- Handle API errors gracefully with user feedback
+- Use try/catch for async operations
+
+```typescript
+// Good - explicit error with message
+if (!userId) throw new Error('User ID is required');
+if ('data' in accounts && Array.isArray(accounts.data))
+  return accounts.data;
+throw new Error('Failed to fetch user accounts');
+```
+
+### React Patterns
+
+- Use TanStack Query (`useQuery`, `useMutation`) for server state
+- Use TanStack Router for routing (file-based routing in `src/routes/`)
+- Use Zod with `react-hook-form` + `@hookform/resolvers` for forms
+- Prefer functional components with hooks
+
+```typescript
+// Query keys pattern (recommended)
+export const userAccountsKeys = {
+  all: ['userAccounts'] as const,
+  list: (userId: string) => [...userAccountsKeys.all, 'list', userId] as const,
+};
+
+export function useUserAccounts(userId: string | undefined) {
+  return useQuery({
+    queryKey: userAccountsKeys.list(userId ?? ''),
+    queryFn: async () => {
+      // query logic
+    },
+    enabled: !!userId,
+  });
+}
+```
+
+### Server Functions
+
+Use `createServerFn` from `@tanstack/react-start` for API endpoints:
+
+```typescript
+import { createServerFn } from '@tanstack/react-start';
+
+export const listUsers = createServerFn({ method: 'GET' })
+  .inputValidator(listUsersInputSchema)
+  .middleware([adminApiMiddleware])
+  .handler(async ({ data }) => {
+    // handler logic
+  });
+```
+
+### Database (Drizzle ORM)
+
+- Schema files in `src/db/` (`auth.schema.ts`, `app.schema.ts`)
+- Use `drizzle-orm` queries with proper type safety
+- Follow the pattern in `src/api/users.ts` for CRUD operations
+
+### Styling
+
+- Use Tailwind CSS v4 with `@tailwindcss/vite`
+- Use `cn()` utility from `src/lib/utils` for conditional classes
+- Follow component patterns in `src/components/ui/`
+
+## File Structure
+
+```
+src/
+├── api/              # Server functions (API endpoints)
+├── auth/             # Authentication (better-auth)
+├── components/       # React components
+│   ├── ui/           # Base UI components (shadcn)
+│   └── data-table/   # Data table components
+├── db/               # Database schemas and utilities
+├── hooks/            # Custom React hooks
+├── lib/              # Utilities and helpers
+├── routes/           # TanStack Router routes (file-based)
+├── newsletter/       # Newsletter functionality
+├── payment/          # Payment integration (Stripe)
+└── storage/          # File storage (Cloudflare R2)
+```
+
+## Important Notes
+
+- This project uses Cloudflare Workers - avoid Node.js-specific APIs
+- Some files are auto-generated and excluded from linting (see `biome.json`)
+- Run `pnpm lint` before committing code
+- Database migrations use Drizzle Kit with Wrangler
