@@ -179,6 +179,16 @@ src/
 └── storage/          # File storage (Cloudflare R2)
 ```
 
+## Technical Design Stack
+
+- **CSS Framework:** Tailwind CSS v4 with oklch color tokens
+- **Component Library:** shadcn/ui (base-nova style) + Base UI React primitives
+- **Variant System:** class-variance-authority (CVA) + clsx + tailwind-merge
+- **Icons:** Tabler Icons (`@tabler/icons-react`)
+- **Animation:** tw-animate-css (minimal, purposeful transitions)
+- **Font:** Bricolage Grotesque (400, 500, 600, 700 weights, Latin subset)
+- **Dark mode:** Class-based (`.dark` on `<html>`), localStorage-persisted
+
 ## Important Notes
 
 - This project uses Cloudflare Workers - avoid Node.js-specific APIs
