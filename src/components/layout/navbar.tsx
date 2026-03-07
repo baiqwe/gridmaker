@@ -12,6 +12,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import { Skeleton } from '@/components/ui/skeleton';
 import Container from '@/components/layout/container';
@@ -25,12 +26,6 @@ import { Link, useLocation } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { websiteConfig } from '@/config/website';
 import { messages } from '@/messages';
-
-const navTriggerClass =
-  'rounded-lg px-2.5 py-1.5 text-sm font-medium bg-transparent text-muted-foreground hover:bg-accent hover:text-accent-foreground data-active:font-semibold data-active:bg-transparent data-active:text-accent-foreground';
-
-const navDropdownItemClass =
-  'group flex items-center gap-4 rounded-md p-2 text-sm font-medium no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground';
 
 interface NavbarProps {
   scroll?: boolean;
@@ -80,28 +75,22 @@ export function Navbar({ scroll = true }: NavbarProps) {
               onValueChange={setMenuValue}
               className="flex-1 justify-center"
             >
-              <NavigationMenuList className="flex items-center gap-1">
+              <NavigationMenuList>
                 {menuLinks?.map((item) =>
                   item.items ? (
-                    <NavigationMenuItem
-                      key={item.title}
-                      value={item.title}
-                      className="relative"
-                    >
+                    <NavigationMenuItem key={item.title} value={item.title}>
                       <NavigationMenuTrigger
-                        data-active={
+                        className={cn(
+                          'bg-transparent',
                           item.items.some((sub) =>
                             isLinkActive(sub.href, pathname)
-                          )
-                            ? 'true'
-                            : undefined
-                        }
-                        className={navTriggerClass}
+                          ) && 'font-semibold text-foreground'
+                        )}
                       >
                         {item.title}
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <ul className="grid w-100 gap-4 p-4 md:w-125 md:grid-cols-2 lg:w-150">
+                        <ul className="grid w-100 gap-3 p-3 md:w-125 md:grid-cols-2 lg:w-150">
                           {item.items.map((sub) => (
                             <li key={sub.title}>
                               <NavigationMenuLink
@@ -109,39 +98,34 @@ export function Navbar({ scroll = true }: NavbarProps) {
                                 render={
                                   <Link
                                     to={sub.href ?? '#'}
-                                    target={sub.external ? '_blank' : undefined}
+                                    target={
+                                      sub.external ? '_blank' : undefined
+                                    }
                                     rel={
                                       sub.external
                                         ? 'noopener noreferrer'
                                         : undefined
                                     }
-                                    className={cn(
-                                      navDropdownItemClass,
-                                      isLinkActive(sub.href, pathname) &&
-                                        'bg-accent text-accent-foreground'
-                                    )}
-                                  >
-                                    <div className="flex size-8 shrink-0 items-center justify-center">
-                                      {sub.icon ? (
-                                        <sub.icon className="size-4 text-muted-foreground group-hover:text-accent-foreground" />
-                                      ) : null}
-                                    </div>
-                                    <div className="flex-1 min-w-0">
-                                      <div className="text-sm font-medium">
-                                        {sub.title}
-                                      </div>
-                                      {sub.description ? (
-                                        <div className="text-sm text-muted-foreground">
-                                          {sub.description}
-                                        </div>
-                                      ) : null}
-                                    </div>
-                                    {sub.external ? (
-                                      <IconArrowUpRight className="size-4 shrink-0" />
-                                    ) : null}
-                                  </Link>
+                                  />
                                 }
-                              />
+                              >
+                                {sub.icon ? (
+                                  <sub.icon className="size-4 shrink-0" />
+                                ) : null}
+                                <div className="flex-1 min-w-0">
+                                  <div className="text-sm font-medium">
+                                    {sub.title}
+                                  </div>
+                                  {sub.description ? (
+                                    <p className="text-xs text-muted-foreground">
+                                      {sub.description}
+                                    </p>
+                                  ) : null}
+                                </div>
+                                {sub.external ? (
+                                  <IconArrowUpRight className="size-4 shrink-0" />
+                                ) : null}
+                              </NavigationMenuLink>
                             </li>
                           ))}
                         </ul>
@@ -150,24 +134,16 @@ export function Navbar({ scroll = true }: NavbarProps) {
                   ) : (
                     <NavigationMenuItem key={item.title}>
                       <NavigationMenuLink
-                        render={
-                          <Link
-                            to={item.href ?? '#'}
-                            target={item.external ? '_blank' : undefined}
-                            rel={
-                              item.external ? 'noopener noreferrer' : undefined
-                            }
-                            data-active={
-                              isLinkActive(item.href, pathname)
-                                ? 'true'
-                                : undefined
-                            }
-                            className={navTriggerClass}
-                          >
-                            {item.title}
-                          </Link>
-                        }
-                      />
+                        render={<Link to={item.href ?? '#'} />}
+                        className={cn(
+                          navigationMenuTriggerStyle(),
+                          'bg-transparent',
+                          isLinkActive(item.href, pathname) &&
+                            'font-semibold text-primary'
+                        )}
+                      >
+                        {item.title}
+                      </NavigationMenuLink>
                     </NavigationMenuItem>
                   )
                 )}
