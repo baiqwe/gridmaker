@@ -27,6 +27,7 @@ import TanStackQueryDevtools from '../integrations/tanstack-query/devtools';
 import appCss from '../styles.css?url';
 import { DefaultCatchBoundary } from '@/components/layout/default-catch-boundary';
 import { Routes } from '@/lib/routes';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 /**
  * https://github.com/backpine/tanstack-start-on-cloudflare/blob/main/src/routes/__root.tsx
@@ -132,8 +133,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <ThemeProvider>
-          {children}
-          <Toaster richColors position="top-right" offset={64} />
+          <TooltipProvider>
+            {children}
+            <Toaster richColors position="top-right" offset={64} />
+          </TooltipProvider>
         </ThemeProvider>
         <TailwindIndicator />
         <TanStackDevtools
