@@ -23,6 +23,8 @@
       "!.content-collections",
       "!worker-configuration.d.ts",
       "!tailwind.config.ts",
+      "!src/lib/utils.ts",
+      "!src/hooks/use-mobile.ts",
       "!src/db",
       "!src/types/index.d.ts",
       "!src/mail/types.ts",
