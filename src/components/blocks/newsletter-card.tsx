@@ -56,7 +56,7 @@ export default function NewsletterCard() {
   }
 
   return (
-    <div className="w-full rounded-lg bg-muted/50 px-4 py-12 sm:px-8 md:p-16">
+    <div className="w-full rounded-lg bg-linear-to-br from-primary/5 via-muted/80 to-chart-1/8 dark:from-primary/8 dark:via-muted/50 dark:to-chart-1/5 px-4 py-12 sm:px-8 md:p-16">
       <div className="flex flex-col items-center justify-center gap-8">
         <HeaderSection
           title={m.title}

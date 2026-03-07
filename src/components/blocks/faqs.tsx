@@ -55,7 +55,7 @@ export default function FaqSection() {
         />
 
         <div className="mx-auto mt-12 max-w-4xl">
-          <Accordion className="ring-muted w-full rounded-2xl border px-4 py-3 shadow-sm ring-4 sm:px-8 dark:ring-0">
+          <Accordion className="ring-primary/10 w-full rounded-2xl border border-primary/15 px-4 py-3 shadow-sm ring-4 dark:ring-primary/5 dark:border-primary/10 sm:px-8">
             {faqItems.map((item) => (
               <AccordionItem
                 key={item.id}

@@ -38,7 +38,7 @@ export function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={link.title}
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border hover:bg-accent hover:text-accent-foreground"
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-colors"
                   >
                     {Icon ? <Icon className="size-4" /> : null}
                   </a>

@@ -91,7 +91,7 @@ export default function TestimonialsSection() {
                   className="bg-transparent shadow-none hover:bg-accent dark:hover:bg-card"
                 >
                   <CardContent className="grid grid-cols-[auto_1fr] gap-3 pt-4">
-                    <Avatar className="size-9 border-2 border-border">
+                    <Avatar className="size-9 border-2 border-primary/25">
                       <AvatarImage
                         alt={name}
                         src={image}
