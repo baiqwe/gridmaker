@@ -41,7 +41,7 @@ export function Navbar({ scroll = true }: NavbarProps) {
   const scrolled = useScroll(50);
   const menuLinks = getNavbarLinks();
   const [mounted, setMounted] = useState(false);
-  const [menuValue, setMenuValue] = useState('');
+  const [menuValue, setMenuValue] = useState<string | null>(null);
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
   const showBarBg = scroll && scrolled;
@@ -49,7 +49,7 @@ export function Navbar({ scroll = true }: NavbarProps) {
   // Sync mount (avoid auth hydration mismatch) and close menu on route change
   useEffect(() => {
     setMounted(true);
-    setMenuValue('');
+    setMenuValue(null);
   }, [pathname]);
 
   return (
@@ -101,7 +101,7 @@ export function Navbar({ scroll = true }: NavbarProps) {
                         {item.title}
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <ul className="grid w-[400px] gap-4 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                        <ul className="grid w-100 gap-4 p-4 md:w-125 md:grid-cols-2 lg:w-150">
                           {item.items.map((sub) => (
                             <li key={sub.title}>
                               <NavigationMenuLink

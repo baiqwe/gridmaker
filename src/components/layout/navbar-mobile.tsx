@@ -84,7 +84,7 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
       </div>
 
       {open && (
-        <div className="fixed inset-0 top-[57px] z-50 flex flex-col overflow-y-auto bg-background">
+        <div className="fixed inset-0 top-14.25 z-50 flex flex-col overflow-y-auto bg-background">
           <div className="flex flex-1 flex-col items-start gap-4 p-4">
             {websiteConfig.auth?.enable && !user && (
               <div className="flex w-full flex-col gap-4">
