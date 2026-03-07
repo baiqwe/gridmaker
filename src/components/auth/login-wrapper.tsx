@@ -80,5 +80,9 @@ export function LoginWrapper({
     );
   }
 
-  return <span onClick={handleRedirect}>{children}</span>;
+  return (
+    <button type="button" onClick={handleRedirect} className="inline">
+      {children}
+    </button>
+  );
 }

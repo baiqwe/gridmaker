@@ -40,7 +40,7 @@ export function UserButton({ user }: UserButtonProps) {
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger aria-label="User menu">
         <UserAvatar
           name={user.name ?? null}
           image={user.image ?? null}

@@ -23,6 +23,10 @@ import * as z from 'zod';
 
 const m = messages.auth.resetPassword;
 
+const ResetPasswordSchema = z.object({
+  password: z.string().min(8, { message: m.minLength }),
+});
+
 export function ResetPasswordForm() {
   const router = useRouter();
   const token =
@@ -33,6 +37,16 @@ export function ResetPasswordForm() {
     typeof window !== 'undefined'
       ? new URLSearchParams(window.location.search).get('error')
       : null;
+
+  const [error, setError] = useState<string | undefined>('');
+  const [success, setSuccess] = useState<string | undefined>('');
+  const [isPending, setIsPending] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const form = useForm<z.infer<typeof ResetPasswordSchema>>({
+    resolver: zodResolver(ResetPasswordSchema),
+    defaultValues: { password: '' },
+  });
 
   if (!token || errorParam === 'invalid_token') {
     return (
@@ -45,20 +59,6 @@ export function ResetPasswordForm() {
       </AuthCard>
     );
   }
-
-  const [error, setError] = useState<string | undefined>('');
-  const [success, setSuccess] = useState<string | undefined>('');
-  const [isPending, setIsPending] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-
-  const ResetPasswordSchema = z.object({
-    password: z.string().min(8, { message: m.minLength }),
-  });
-
-  const form = useForm<z.infer<typeof ResetPasswordSchema>>({
-    resolver: zodResolver(ResetPasswordSchema),
-    defaultValues: { password: '' },
-  });
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);

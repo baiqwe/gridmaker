@@ -19,13 +19,18 @@ export default function BackButtonSmall({
       size="sm"
       variant="outline"
       className={cn('size-8 px-0', className)}
+      aria-label="Go back"
     >
       <IconArrowLeft className="size-4" />
     </Button>
   );
 
   if (href != null) {
-    return <Link to={href}>{button}</Link>;
+    return (
+      <Link to={href} aria-label="Go back">
+        {button}
+      </Link>
+    );
   }
   return (
     <Button
@@ -33,6 +38,7 @@ export default function BackButtonSmall({
       variant="outline"
       className={cn('size-8 px-0', className)}
       onClick={() => router.history.back()}
+      aria-label="Go back"
     >
       <IconArrowLeft className="size-4" />
     </Button>

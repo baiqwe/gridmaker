@@ -14,7 +14,7 @@ const m = {
 
 export default function HeroSection() {
   return (
-    <main id="hero" className="overflow-hidden">
+    <section id="hero" className="overflow-hidden">
       {/* background, light shadows on top of the hero section */}
       <div
         aria-hidden
@@ -105,6 +105,6 @@ export default function HeroSection() {
           </div>
         </div>
       </section>
-    </main>
+    </section>
   );
 }
