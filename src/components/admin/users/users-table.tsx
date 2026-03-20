@@ -36,6 +36,7 @@ import { toast } from 'sonner';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
 import { formatDate, formatDateTime } from '@/lib/formatter';
+import { cn } from '@/lib/utils';
 
 const m = messages.admin.users;
 
@@ -139,7 +140,7 @@ export function UsersTable({
             <div className="flex items-center gap-2">
               <Badge
                 variant="outline"
-                className="text-sm px-1.5 hover:bg-accent"
+                className="text-sm border-transparent px-1.5 py-2 hover:cursor-pointer hover:underline hover:underline-offset-4"
                 onClick={() => {
                   navigator.clipboard.writeText(u.email);
                   toast.success(m.emailCopied);
@@ -171,8 +172,13 @@ export function UsersTable({
           const r = row.original.role ?? 'user';
           return (
             <Badge
-              variant={r === 'admin' ? 'default' : 'outline'}
-              className="px-1.5"
+              variant="outline"
+              className={cn(
+                'px-1.5 border-transparent',
+                r === 'admin'
+                  ? 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400'
+                  : 'bg-secondary text-secondary-foreground'
+              )}
             >
               {r === 'admin' ? m.admin : m.user}
             </Badge>
@@ -206,15 +212,23 @@ export function UsersTable({
         cell: ({ row }) => {
           const banned = row.original.banned;
           return (
-            <Badge variant="outline" className="px-1.5">
+            <Badge
+              variant="outline"
+              className={cn(
+                'px-1.5 border-transparent',
+                banned
+                  ? 'bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400'
+                  : 'bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-400'
+              )}
+            >
               {banned ? (
                 <>
-                  <IconUserX className="stroke-red-500 dark:stroke-red-400" />
+                  <IconUserX />
                   {m.inactive}
                 </>
               ) : (
                 <>
-                  <IconUserCheck className="stroke-green-500 dark:stroke-green-400" />
+                  <IconUserCheck />
                   {m.active}
                 </>
               )}

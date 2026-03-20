@@ -18,6 +18,7 @@ import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { useIsMobile } from '@/hooks/use-mobile';
+import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -140,9 +141,17 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     accessorKey: 'status',
     header: 'Status',
     cell: ({ row }) => (
-      <Badge variant="outline" className="text-muted-foreground px-1.5">
+      <Badge
+        variant="outline"
+        className={cn(
+          'px-1.5 border-transparent',
+          row.original.status === 'Done'
+            ? 'bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-400'
+            : 'bg-orange-100 text-orange-700 dark:bg-orange-500/20 dark:text-orange-400'
+        )}
+      >
         {row.original.status === 'Done' ? (
-          <IconCircleCheckFilled className="fill-green-500 dark:fill-green-400" />
+          <IconCircleCheckFilled />
         ) : (
           <IconLoader />
         )}

@@ -161,15 +161,23 @@ export function BillingCard() {
           {subscription &&
             (subscription.status === 'trialing' ||
               subscription.status === 'active') && (
-              <Badge variant="outline" className="text-xs">
+              <Badge
+                variant="outline"
+                className={cn(
+                  'text-xs border-transparent',
+                  subscription.status === 'trialing'
+                    ? 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400'
+                    : 'bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-400'
+                )}
+              >
                 {subscription.status === 'trialing' ? (
                   <span className="flex items-center space-x-2">
-                    <IconClock className="size-3 mr-1 text-amber-600" />
+                    <IconClock className="size-3 mr-1" />
                     {m.statusTrial}
                   </span>
                 ) : (
                   <span className="flex items-center space-x-2">
-                    <IconCircleCheck className="size-3 mr-1 text-green-600" />
+                    <IconCircleCheck className="size-3 mr-1" />
                     {m.statusActive}
                   </span>
                 )}

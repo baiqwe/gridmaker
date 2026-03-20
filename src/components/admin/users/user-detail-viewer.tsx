@@ -128,20 +128,33 @@ export function UserDetailViewer({ user }: UserDetailViewerProps) {
           <div className="grid gap-4">
             <div className="flex flex-wrap items-center gap-2">
               <Badge
-                variant={user.role === 'admin' ? 'default' : 'outline'}
-                className="px-1.5"
+                variant="outline"
+                className={cn(
+                  'px-1.5 border-transparent',
+                  user.role === 'admin'
+                    ? 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400'
+                    : 'bg-secondary text-secondary-foreground'
+                )}
               >
                 {user.role === 'admin' ? m.admin : m.user}
               </Badge>
-              <Badge variant="outline" className="px-1.5">
+              <Badge
+                variant="outline"
+                className={cn(
+                  'px-1.5 border-transparent',
+                  user.banned
+                    ? 'bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400'
+                    : 'bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-400'
+                )}
+              >
                 {user.banned ? (
                   <>
-                    <IconUserX className="stroke-red-500 dark:stroke-red-400" />
+                    <IconUserX />
                     {m.banned}
                   </>
                 ) : (
                   <>
-                    <IconUserCheck className="stroke-green-500 dark:stroke-green-400" />
+                    <IconUserCheck />
                     {m.active}
                   </>
                 )}
@@ -154,7 +167,7 @@ export function UserDetailViewer({ user }: UserDetailViewerProps) {
                 </span>
                 <Badge
                   variant="outline"
-                  className="w-fit px-1.5 text-sm hover:bg-accent"
+                  className="w-fit px-1.5 py-2 text-sm border-transparent hover:cursor-pointer hover:underline hover:underline-offset-4"
                   onClick={() => {
                     navigator.clipboard.writeText(user.email);
                     toast.success(m.emailCopied);

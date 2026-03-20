@@ -1,4 +1,5 @@
 import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 import { messages } from '@/messages';
 
 const m = messages.roadmap;
@@ -101,14 +102,15 @@ function TaskCard({ task }: TaskCardProps) {
         <div className="flex items-center justify-between gap-2">
           <span className="line-clamp-1 font-medium text-sm">{task.title}</span>
           <Badge
-            variant={
+            variant="outline"
+            className={cn(
+              'pointer-events-none h-5 rounded-sm px-1.5 text-[11px] capitalize border-transparent',
               task.priority === 'high'
-                ? 'destructive'
+                ? 'bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400'
                 : task.priority === 'medium'
-                  ? 'default'
-                  : 'secondary'
-            }
-            className="pointer-events-none h-5 rounded-sm px-1.5 text-[11px] capitalize"
+                  ? 'bg-orange-100 text-orange-700 dark:bg-orange-500/20 dark:text-orange-400'
+                  : 'bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-400'
+            )}
           >
             {task.priority}
           </Badge>
