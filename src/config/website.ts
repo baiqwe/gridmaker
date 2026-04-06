@@ -72,6 +72,11 @@ export const websiteConfig: WebsiteConfig = {
   payment: {
     enable: true,
     provider: 'stripe',
+    // To use Creem instead of Stripe:
+    // 1. Set provider: 'creem'
+    // 2. Set env vars: CREEM_API_KEY, CREEM_WEBHOOK_SECRET, CREEM_IS_TEST
+    // 3. Replace priceId values with Creem product IDs (VITE_CREEM_PRODUCT_*)
+    // 4. Configure webhook URL in Creem Dashboard: https://your-domain.com/api/webhooks/creem
     price: {
       plans: {
         free: {

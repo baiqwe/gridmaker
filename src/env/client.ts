@@ -14,6 +14,11 @@ export const clientEnv = createEnv({
     VITE_STRIPE_PRICE_PRO_YEARLY: z.string().optional(),
     VITE_STRIPE_PRICE_LIFETIME: z.string().optional(),
 
+    // Payment (Creem)
+    VITE_CREEM_PRODUCT_PRO_MONTHLY: z.string().optional(),
+    VITE_CREEM_PRODUCT_PRO_YEARLY: z.string().optional(),
+    VITE_CREEM_PRODUCT_LIFETIME: z.string().optional(),
+
     // Analytics
     VITE_GOOGLE_ANALYTICS_ID: z.string().optional(),
     VITE_CLARITY_PROJECT_ID: z.string().optional(),
