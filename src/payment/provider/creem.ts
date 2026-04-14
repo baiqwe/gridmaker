@@ -539,7 +539,7 @@ export class CreemProvider implements PaymentProvider {
         customerId: object.customer.id,
         subscriptionId: null,
         sessionId: event.id,
-        invoiceId: event.id, // Use event ID for uniqueness
+        invoiceId: event.id,
         type: PaymentTypes.ONE_TIME,
         scene: PaymentScenes.LIFETIME,
         interval: null,
@@ -606,7 +606,7 @@ export class CreemProvider implements PaymentProvider {
         customerId: object.customer.id,
         subscriptionId: subscriptionId,
         sessionId: event.id,
-        invoiceId: event.id, // Use event ID for uniqueness
+        invoiceId: event.id,
         type: PaymentTypes.SUBSCRIPTION,
         scene: PaymentScenes.SUBSCRIPTION,
         interval: interval,
