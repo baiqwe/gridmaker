@@ -37,15 +37,18 @@ interface CreemWebhookObject {
     billing_period?: string;
     price?: number;
   };
+  // Nested subscription object (present in checkout.completed)
   subscription?: {
     id: string;
     status?: string;
-    current_period_start?: string;
-    current_period_end?: string;
+    current_period_start_date?: string;
+    current_period_end_date?: string;
     cancel_at_period_end?: boolean;
-    trial_start?: string;
-    trial_end?: string;
   };
+  // Top-level period fields (present in subscription.* events)
+  current_period_start_date?: string;
+  current_period_end_date?: string;
+  canceled_at?: string;
   status: string;
   metadata: Record<string, unknown>;
 }
@@ -91,7 +94,7 @@ export class CreemProvider implements PaymentProvider {
 
     this.apiKey = apiKey;
     this.webhookSecret = webhookSecret;
-    const isTest = process.env.CREEM_IS_TEST === 'true';
+    const isTest = process.env.CREEM_DEBUG === 'true';
     this.baseUrl = isTest
       ? 'https://test-api.creem.io'
       : 'https://api.creem.io';
@@ -245,6 +248,12 @@ export class CreemProvider implements PaymentProvider {
           break;
         case 'subscription.paid':
           await this.onSubscriptionPaid(event);
+          break;
+        case 'subscription.active':
+          await this.onSubscriptionActive(event);
+          break;
+        case 'subscription.update':
+          await this.onSubscriptionUpdate(event);
           break;
         case 'subscription.canceled':
           await this.onSubscriptionCanceled(event);
@@ -473,8 +482,10 @@ export class CreemProvider implements PaymentProvider {
         .set({
           status: 'trialing' as PaymentStatus,
           paid: true,
-          trialStart: periodDates.trialStart,
-          trialEnd: periodDates.trialEnd,
+          periodStart: periodDates.periodStart,
+          periodEnd: periodDates.periodEnd,
+          trialStart: periodDates.periodStart,
+          trialEnd: periodDates.periodEnd,
           updatedAt: new Date(),
         })
         .where(eq(payment.subscriptionId, subscriptionId));
@@ -513,6 +524,106 @@ export class CreemProvider implements PaymentProvider {
       console.log('<< Marked payment record as paused');
     } else {
       console.warn('<< No payment record found for subscription pause');
+    }
+  }
+
+  /**
+   * Handle subscription.active event
+   *
+   * Fires when a subscription becomes active.
+   * Updates the payment record with period dates and active status.
+   */
+  private async onSubscriptionActive(event: CreemWebhookEvent): Promise<void> {
+    console.log('>> Handle Creem subscription active:', event.id);
+
+    const { object } = event;
+    const subscriptionId = object.subscription?.id ?? object.id;
+    const periodDates = this.extractPeriodDates(object);
+
+    const db = getDb();
+    const existing = await db
+      .select()
+      .from(payment)
+      .where(eq(payment.subscriptionId, subscriptionId))
+      .orderBy(desc(payment.createdAt))
+      .limit(1);
+
+    if (existing.length > 0) {
+      // Update existing record with period dates and active status
+      await db
+        .update(payment)
+        .set({
+          status: 'active' as PaymentStatus,
+          paid: true,
+          periodStart: periodDates.periodStart,
+          periodEnd: periodDates.periodEnd,
+          updatedAt: new Date(),
+        })
+        .where(eq(payment.subscriptionId, subscriptionId));
+      console.log('<< Updated subscription record to active with period dates');
+    } else {
+      // No record yet — might arrive before checkout.completed
+      // Create a new record if we can identify the user
+      const userId = this.extractUserId(object);
+      if (userId) {
+        await this.updateUserCustomerId(object.customer.id, userId);
+        await this.createSubscriptionPaymentRecord(event, userId);
+      } else {
+        console.log(
+          '<< No existing record and no userId for subscription.active, skipping'
+        );
+      }
+    }
+  }
+
+  /**
+   * Handle subscription.update event
+   *
+   * Fires when a subscription is updated (e.g. plan change, period renewal).
+   * Updates the payment record with the latest period dates and status.
+   */
+  private async onSubscriptionUpdate(event: CreemWebhookEvent): Promise<void> {
+    console.log('>> Handle Creem subscription update:', event.id);
+
+    const { object } = event;
+    const subscriptionId = object.subscription?.id ?? object.id;
+    const periodDates = this.extractPeriodDates(object);
+
+    const db = getDb();
+    const existing = await db
+      .select()
+      .from(payment)
+      .where(eq(payment.subscriptionId, subscriptionId))
+      .orderBy(desc(payment.createdAt))
+      .limit(1);
+
+    if (existing.length > 0) {
+      // Build update set — only update period dates if they are present
+      const updateSet: Record<string, unknown> = {
+        updatedAt: new Date(),
+      };
+      if (periodDates.periodStart) {
+        updateSet.periodStart = periodDates.periodStart;
+      }
+      if (periodDates.periodEnd) {
+        updateSet.periodEnd = periodDates.periodEnd;
+      }
+      // Map subscription status if available
+      const subStatus = object.subscription?.status;
+      if (subStatus === 'active' || subStatus === 'trialing') {
+        updateSet.status = subStatus as PaymentStatus;
+      }
+      if (object.subscription?.cancel_at_period_end !== undefined) {
+        updateSet.cancelAtPeriodEnd = object.subscription.cancel_at_period_end;
+      }
+
+      await db
+        .update(payment)
+        .set(updateSet)
+        .where(eq(payment.subscriptionId, subscriptionId));
+      console.log('<< Updated subscription record from subscription.update');
+    } else {
+      console.log('<< No existing record for subscription.update, skipping');
     }
   }
 
@@ -597,6 +708,8 @@ export class CreemProvider implements PaymentProvider {
       object.product.billing_period
     );
 
+    const isTrialing = statusOverride === 'trialing';
+
     try {
       const db = getDb();
       await db.insert(payment).values({
@@ -615,8 +728,8 @@ export class CreemProvider implements PaymentProvider {
         periodStart: periodDates.periodStart,
         periodEnd: periodDates.periodEnd,
         cancelAtPeriodEnd: false,
-        trialStart: periodDates.trialStart,
-        trialEnd: periodDates.trialEnd,
+        trialStart: isTrialing ? periodDates.periodStart : null,
+        trialEnd: isTrialing ? periodDates.periodEnd : null,
         createdAt: currentDate,
         updatedAt: currentDate,
       });
@@ -651,35 +764,45 @@ export class CreemProvider implements PaymentProvider {
 
   /**
    * Extract period dates from webhook object
+   *
+   * Creem uses `current_period_start_date` / `current_period_end_date` as field names.
+   * For subscription.* events these are top-level fields on the object.
+   * For checkout.completed the subscription is nested.
+   *
+   * Note: Creem has no separate trial_start / trial_end fields.
+   * During trialing, period dates represent the trial start and end.
    */
   private extractPeriodDates(object: CreemWebhookObject): {
     periodStart: Date | null;
     periodEnd: Date | null;
-    trialStart: Date | null;
-    trialEnd: Date | null;
   } {
-    const sub = object.subscription;
+    // Period start: try top-level first (subscription.* events), then nested
+    const periodStartStr =
+      object.current_period_start_date ??
+      object.subscription?.current_period_start_date ??
+      null;
+
+    // Period end: try top-level first, then nested
+    const periodEndStr =
+      object.current_period_end_date ??
+      object.subscription?.current_period_end_date ??
+      null;
+
     return {
-      periodStart: sub?.current_period_start
-        ? new Date(sub.current_period_start)
-        : null,
-      periodEnd: sub?.current_period_end
-        ? new Date(sub.current_period_end)
-        : null,
-      trialStart: sub?.trial_start ? new Date(sub.trial_start) : null,
-      trialEnd: sub?.trial_end ? new Date(sub.trial_end) : null,
+      periodStart: periodStartStr ? new Date(periodStartStr) : null,
+      periodEnd: periodEndStr ? new Date(periodEndStr) : null,
     };
   }
 
   /**
    * Map Creem billing_period to PlanInterval
    *
-   * Creem periods: 'one-m', 'three-m', 'six-m', 'one-y'
+   * Creem periods: 'every-month', 'every-3-months', 'every-6-months', 'every-year'
    * Our intervals: 'month', 'year'
    */
   private mapBillingPeriodToInterval(billingPeriod?: string): PlanInterval {
     switch (billingPeriod) {
-      case 'one-y':
+      case 'every-year':
         return PlanIntervals.YEAR;
       default:
         return PlanIntervals.MONTH;

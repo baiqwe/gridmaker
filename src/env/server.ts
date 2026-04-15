@@ -28,7 +28,7 @@ export const serverEnv = createEnv({
     STRIPE_WEBHOOK_SECRET: z.string().optional(),
 
     // Payment (Creem)
-    CREEM_IS_TEST: z.string().optional(),
+    CREEM_DEBUG: z.string().optional(),
     CREEM_API_KEY: z.string().optional(),
     CREEM_WEBHOOK_SECRET: z.string().optional(),
   },
