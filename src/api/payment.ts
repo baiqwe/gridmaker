@@ -45,12 +45,15 @@ export const createCheckoutSession = createServerFn({ method: 'POST' })
     // then the Payment page polls by sessionId until the webhook writes the DB record.
     // For Creem: Creem does NOT replace URL placeholders and has its own
     // payment confirmation page, so redirect straight to billing.
-    // The webhook writes the DB record independently.
     const success = isCreem
       ? (successUrl ?? `${baseUrl}/settings/billing`)
       : (successUrl ??
-          `${baseUrl}/settings/payment?session_id={CHECKOUT_SESSION_ID}&callback=/settings/billing`);
-    const checkoutMetadata = { ...metadata, userId, userName: userRow.name ?? '' };
+        `${baseUrl}/settings/payment?session_id={CHECKOUT_SESSION_ID}&callback=/settings/billing`);
+    const checkoutMetadata = {
+      ...metadata,
+      userId,
+      userName: userRow.name ?? '',
+    };
 
     const result = await createCheckout({
       planId,
