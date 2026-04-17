@@ -2,6 +2,17 @@ import { getDb } from '@/db';
 import { payment } from '@/db/app.schema';
 import { user } from '@/db/auth.schema';
 import { sendPaymentNotification } from '@/notification';
+import { Creem } from 'creem';
+import type {
+  CheckoutEntity,
+  CustomerEntity,
+  ProductEntity,
+  SubscriptionEntity,
+} from 'creem/models/components';
+import {
+  CheckoutEntity$inboundSchema,
+  SubscriptionEntity$inboundSchema,
+} from 'creem/models/components';
 import { desc, eq } from 'drizzle-orm';
 import type {
   CheckoutResult,
@@ -15,71 +26,92 @@ import type {
 import { PaymentScenes, PaymentTypes, PlanIntervals } from '../types';
 
 // ─── Creem Webhook Types ──────────────────────────────────────
+// The core SDK does not include webhook types or verification.
+// Following the pattern from @creem_io/nextjs, we build normalized
+// webhook types from SDK entities. The SDK's Zod inbound schemas
+// are used to parse raw snake_case JSON into typed camelCase objects.
 
-interface CreemWebhookEvent {
+/**
+ * Subscription entity as it appears in subscription.* webhook events.
+ *
+ * In webhook payloads, `product` and `customer` are always expanded
+ * as full objects (never just ID strings), unlike the SDK's union type.
+ */
+type WebhookSubscriptionObject = Omit<
+  SubscriptionEntity,
+  'product' | 'customer'
+> & {
+  product: ProductEntity;
+  customer: CustomerEntity;
+  metadata?: Record<string, unknown>;
+};
+
+/**
+ * Checkout entity as it appears in checkout.completed webhook events.
+ *
+ * Product and customer are expanded. The nested subscription has
+ * product/customer as ID strings (not expanded).
+ */
+type WebhookCheckoutObject = Omit<
+  CheckoutEntity,
+  'product' | 'customer' | 'subscription'
+> & {
+  product: ProductEntity;
+  customer: CustomerEntity;
+  subscription?: SubscriptionEntity;
+};
+
+// ─── Discriminated Union: Webhook Events ─────────────────────
+
+interface CreemCheckoutCompletedEvent {
   id: string;
-  eventType: string;
-  object: CreemWebhookObject;
+  eventType: 'checkout.completed';
+  created_at: number;
+  object: WebhookCheckoutObject;
 }
 
-interface CreemWebhookObject {
-  request_id: string;
+interface CreemSubscriptionEvent<T extends string = string> {
   id: string;
-  customer: {
-    id: string;
-    email?: string;
-    name?: string;
-  };
-  product: {
-    id: string;
-    name?: string;
-    billing_type: string;
-    billing_period?: string;
-    price?: number;
-  };
-  // Nested subscription object (present in checkout.completed)
-  subscription?: {
-    id: string;
-    status?: string;
-    current_period_start_date?: string;
-    current_period_end_date?: string;
-    cancel_at_period_end?: boolean;
-  };
-  // Top-level period fields (present in subscription.* events)
-  current_period_start_date?: string;
-  current_period_end_date?: string;
-  canceled_at?: string;
-  status: string;
-  metadata: Record<string, unknown>;
+  eventType: T;
+  created_at: number;
+  object: WebhookSubscriptionObject;
 }
 
-// ─── Creem API Response Types ─────────────────────────────────
-
-interface CreemCheckoutResponse {
-  id: string;
-  checkout_url: string;
-  [key: string]: unknown;
-}
-
-interface CreemPortalResponse {
-  customer_portal_link: string;
-  [key: string]: unknown;
-}
+type CreemSubscriptionActiveEvent =
+  CreemSubscriptionEvent<'subscription.active'>;
+type CreemSubscriptionTrialingEvent =
+  CreemSubscriptionEvent<'subscription.trialing'>;
+type CreemSubscriptionPaidEvent = CreemSubscriptionEvent<'subscription.paid'>;
+type CreemSubscriptionCanceledEvent =
+  CreemSubscriptionEvent<'subscription.canceled'>;
+type CreemSubscriptionScheduledCancelEvent =
+  CreemSubscriptionEvent<'subscription.scheduled_cancel'>;
+type CreemSubscriptionExpiredEvent =
+  CreemSubscriptionEvent<'subscription.expired'>;
+type CreemSubscriptionPastDueEvent =
+  CreemSubscriptionEvent<'subscription.past_due'>;
+type CreemSubscriptionPausedEvent =
+  CreemSubscriptionEvent<'subscription.paused'>;
+type CreemSubscriptionUpdateEvent =
+  CreemSubscriptionEvent<'subscription.update'>;
 
 // ─── Creem Provider Implementation ───────────────────────────
 
 /**
  * Creem payment provider implementation
  *
- * Uses direct REST API calls instead of the Creem npm SDK
- * for Cloudflare Workers compatibility.
+ * Uses the official Creem TypeScript SDK (`creem` npm package)
+ * for API calls (checkout, billing portal, subscriptions).
+ *
+ * Webhook payloads are parsed using the SDK's Zod inbound schemas
+ * to convert raw snake_case JSON into typed camelCase objects.
+ * Signature verification is handled manually (Web Crypto API).
  *
  * Creem API docs: https://docs.creem.io
  */
 export class CreemProvider implements PaymentProvider {
-  private apiKey: string;
+  private client: Creem;
   private webhookSecret: string;
-  private baseUrl: string;
 
   constructor() {
     const apiKey = process.env.CREEM_API_KEY;
@@ -92,51 +124,18 @@ export class CreemProvider implements PaymentProvider {
       throw new Error('CREEM_WEBHOOK_SECRET environment variable is not set');
     }
 
-    this.apiKey = apiKey;
     this.webhookSecret = webhookSecret;
-    const isTest = process.env.CREEM_DEBUG === 'true';
-    this.baseUrl = isTest
-      ? 'https://test-api.creem.io'
-      : 'https://api.creem.io';
+
+    // serverIdx: 0 = production (api.creem.io), 1 = test (test-api.creem.io)
+    const isDebug = process.env.CREEM_DEBUG === 'true';
+    this.client = new Creem({
+      apiKey,
+      serverIdx: isDebug ? 1 : 0,
+    });
   }
 
   getProviderName(): string {
     return 'creem';
-  }
-
-  // ─── API Helpers ──────────────────────────────────────────
-
-  /**
-   * Make an authenticated request to the Creem API
-   */
-  private async apiRequest<T>(
-    method: string,
-    path: string,
-    body?: Record<string, unknown>
-  ): Promise<T> {
-    const url = `${this.baseUrl}${path}`;
-    const options: RequestInit = {
-      method,
-      headers: {
-        'x-api-key': this.apiKey,
-        'Content-Type': 'application/json',
-      },
-    };
-
-    if (body && (method === 'POST' || method === 'PUT')) {
-      options.body = JSON.stringify(body);
-    }
-
-    const response = await fetch(url, options);
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error(`Creem API error [${response.status}]:`, errorText);
-      throw new Error(
-        `Creem API request failed: ${response.status} ${response.statusText}`
-      );
-    }
-
-    return response.json() as Promise<T>;
   }
 
   // ─── Checkout ─────────────────────────────────────────────
@@ -145,8 +144,8 @@ export class CreemProvider implements PaymentProvider {
    * Create a Creem checkout session
    *
    * Maps the generic CreateCheckoutParams to Creem's checkout API:
-   * - priceId → product_id (Creem uses product IDs)
-   * - metadata.userId → request_id (for webhook correlation)
+   * - priceId → productId (Creem uses product IDs)
+   * - metadata.userId → requestId (for webhook correlation)
    */
   public async createCheckout(
     params: CreateCheckoutParams
@@ -154,29 +153,16 @@ export class CreemProvider implements PaymentProvider {
     const { priceId, customerEmail, successUrl, metadata } = params;
 
     try {
-      const userId = metadata?.userId;
-
-      // Build checkout request body
-      const requestBody: Record<string, unknown> = {
-        product_id: priceId,
-        success_url: successUrl ?? '',
-        request_id: userId ?? '',
+      const checkout: CheckoutEntity = await this.client.checkouts.create({
+        productId: priceId,
+        successUrl: successUrl ?? '',
+        requestId: crypto.randomUUID(),
         metadata: metadata ?? {},
-      };
-
-      // Add customer email if available
-      if (customerEmail) {
-        requestBody.customer = { email: customerEmail };
-      }
-
-      const checkout = await this.apiRequest<CreemCheckoutResponse>(
-        'POST',
-        '/v1/checkouts',
-        requestBody
-      );
+        ...(customerEmail ? { customer: { email: customerEmail } } : {}),
+      });
 
       return {
-        url: checkout.checkout_url,
+        url: checkout.checkoutUrl ?? '',
         id: checkout.id,
       };
     } catch (error) {
@@ -199,14 +185,12 @@ export class CreemProvider implements PaymentProvider {
     const { customerId } = params;
 
     try {
-      const portal = await this.apiRequest<CreemPortalResponse>(
-        'POST',
-        '/v1/customers/billing',
-        { customer_id: customerId }
-      );
+      const links = await this.client.customers.generateBillingLinks({
+        customerId,
+      });
 
       return {
-        url: portal.customer_portal_link,
+        url: links.customerPortalLink,
       };
     } catch (error) {
       console.error('Creem create customer portal error:', error);
@@ -221,10 +205,14 @@ export class CreemProvider implements PaymentProvider {
    *
    * Creem webhook events:
    * - checkout.completed: Payment successful (one-time or first subscription)
+   * - subscription.active: Subscription becomes active
    * - subscription.paid: Recurring payment successful (renewal)
-   * - subscription.canceled: Subscription canceled
-   * - subscription.expired: Subscription expired
+   * - subscription.update: Subscription updated (plan change, etc.)
    * - subscription.trialing: Trial started
+   * - subscription.canceled: Subscription canceled
+   * - subscription.scheduled_cancel: Cancellation scheduled at period end
+   * - subscription.expired: Subscription expired without payment
+   * - subscription.past_due: Payment failed
    * - subscription.paused: Subscription paused
    *
    * @param payload Raw webhook payload
@@ -235,38 +223,69 @@ export class CreemProvider implements PaymentProvider {
     signature: string
   ): Promise<void> {
     try {
-      // Verify webhook signature
+      // Verify webhook signature (SDK does not include this)
       await this.verifySignature(payload, signature);
 
-      const event: CreemWebhookEvent = JSON.parse(payload);
-      const { eventType } = event;
+      const raw = JSON.parse(payload);
+      const eventType: string = raw.eventType;
       console.log(`handle Creem webhook event, type: ${eventType}`);
 
       switch (eventType) {
-        case 'checkout.completed':
+        case 'checkout.completed': {
+          const event = this.parseCheckoutEvent(raw);
           await this.onCheckoutCompleted(event);
           break;
-        case 'subscription.paid':
+        }
+        case 'subscription.paid': {
+          const event = this.parseSubscriptionEvent<'subscription.paid'>(raw);
           await this.onSubscriptionPaid(event);
           break;
-        case 'subscription.active':
+        }
+        case 'subscription.active': {
+          const event = this.parseSubscriptionEvent<'subscription.active'>(raw);
           await this.onSubscriptionActive(event);
           break;
-        case 'subscription.update':
+        }
+        case 'subscription.update': {
+          const event = this.parseSubscriptionEvent<'subscription.update'>(raw);
           await this.onSubscriptionUpdate(event);
           break;
-        case 'subscription.canceled':
+        }
+        case 'subscription.canceled': {
+          const event =
+            this.parseSubscriptionEvent<'subscription.canceled'>(raw);
           await this.onSubscriptionCanceled(event);
           break;
-        case 'subscription.expired':
+        }
+        case 'subscription.scheduled_cancel': {
+          const event =
+            this.parseSubscriptionEvent<'subscription.scheduled_cancel'>(raw);
+          await this.onSubscriptionScheduledCancel(event);
+          break;
+        }
+        case 'subscription.expired': {
+          const event =
+            this.parseSubscriptionEvent<'subscription.expired'>(raw);
           await this.onSubscriptionExpired(event);
           break;
-        case 'subscription.trialing':
+        }
+        case 'subscription.past_due': {
+          const event =
+            this.parseSubscriptionEvent<'subscription.past_due'>(raw);
+          await this.onSubscriptionPastDue(event);
+          break;
+        }
+        case 'subscription.trialing': {
+          const event =
+            this.parseSubscriptionEvent<'subscription.trialing'>(raw);
           await this.onSubscriptionTrialing(event);
           break;
-        case 'subscription.paused':
+        }
+        case 'subscription.paused': {
+          const event = this.parseSubscriptionEvent<'subscription.paused'>(raw);
           await this.onSubscriptionPaused(event);
           break;
+        }
         default:
           console.warn(`Unhandled Creem webhook event: ${eventType}`);
       }
@@ -276,8 +295,46 @@ export class CreemProvider implements PaymentProvider {
     }
   }
 
+  // ─── Webhook Parsing ──────────────────────────────────────
+
+  /**
+   * Parse a checkout.completed webhook event using SDK's Zod schema.
+   *
+   * Converts raw snake_case JSON → typed camelCase CheckoutEntity.
+   */
+  private parseCheckoutEvent(
+    raw: Record<string, unknown>
+  ): CreemCheckoutCompletedEvent {
+    const parsed = CheckoutEntity$inboundSchema.parse(raw.object);
+    return {
+      id: raw.id as string,
+      eventType: 'checkout.completed',
+      created_at: raw.created_at as number,
+      object: parsed as WebhookCheckoutObject,
+    };
+  }
+
+  /**
+   * Parse a subscription.* webhook event using SDK's Zod schema.
+   *
+   * Converts raw snake_case JSON → typed camelCase SubscriptionEntity.
+   */
+  private parseSubscriptionEvent<T extends string>(
+    raw: Record<string, unknown>
+  ): CreemSubscriptionEvent<T> {
+    const parsed = SubscriptionEntity$inboundSchema.parse(raw.object);
+    return {
+      id: raw.id as string,
+      eventType: raw.eventType as T,
+      created_at: raw.created_at as number,
+      object: parsed as WebhookSubscriptionObject,
+    };
+  }
+
   /**
    * Verify Creem webhook signature using HMAC-SHA256
+   *
+   * Uses Web Crypto API for Cloudflare Workers compatibility.
    */
   private async verifySignature(
     payload: string,
@@ -287,7 +344,6 @@ export class CreemProvider implements PaymentProvider {
       throw new Error('Missing Creem webhook signature');
     }
 
-    // Use Web Crypto API (Cloudflare Workers compatible)
     const encoder = new TextEncoder();
     const key = await crypto.subtle.importKey(
       'raw',
@@ -320,12 +376,14 @@ export class CreemProvider implements PaymentProvider {
    * This fires for both one-time payments and first subscription payments.
    * Creates a payment record and updates user's customerId.
    */
-  private async onCheckoutCompleted(event: CreemWebhookEvent): Promise<void> {
+  private async onCheckoutCompleted(
+    event: CreemCheckoutCompletedEvent
+  ): Promise<void> {
     console.log('>> Handle Creem checkout completed:', event.id);
 
     const { object } = event;
-    const isOneTime = object.product.billing_type !== 'recurring';
-    const userId = this.extractUserId(object);
+    const isOneTime = object.product.billingType !== 'recurring';
+    const userId = this.extractCheckoutUserId(object);
 
     if (!userId) {
       console.error('<< No userId found in Creem checkout event');
@@ -333,7 +391,9 @@ export class CreemProvider implements PaymentProvider {
     }
 
     // Update user's customerId
-    await this.updateUserCustomerId(object.customer.id, userId);
+    if (object.customer) {
+      await this.updateUserCustomerId(object.customer.id, userId);
+    }
 
     if (isOneTime) {
       await this.createOneTimePaymentRecord(event, userId);
@@ -347,51 +407,52 @@ export class CreemProvider implements PaymentProvider {
   /**
    * Handle subscription.paid event (renewal)
    *
-   * For subscription renewals, update the existing payment record
-   * with new period dates and status.
+   * Updates the existing payment record with new period dates.
+   * This is the Creem equivalent of Stripe's invoice.paid — it fires
+   * on both initial payment and renewals, always updating the SAME record
+   * created by checkout.completed.
+   *
+   * If no record exists yet (event arrived before checkout.completed),
+   * we skip — checkout.completed will create it.
    */
-  private async onSubscriptionPaid(event: CreemWebhookEvent): Promise<void> {
+  private async onSubscriptionPaid(
+    event: CreemSubscriptionPaidEvent
+  ): Promise<void> {
     console.log('>> Handle Creem subscription paid:', event.id);
 
-    const { object } = event;
-    const subscriptionId = object.subscription?.id ?? object.id;
+    const sub = event.object;
 
     // Find existing payment record by subscriptionId
     const db = getDb();
     const existing = await db
       .select()
       .from(payment)
-      .where(eq(payment.subscriptionId, subscriptionId))
+      .where(eq(payment.subscriptionId, sub.id))
       .orderBy(desc(payment.createdAt))
       .limit(1);
 
     if (existing.length === 0) {
-      // No existing record — treat as initial payment
       console.log(
-        'No existing record for subscription.paid, creating new record'
+        '<< No payment record for subscription.paid, waiting for checkout.completed'
       );
-      const userId = this.extractUserId(object);
-      if (userId) {
-        await this.updateUserCustomerId(object.customer.id, userId);
-        await this.createSubscriptionPaymentRecord(event, userId);
-      }
       return;
     }
 
     // Update existing payment record with renewed period
-    const periodDates = this.extractPeriodDates(object);
-
     await db
       .update(payment)
       .set({
         status: 'active' as PaymentStatus,
         paid: true,
-        periodStart: periodDates.periodStart,
-        periodEnd: periodDates.periodEnd,
+        periodStart: sub.currentPeriodStartDate ?? null,
+        periodEnd: sub.currentPeriodEndDate ?? null,
+        // Clear trial fields on renewal
+        trialStart: null,
+        trialEnd: null,
         cancelAtPeriodEnd: false,
         updatedAt: new Date(),
       })
-      .where(eq(payment.subscriptionId, subscriptionId));
+      .where(eq(payment.subscriptionId, sub.id));
 
     console.log('<< Handle Creem subscription paid success');
   }
@@ -400,22 +461,21 @@ export class CreemProvider implements PaymentProvider {
    * Handle subscription.canceled event
    */
   private async onSubscriptionCanceled(
-    event: CreemWebhookEvent
+    event: CreemSubscriptionCanceledEvent
   ): Promise<void> {
     console.log('>> Handle Creem subscription canceled:', event.id);
 
-    const { object } = event;
-    const subscriptionId = object.subscription?.id ?? object.id;
+    const sub = event.object;
 
     const db = getDb();
     const result = await db
       .update(payment)
       .set({
         status: 'canceled' as PaymentStatus,
-        cancelAtPeriodEnd: object.subscription?.cancel_at_period_end ?? true,
+        cancelAtPeriodEnd: !sub.canceledAt,
         updatedAt: new Date(),
       })
-      .where(eq(payment.subscriptionId, subscriptionId))
+      .where(eq(payment.subscriptionId, sub.id))
       .returning({ id: payment.id });
 
     if (result.length > 0) {
@@ -426,17 +486,50 @@ export class CreemProvider implements PaymentProvider {
   }
 
   /**
+   * Handle subscription.scheduled_cancel event
+   *
+   * Fires when a subscription is scheduled for cancellation at period end.
+   * The subscription remains active until the billing period ends.
+   */
+  private async onSubscriptionScheduledCancel(
+    event: CreemSubscriptionScheduledCancelEvent
+  ): Promise<void> {
+    console.log('>> Handle Creem subscription scheduled cancel:', event.id);
+
+    const sub = event.object;
+
+    const db = getDb();
+    const result = await db
+      .update(payment)
+      .set({
+        cancelAtPeriodEnd: true,
+        updatedAt: new Date(),
+      })
+      .where(eq(payment.subscriptionId, sub.id))
+      .returning({ id: payment.id });
+
+    if (result.length > 0) {
+      console.log('<< Marked payment record as scheduled for cancellation');
+    } else {
+      console.warn(
+        '<< No payment record found for subscription scheduled cancel'
+      );
+    }
+  }
+
+  /**
    * Handle subscription.expired event
    *
    * Maps to 'canceled' status since our PaymentStatus doesn't have 'expired'.
    * Both represent "subscription no longer active" which is what matters
    * for getCurrentPlan() logic.
    */
-  private async onSubscriptionExpired(event: CreemWebhookEvent): Promise<void> {
+  private async onSubscriptionExpired(
+    event: CreemSubscriptionExpiredEvent
+  ): Promise<void> {
     console.log('>> Handle Creem subscription expired:', event.id);
 
-    const { object } = event;
-    const subscriptionId = object.subscription?.id ?? object.id;
+    const sub = event.object;
 
     const db = getDb();
     const result = await db
@@ -446,7 +539,7 @@ export class CreemProvider implements PaymentProvider {
         paid: false,
         updatedAt: new Date(),
       })
-      .where(eq(payment.subscriptionId, subscriptionId))
+      .where(eq(payment.subscriptionId, sub.id))
       .returning({ id: payment.id });
 
     if (result.length > 0) {
@@ -457,45 +550,75 @@ export class CreemProvider implements PaymentProvider {
   }
 
   /**
+   * Handle subscription.past_due event
+   *
+   * Fires when a subscription payment fails. The subscription
+   * remains in past_due status until payment succeeds or it expires.
+   */
+  private async onSubscriptionPastDue(
+    event: CreemSubscriptionPastDueEvent
+  ): Promise<void> {
+    console.log('>> Handle Creem subscription past_due:', event.id);
+
+    const sub = event.object;
+
+    const db = getDb();
+    const result = await db
+      .update(payment)
+      .set({
+        status: 'past_due' as PaymentStatus,
+        updatedAt: new Date(),
+      })
+      .where(eq(payment.subscriptionId, sub.id))
+      .returning({ id: payment.id });
+
+    if (result.length > 0) {
+      console.log('<< Marked payment record as past_due');
+    } else {
+      console.warn('<< No payment record found for subscription past_due');
+    }
+  }
+
+  /**
    * Handle subscription.trialing event
+   *
+   * Updates the payment record to trialing status with trial dates.
+   * If no record exists, skip — checkout.completed will create it.
    */
   private async onSubscriptionTrialing(
-    event: CreemWebhookEvent
+    event: CreemSubscriptionTrialingEvent
   ): Promise<void> {
     console.log('>> Handle Creem subscription trialing:', event.id);
 
-    const { object } = event;
-    const subscriptionId = object.subscription?.id ?? object.id;
+    const sub = event.object;
 
     const db = getDb();
     const existing = await db
       .select()
       .from(payment)
-      .where(eq(payment.subscriptionId, subscriptionId))
+      .where(eq(payment.subscriptionId, sub.id))
       .limit(1);
 
     if (existing.length > 0) {
       // Update existing record to trialing status
-      const periodDates = this.extractPeriodDates(object);
+      // Creem has no separate trial fields; period dates ARE the trial dates
       await db
         .update(payment)
         .set({
           status: 'trialing' as PaymentStatus,
           paid: true,
-          periodStart: periodDates.periodStart,
-          periodEnd: periodDates.periodEnd,
-          trialStart: periodDates.periodStart,
-          trialEnd: periodDates.periodEnd,
+          periodStart: sub.currentPeriodStartDate ?? null,
+          periodEnd: sub.currentPeriodEndDate ?? null,
+          trialStart: sub.currentPeriodStartDate ?? null,
+          trialEnd: sub.currentPeriodEndDate ?? null,
           updatedAt: new Date(),
         })
-        .where(eq(payment.subscriptionId, subscriptionId));
+        .where(eq(payment.subscriptionId, sub.id));
     } else {
-      // Create new record for trial
-      const userId = this.extractUserId(object);
-      if (userId) {
-        await this.updateUserCustomerId(object.customer.id, userId);
-        await this.createSubscriptionPaymentRecord(event, userId, 'trialing');
-      }
+      // No record yet — checkout.completed will create it
+      console.log(
+        '<< No payment record for subscription.trialing, waiting for checkout.completed'
+      );
     }
 
     console.log('<< Handle Creem subscription trialing success');
@@ -504,11 +627,12 @@ export class CreemProvider implements PaymentProvider {
   /**
    * Handle subscription.paused event
    */
-  private async onSubscriptionPaused(event: CreemWebhookEvent): Promise<void> {
+  private async onSubscriptionPaused(
+    event: CreemSubscriptionPausedEvent
+  ): Promise<void> {
     console.log('>> Handle Creem subscription paused:', event.id);
 
-    const { object } = event;
-    const subscriptionId = object.subscription?.id ?? object.id;
+    const sub = event.object;
 
     const db = getDb();
     const result = await db
@@ -517,7 +641,7 @@ export class CreemProvider implements PaymentProvider {
         status: 'paused' as PaymentStatus,
         updatedAt: new Date(),
       })
-      .where(eq(payment.subscriptionId, subscriptionId))
+      .where(eq(payment.subscriptionId, sub.id))
       .returning({ id: payment.id });
 
     if (result.length > 0) {
@@ -532,47 +656,43 @@ export class CreemProvider implements PaymentProvider {
    *
    * Fires when a subscription becomes active.
    * Updates the payment record with period dates and active status.
+   *
+   * If no payment record exists yet, we skip, checkout.completed will
+   * create the record, and subsequent subscription events will update it.
    */
-  private async onSubscriptionActive(event: CreemWebhookEvent): Promise<void> {
+  private async onSubscriptionActive(
+    event: CreemSubscriptionActiveEvent
+  ): Promise<void> {
     console.log('>> Handle Creem subscription active:', event.id);
 
-    const { object } = event;
-    const subscriptionId = object.subscription?.id ?? object.id;
-    const periodDates = this.extractPeriodDates(object);
+    const sub = event.object;
 
     const db = getDb();
     const existing = await db
       .select()
       .from(payment)
-      .where(eq(payment.subscriptionId, subscriptionId))
+      .where(eq(payment.subscriptionId, sub.id))
       .orderBy(desc(payment.createdAt))
       .limit(1);
 
     if (existing.length > 0) {
-      // Update existing record with period dates and active status
       await db
         .update(payment)
         .set({
           status: 'active' as PaymentStatus,
           paid: true,
-          periodStart: periodDates.periodStart,
-          periodEnd: periodDates.periodEnd,
+          periodStart: sub.currentPeriodStartDate ?? null,
+          periodEnd: sub.currentPeriodEndDate ?? null,
           updatedAt: new Date(),
         })
-        .where(eq(payment.subscriptionId, subscriptionId));
+        .where(eq(payment.subscriptionId, sub.id));
       console.log('<< Updated subscription record to active with period dates');
     } else {
-      // No record yet — might arrive before checkout.completed
-      // Create a new record if we can identify the user
-      const userId = this.extractUserId(object);
-      if (userId) {
-        await this.updateUserCustomerId(object.customer.id, userId);
-        await this.createSubscriptionPaymentRecord(event, userId);
-      } else {
-        console.log(
-          '<< No existing record and no userId for subscription.active, skipping'
-        );
-      }
+      // No record yet — this event arrived before checkout.completed.
+      // Skip creation; checkout.completed will create the record.
+      console.log(
+        '<< No payment record for subscription.active, waiting for checkout.completed'
+      );
     }
   }
 
@@ -581,46 +701,44 @@ export class CreemProvider implements PaymentProvider {
    *
    * Fires when a subscription is updated (e.g. plan change, period renewal).
    * Updates the payment record with the latest period dates and status.
+   *
+   * Like subscription.active, this may arrive before checkout.completed.
+   * If no record exists, we skip — never create from this event.
    */
-  private async onSubscriptionUpdate(event: CreemWebhookEvent): Promise<void> {
+  private async onSubscriptionUpdate(
+    event: CreemSubscriptionUpdateEvent
+  ): Promise<void> {
     console.log('>> Handle Creem subscription update:', event.id);
 
-    const { object } = event;
-    const subscriptionId = object.subscription?.id ?? object.id;
-    const periodDates = this.extractPeriodDates(object);
+    const sub = event.object;
 
     const db = getDb();
     const existing = await db
       .select()
       .from(payment)
-      .where(eq(payment.subscriptionId, subscriptionId))
+      .where(eq(payment.subscriptionId, sub.id))
       .orderBy(desc(payment.createdAt))
       .limit(1);
 
     if (existing.length > 0) {
-      // Build update set — only update period dates if they are present
       const updateSet: Record<string, unknown> = {
         updatedAt: new Date(),
       };
-      if (periodDates.periodStart) {
-        updateSet.periodStart = periodDates.periodStart;
+      if (sub.currentPeriodStartDate) {
+        updateSet.periodStart = sub.currentPeriodStartDate;
       }
-      if (periodDates.periodEnd) {
-        updateSet.periodEnd = periodDates.periodEnd;
+      if (sub.currentPeriodEndDate) {
+        updateSet.periodEnd = sub.currentPeriodEndDate;
       }
-      // Map subscription status if available
-      const subStatus = object.subscription?.status;
-      if (subStatus === 'active' || subStatus === 'trialing') {
-        updateSet.status = subStatus as PaymentStatus;
-      }
-      if (object.subscription?.cancel_at_period_end !== undefined) {
-        updateSet.cancelAtPeriodEnd = object.subscription.cancel_at_period_end;
+      // Map subscription status to payment status
+      if (sub.status === 'active' || sub.status === 'trialing') {
+        updateSet.status = sub.status as PaymentStatus;
       }
 
       await db
         .update(payment)
         .set(updateSet)
-        .where(eq(payment.subscriptionId, subscriptionId));
+        .where(eq(payment.subscriptionId, sub.id));
       console.log('<< Updated subscription record from subscription.update');
     } else {
       console.log('<< No existing record for subscription.update, skipping');
@@ -631,9 +749,10 @@ export class CreemProvider implements PaymentProvider {
 
   /**
    * Create a one-time payment record (lifetime plan)
+   * Called from checkout.completed for billing_type !== 'recurring'
    */
   private async createOneTimePaymentRecord(
-    event: CreemWebhookEvent,
+    event: CreemCheckoutCompletedEvent,
     userId: string
   ): Promise<void> {
     console.log('>> Create Creem one-time payment record');
@@ -647,7 +766,7 @@ export class CreemProvider implements PaymentProvider {
         id: crypto.randomUUID(),
         priceId: object.product.id,
         userId: userId,
-        customerId: object.customer.id,
+        customerId: object.customer?.id ?? '',
         subscriptionId: null,
         sessionId: event.id,
         invoiceId: event.id,
@@ -669,10 +788,10 @@ export class CreemProvider implements PaymentProvider {
       const amount = object.product.price ? object.product.price / 100 : 0;
       await sendPaymentNotification({
         sessionId: event.id,
-        customerId: object.customer.id,
+        customerId: object.customer?.id ?? '',
         userName:
           (object.metadata?.userName as string) ??
-          object.customer.name ??
+          object.customer?.name ??
           'Customer',
         amount,
       });
@@ -691,23 +810,24 @@ export class CreemProvider implements PaymentProvider {
   }
 
   /**
-   * Create a subscription payment record
+   * Create a subscription payment record from checkout.completed event
    */
   private async createSubscriptionPaymentRecord(
-    event: CreemWebhookEvent,
+    event: CreemCheckoutCompletedEvent,
     userId: string,
     statusOverride?: PaymentStatus
   ): Promise<void> {
-    console.log('>> Create Creem subscription payment record');
+    console.log('>> Create Creem subscription payment record (checkout)');
 
     const { object } = event;
     const currentDate = new Date();
-    const subscriptionId = object.subscription?.id ?? object.id;
-    const periodDates = this.extractPeriodDates(object);
+    const sub = object.subscription;
+    const subscriptionId = sub?.id ?? null;
+    const periodStart = sub?.currentPeriodStartDate ?? null;
+    const periodEnd = sub?.currentPeriodEndDate ?? null;
     const interval = this.mapBillingPeriodToInterval(
-      object.product.billing_period
+      object.product.billingPeriod
     );
-
     const isTrialing = statusOverride === 'trialing';
 
     try {
@@ -716,8 +836,8 @@ export class CreemProvider implements PaymentProvider {
         id: crypto.randomUUID(),
         priceId: object.product.id,
         userId: userId,
-        customerId: object.customer.id,
-        subscriptionId: subscriptionId,
+        customerId: object.customer?.id ?? '',
+        subscriptionId: subscriptionId ?? null,
         sessionId: event.id,
         invoiceId: event.id,
         type: PaymentTypes.SUBSCRIPTION,
@@ -725,11 +845,12 @@ export class CreemProvider implements PaymentProvider {
         interval: interval,
         status: statusOverride ?? ('active' as PaymentStatus),
         paid: true,
-        periodStart: periodDates.periodStart,
-        periodEnd: periodDates.periodEnd,
+        periodStart: periodStart ?? null,
+        periodEnd: periodEnd ?? null,
         cancelAtPeriodEnd: false,
-        trialStart: isTrialing ? periodDates.periodStart : null,
-        trialEnd: isTrialing ? periodDates.periodEnd : null,
+        // Creem has no separate trial fields; during trialing the period dates ARE the trial dates
+        trialStart: isTrialing ? (periodStart ?? null) : null,
+        trialEnd: isTrialing ? (periodEnd ?? null) : null,
         createdAt: currentDate,
         updatedAt: currentDate,
       });
@@ -750,54 +871,21 @@ export class CreemProvider implements PaymentProvider {
   // ─── Helpers ──────────────────────────────────────────────
 
   /**
-   * Extract userId from Creem webhook object
+   * Extract userId from checkout webhook object.
    *
-   * Creem stores the userId in multiple places:
-   * 1. metadata.userId (set during checkout)
-   * 2. request_id (set as requestId during checkout)
+   * userId is stored in metadata.userId (set during checkout creation).
+   * Note: requestId is a per-checkout dedup key (UUID), not a user identifier.
    */
-  private extractUserId(object: CreemWebhookObject): string | undefined {
-    return (
-      (object.metadata?.userId as string) || object.request_id || undefined
-    );
-  }
-
-  /**
-   * Extract period dates from webhook object
-   *
-   * Creem uses `current_period_start_date` / `current_period_end_date` as field names.
-   * For subscription.* events these are top-level fields on the object.
-   * For checkout.completed the subscription is nested.
-   *
-   * Note: Creem has no separate trial_start / trial_end fields.
-   * During trialing, period dates represent the trial start and end.
-   */
-  private extractPeriodDates(object: CreemWebhookObject): {
-    periodStart: Date | null;
-    periodEnd: Date | null;
-  } {
-    // Period start: try top-level first (subscription.* events), then nested
-    const periodStartStr =
-      object.current_period_start_date ??
-      object.subscription?.current_period_start_date ??
-      null;
-
-    // Period end: try top-level first, then nested
-    const periodEndStr =
-      object.current_period_end_date ??
-      object.subscription?.current_period_end_date ??
-      null;
-
-    return {
-      periodStart: periodStartStr ? new Date(periodStartStr) : null,
-      periodEnd: periodEndStr ? new Date(periodEndStr) : null,
-    };
+  private extractCheckoutUserId(
+    object: WebhookCheckoutObject
+  ): string | undefined {
+    return (object.metadata?.userId as string) || undefined;
   }
 
   /**
    * Map Creem billing_period to PlanInterval
    *
-   * Creem periods: 'every-month', 'every-3-months', 'every-6-months', 'every-year'
+   * Creem periods: 'every-month', 'every-three-months', 'every-six-months', 'every-year', 'once'
    * Our intervals: 'month', 'year'
    */
   private mapBillingPeriodToInterval(billingPeriod?: string): PlanInterval {
