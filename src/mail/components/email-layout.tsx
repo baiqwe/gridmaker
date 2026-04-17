@@ -8,7 +8,6 @@ import {
   Tailwind,
   Text,
 } from '@react-email/components';
-import { websiteConfig } from '@/config/website';
 import { messages } from '@/messages';
 
 interface EmailLayoutProps {
@@ -36,7 +35,7 @@ export default function EmailLayout({ children }: EmailLayoutProps) {
             {children}
             <Hr className="my-8" />
             <Text className="mt-4">
-              {websiteConfig.metadata?.name} {messages.mail.layout.team}
+              {messages.site.name} {messages.mail.layout.team}
             </Text>
             <Text>
               ©️ {year} {messages.mail.layout.copyright}
