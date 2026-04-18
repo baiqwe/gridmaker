@@ -216,26 +216,9 @@ export function UserDetailViewer({ user }: UserDetailViewerProps) {
                   ? formatDate(toDate(user.banExpires)!)
                   : m.ban.never}
               </div>
-              <Button
-                variant="destructive"
-                onClick={handleUnban}
-                disabled={unbanUserMutation.isPending}
-                className="mt-4"
-              >
-                {unbanUserMutation.isPending && (
-                  <IconLoader2 className="mr-2 size-4 animate-spin" />
-                )}
-                {m.unban.button}
-              </Button>
             </div>
           ) : (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                void handleBan();
-              }}
-              className="grid gap-4"
-            >
+            <div className="grid gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="ban-reason">{m.ban.reason}</Label>
                 <Textarea
@@ -278,21 +261,33 @@ export function UserDetailViewer({ user }: UserDetailViewerProps) {
                   )}
                 </div>
               </div>
-              <Button
-                type="submit"
-                variant="destructive"
-                disabled={banUserMutation.isPending || !banReason?.trim()}
-                className="mt-4"
-              >
-                {banUserMutation.isPending && (
-                  <IconLoader2 className="mr-2 size-4 animate-spin" />
-                )}
-                {m.ban.button}
-              </Button>
-            </form>
+            </div>
           )}
         </div>
-        <DrawerFooter>
+        <DrawerFooter className="flex flex-col gap-2">
+          {user.banned ? (
+            <Button
+              variant="destructive"
+              onClick={handleUnban}
+              disabled={unbanUserMutation.isPending}
+            >
+              {unbanUserMutation.isPending && (
+                <IconLoader2 className="mr-2 size-4 animate-spin" />
+              )}
+              {m.unban.button}
+            </Button>
+          ) : (
+            <Button
+              variant="destructive"
+              onClick={handleBan}
+              disabled={banUserMutation.isPending || !banReason?.trim()}
+            >
+              {banUserMutation.isPending && (
+                <IconLoader2 className="mr-2 size-4 animate-spin" />
+              )}
+              {m.ban.button}
+            </Button>
+          )}
           <DrawerClose asChild>
             <Button variant="outline">{m.close}</Button>
           </DrawerClose>
