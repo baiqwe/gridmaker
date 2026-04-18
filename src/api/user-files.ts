@@ -3,8 +3,8 @@ import { userFiles } from '@/db/app.schema';
 import { getBaseUrl } from '@/lib/urls';
 import { authApiMiddleware } from '@/middlewares/auth-middleware';
 import { deleteFile, uploadFile } from '@/storage';
-import { DEFAULT_AVATARS_FOLDER } from '@/storage/constants';
 import { StorageError, UploadError } from '@/storage/types';
+import { isPublicFolder } from '@/storage/utils';
 import { createServerFn } from '@tanstack/react-start';
 import { and, count, desc, eq } from 'drizzle-orm';
 import { z } from 'zod';
@@ -96,14 +96,19 @@ export const uploadUserFile = createServerFn({ method: 'POST' })
     try {
       const buffer = Buffer.from(await data.file.arrayBuffer());
       const requestOrigin = getBaseUrl();
+      const publicFolder = isPublicFolder(data.folder);
+
+      // Public folders (avatars, product logos/og-images) are shared resources:
+      // no userId → stored directly under folder → no userFiles DB record.
+      // Private files get userId scoping and are tracked in userFiles.
       const result = await uploadFile(buffer, data.file.name, data.file.type, {
         folder: data.folder,
-        userId: userId ?? undefined,
+        userId: publicFolder ? undefined : (userId ?? undefined),
         requestOrigin,
       });
 
-      // Skip userFiles record for avatars
-      if (userId && result.metadata && data.folder !== DEFAULT_AVATARS_FOLDER) {
+      // Only user-scoped uploads produce metadata; record them in DB
+      if (!publicFolder && userId && result.metadata) {
         const db = getDb();
         const now = result.metadata.uploadedAt;
         await db.insert(userFiles).values({
