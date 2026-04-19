@@ -75,7 +75,7 @@ export const websiteConfig: WebsiteConfig = {
   },
   newsletter: {
     enable: false,
-    provider: 'beehiiv',
+    provider: 'resend',
     autoSubscribeAfterSignUp: true,
   },
   notification: {

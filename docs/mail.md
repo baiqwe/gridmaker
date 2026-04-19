@@ -1,6 +1,6 @@
 # Mail module
 
-Transactional email (verification, password reset, contact form, subscription welcome). Uses **Cloudflare Email Service** REST API as the built-in provider — works in Workers, CI/CD, or any Node.js environment. Design allows adding other providers via a provider registry without changing callers.
+Transactional email (verification, password reset, contact form, subscription welcome). **Resend** and **Cloudflare Email Service** are the built-in providers. Design allows adding other providers via a provider registry without changing callers.
 
 **Consumers:** Auth (`sendVerificationEmail`, `sendResetPassword`), contact form (`sendContactMessage` in `src/api/contact.ts`), newsletter subscribe — all use `sendEmail(...)` only.
 
@@ -14,6 +14,7 @@ src/mail/
 ├── types.ts           # EmailTemplate, MailProviderName, Send*Params, MailProvider
 ├── render.ts          # getTemplate, renderEmailHtml, toPlainText; subjectByTemplate
 ├── provider/
+│   ├── resend.ts      # ResendProvider implements MailProvider
 │   └── cloudflare.ts  # CloudflareProvider implements MailProvider
 ├── templates/
 │   ├── verify-email.tsx
@@ -31,15 +32,29 @@ src/mail/
 
 | Source | Key | Description |
 |--------|-----|-------------|
-| `websiteConfig.mail` | `provider` | `'cloudflare'`. Extend in `src/types/index.d.ts` when adding providers. |
+| `websiteConfig.mail` | `provider` | `'resend'` or `'cloudflare'`. Extend in `src/types/index.d.ts` when adding providers. |
 | | `fromEmail` | Sender address (required for sending). |
 | | `supportEmail` | Used by contact form target. |
-| Env var | `CLOUDFLARE_ACCOUNT_ID` | Cloudflare account ID. |
-| | `CLOUDFLARE_API_TOKEN` | Cloudflare API token. |
+| Env var | `RESEND_API_KEY` | Required when using the Resend provider. |
+| Env var | `CLOUDFLARE_ACCOUNT_ID` | Cloudflare account ID; required when using Cloudflare Email provider. |
+| Env var | `CLOUDFLARE_API_TOKEN` | Cloudflare API token; required when using Cloudflare provider. |
 
 ---
 
 ## Providers
+
+### Resend
+
+Uses the [Resend](https://resend.com/docs) SDK. Requires `RESEND_API_KEY` env var.
+
+```ts
+// src/config/website.ts
+mail: {
+  enable: true,
+  provider: 'resend',
+  fromEmail: 'MyApp <support@example.com>',
+}
+```
 
 ### Cloudflare Email Service
 
@@ -101,7 +116,7 @@ mail: {
 
 The module uses a **provider registry** (`providerRegistry` in `index.ts`). To add a new provider:
 
-1. **Types** — In `src/types/index.d.ts`, extend `MailConfig.provider` union (e.g. `'cloudflare' | 'newprovider'`).
+1. **Types** — In `src/types/index.d.ts`, extend `MailConfig.provider` union (e.g. `'resend' | 'cloudflare' | 'newprovider'`).
 2. **Implementation** — Add `src/mail/provider/<name>.ts` implementing `MailProvider` (`sendTemplate`, `sendRawEmail`, `getProviderName`). Use `getTemplate` from `../render` for template-based sends.
 3. **Registration** — In `src/mail/index.ts`, add a factory to `providerRegistry`: `newprovider: () => new NewProvider(...)`, reading provider-specific env/bindings inside.
 
@@ -111,4 +126,5 @@ Callers continue using `sendEmail(...)` only.
 
 ## Dependencies
 
+- **resend** — Resend SDK (when using Resend provider).
 - **React / react-dom/server** — Template rendering (`renderToReadableStream` or `renderToStaticMarkup`).

@@ -6,6 +6,7 @@ import type {
   SendRawEmailParams,
   SendTemplateParams,
 } from './types';
+import { ResendProvider } from './provider/resend';
 import { CloudflareProvider } from './provider/cloudflare';
 
 let mailProvider: MailProvider | null = null;
@@ -13,6 +14,7 @@ let mailProvider: MailProvider | null = null;
 type ProviderFactory = () => MailProvider;
 
 const providerRegistry: Record<MailProviderName, ProviderFactory> = {
+  resend: () => new ResendProvider(),
   cloudflare: () => new CloudflareProvider(),
 };
 
