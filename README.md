@@ -26,7 +26,7 @@ If you found anything that could be improved, please let me know.
 By default, you should have access to all 2 repositories. If you find that you’re unable to access any of them, please don’t hesitate to reach out to me, and I’ll assist you in resolving the issue.
 
 - [mkfast-template](https://github.com/MkFastHQ/mkfast-template): https://demo.tanstarter.dev
-- [mkfast-app](https://github.com/MkFastHQ/mkfast-app): Working in Progress
+- [mkfast-app](https://github.com/MkFastHQ/mkfast-app): Working in Progress, contact me if you have any ideas
 
 ## Notice
 
