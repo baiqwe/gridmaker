@@ -5,24 +5,6 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Secrets required by deploy.yml (lines 39-54)
-const REQUIRED_SECRETS = [
-  'VITE_BASE_URL',
-  'VITE_STRIPE_PRICE_PRO_MONTHLY',
-  'VITE_STRIPE_PRICE_PRO_YEARLY',
-  'VITE_STRIPE_PRICE_LIFETIME',
-  'VITE_GOOGLE_ANALYTICS_ID',
-  'VITE_CLARITY_PROJECT_ID',
-  'VITE_PLAUSIBLE_SCRIPT',
-  'VITE_UMAMI_WEBSITE_ID',
-  'VITE_UMAMI_SCRIPT',
-  'VITE_CRISP_WEBSITE_ID',
-  'VITE_AFFILIATE_AFFONSO_ID',
-  'VITE_AFFILIATE_PROMOTEKIT_ID',
-  'CLOUDFLARE_ACCOUNT_ID',
-  'CLOUDFLARE_API_TOKEN',
-];
-
 function parseEnvFile(filePath: string): Record<string, string> {
   const content = fs.readFileSync(filePath, 'utf8');
   const env: Record<string, string> = {};
@@ -35,7 +17,6 @@ function parseEnvFile(filePath: string): Record<string, string> {
     if (!match) continue;
 
     const [, key, rawValue] = match;
-    // Strip surrounding quotes (single or double)
     const value = rawValue.replace(/^['"]|['"]$/g, '');
     env[key] = value;
   }
@@ -205,7 +186,6 @@ async function main() {
     process.exit(1);
   }
 
-  // Check gh CLI is available
   try {
     execFileSync('gh', ['--version'], { stdio: 'ignore' });
   } catch {
@@ -213,7 +193,6 @@ async function main() {
     process.exit(1);
   }
 
-  // Check gh auth status
   try {
     execFileSync('gh', ['auth', 'status'], { stdio: 'ignore' });
   } catch {
@@ -223,21 +202,21 @@ async function main() {
 
   const repo = resolveRepo(rootDir);
   const env = parseEnvFile(envPath);
-  const missing: string[] = [];
+  const keys = Object.keys(env);
   const skipped: string[] = [];
   const failed: string[] = [];
   let successCount = 0;
 
-  console.log('🔄 Syncing secrets to GitHub Actions...');
+  if (keys.length === 0) {
+    console.log('No environment variables found in .env.production');
+    process.exit(0);
+  }
+
+  console.log(`🔄 Syncing ${keys.length} secrets to GitHub Actions...`);
   console.log(`📦 Target GitHub repo: ${repo}\n`);
 
-  for (const key of REQUIRED_SECRETS) {
+  for (const key of keys) {
     const value = env[key];
-
-    if (value === undefined) {
-      missing.push(key);
-      continue;
-    }
 
     if (value === '') {
       skipped.push(key);
@@ -253,7 +232,6 @@ async function main() {
       console.error(`❌ Failed to set ${key}`);
     }
 
-    // Delay between requests to avoid GitHub API rate limits
     await sleep(DELAY_MS);
   }
 
@@ -261,9 +239,6 @@ async function main() {
   console.log(`✅ Set: ${successCount}`);
   if (skipped.length > 0) {
     console.log(`⏭️  Skipped (empty): ${skipped.join(', ')}`);
-  }
-  if (missing.length > 0) {
-    console.log(`⚠️  Missing in .env.production: ${missing.join(', ')}`);
   }
   if (failed.length > 0) {
     console.log(`❌ Failed: ${failed.join(', ')}`);

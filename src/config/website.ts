@@ -74,7 +74,7 @@ export const websiteConfig: WebsiteConfig = {
     supportEmail: 'TanStarter <support@tanstarter.dev>',
   },
   newsletter: {
-    enable: false,
+    enable: true,
     provider: 'resend',
     autoSubscribeAfterSignUp: true,
   },
