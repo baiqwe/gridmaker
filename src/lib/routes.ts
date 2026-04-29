@@ -11,6 +11,7 @@ export const Routes = {
   About: '/about',
   Contact: '/contact',
   Waitlist: '/waitlist',
+  Ai: '/ai',
 
   // Auth routes
   Auth: '/auth',
