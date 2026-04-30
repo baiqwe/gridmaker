@@ -3,6 +3,7 @@ import Container from '@/components/layout/container';
 import { AiCaptionCard } from '@/components/ai/ai-caption-card';
 import { AiCfImageCard } from '@/components/ai/ai-cf-image-card';
 import { AiImageCard } from '@/components/ai/ai-image-card';
+import { AiImageEditCard } from '@/components/ai/ai-image-edit-card';
 import { AiSummarizationCard } from '@/components/ai/ai-summarization-card';
 import { AiTaglineCard } from '@/components/ai/ai-tagline-card';
 import { AiTranslationCard } from '@/components/ai/ai-translation-card';
@@ -51,6 +52,9 @@ function AiPage() {
         </section>
         <section id="image-generator-fal" className="scroll-mt-20">
           <AiImageCard />
+        </section>
+        <section id="image-editing" className="scroll-mt-20">
+          <AiImageEditCard />
         </section>
       </div>
     </Container>

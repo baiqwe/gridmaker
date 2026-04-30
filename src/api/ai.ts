@@ -20,6 +20,10 @@ import { serverEnv } from '@/env/server';
  *   Supports switching between `fal-ai/flux/schnell`,
  *   `fal-ai/gemini-25-flash-image` (Nano Banana), and `openai/gpt-image-2`.
  *
+ * - Image editing / image-to-image (fal): `fal-ai/gemini-25-flash-image/edit`.
+ *   Takes a base64 portrait + prompt and returns a stylized version (e.g.
+ *   bobblehead caricature). Identity preservation is excellent on this model.
+ *
  * - Image generation (Cloudflare): Workers AI text-to-image models such as
  *   `@cf/black-forest-labs/flux-1-schnell` and
  *   `@cf/bytedance/stable-diffusion-xl-lightning`. These return the image
@@ -132,6 +136,18 @@ const ttsSchema = z.object({
     .min(1, 'Please provide some text to synthesize.')
     .max(1000, 'Text is too long, please keep it under 1000 characters.'),
   speaker: z.enum(TTS_SPEAKERS),
+});
+
+const imageEditSchema = z.object({
+  /** Base64-encoded source image (with or without `data:` prefix). */
+  imageBase64: z
+    .string()
+    .min(100, 'Image data is too small.')
+    .max(1_400_000, 'Image is too large (please use one under ~1 MB).'),
+  prompt: z
+    .string()
+    .min(5, 'Please provide a longer prompt.')
+    .max(500, 'Prompt is too long, please keep it under 500 characters.'),
 });
 
 const captionSchema = z.object({
@@ -335,6 +351,43 @@ export const generateAiImage = createServerFn({ method: 'POST' })
     }
 
     return { imageUrl, model: data.model };
+  });
+
+/**
+ * Image-to-image edit using fal.ai Gemini 2.5 Flash Image (`/edit` endpoint).
+ * Sends the user's base64 image as a data URI in `image_urls` and returns a
+ * stylized version. Great at preserving the subject's identity, so it works
+ * well for portrait → caricature / cartoon / anime transformations.
+ */
+export const editAiImage = createServerFn({ method: 'POST' })
+  .inputValidator(imageEditSchema)
+  .handler(async ({ data }) => {
+    const apiKey = serverEnv.FAL_KEY;
+    if (!apiKey) {
+      throw new Error(
+        'Missing FAL_KEY env. Set it as a Worker secret to use fal.ai.'
+      );
+    }
+
+    const dataUrl = data.imageBase64.startsWith('data:')
+      ? data.imageBase64
+      : `data:image/jpeg;base64,${data.imageBase64}`;
+
+    const adapter = falImage('fal-ai/gemini-25-flash-image/edit', { apiKey });
+
+    const result = await generateImage({
+      adapter,
+      prompt: data.prompt,
+      modelOptions: { image_urls: [dataUrl] },
+    });
+
+    const image = result.images?.[0];
+    const imageUrl = image?.url;
+    if (!imageUrl) {
+      throw new Error('Image edit failed: empty response.');
+    }
+
+    return { imageUrl };
   });
 
 /**

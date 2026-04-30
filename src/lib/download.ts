@@ -1,5 +1,9 @@
 /**
- * Download a remote or `data:` URL as a file in the browser.
+ * Trigger a browser "Save As" download for a remote URL or `data:` URL.
+ *
+ * Note: This is a *client-side* helper that programmatically clicks a hidden
+ * `<a download>` link. It is unrelated to the server-side R2 helper of the
+ * same role exposed under `@/storage`.
  *
  * - Data URLs are clicked directly via an `<a download>` link.
  * - Remote URLs are fetched and turned into a blob URL so the browser does

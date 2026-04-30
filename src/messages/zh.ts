@@ -81,6 +81,10 @@ export const messages = {
         title: '图像生成 · Workers AI',
         description: '在 Cloudflare 上运行 Flux 与 SDXL',
       },
+      imageEdit: {
+        title: '头像漫画化',
+        description: '使用 Gemini 把头像转成卡通漫画风',
+      },
     },
   },
 

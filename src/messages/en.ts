@@ -82,6 +82,10 @@ export const messages = {
         title: 'Image Generator · Workers AI',
         description: 'Run Flux & SDXL on Cloudflare',
       },
+      imageEdit: {
+        title: 'Avatar Stylizer',
+        description: 'Turn portraits into caricatures',
+      },
     },
   },
 

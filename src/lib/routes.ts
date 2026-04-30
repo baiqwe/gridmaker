@@ -18,6 +18,7 @@ export const Routes = {
   AiTts: '/ai#text-to-speech',
   AiImageFal: '/ai#image-generator-fal',
   AiImageCf: '/ai#image-generator-cloudflare',
+  AiImageEdit: '/ai#image-editing',
   AiCaption: '/ai#image-captioning',
 
   // Auth routes
