@@ -42,6 +42,7 @@ import { Route as pagesRoadmapRouteImport } from './routes/(pages)/roadmap'
 import { Route as pagesPricingRouteImport } from './routes/(pages)/pricing'
 import { Route as pagesContactRouteImport } from './routes/(pages)/contact'
 import { Route as pagesChangelogRouteImport } from './routes/(pages)/changelog'
+import { Route as pagesAiRouteImport } from './routes/(pages)/ai'
 import { Route as pagesAboutRouteImport } from './routes/(pages)/about'
 import { Route as legalsTermsRouteImport } from './routes/(legals)/terms'
 import { Route as legalsPrivacyRouteImport } from './routes/(legals)/privacy'
@@ -216,6 +217,11 @@ const pagesChangelogRoute = pagesChangelogRouteImport.update({
   path: '/changelog',
   getParentRoute: () => rootRouteImport,
 } as any)
+const pagesAiRoute = pagesAiRouteImport.update({
+  id: '/(pages)/ai',
+  path: '/ai',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const pagesAboutRoute = pagesAboutRouteImport.update({
   id: '/(pages)/about',
   path: '/about',
@@ -270,6 +276,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof legalsPrivacyRoute
   '/terms': typeof legalsTermsRoute
   '/about': typeof pagesAboutRoute
+  '/ai': typeof pagesAiRoute
   '/changelog': typeof pagesChangelogRoute
   '/contact': typeof pagesContactRoute
   '/pricing': typeof pagesPricingRoute
@@ -310,6 +317,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof legalsPrivacyRoute
   '/terms': typeof legalsTermsRoute
   '/about': typeof pagesAboutRoute
+  '/ai': typeof pagesAiRoute
   '/changelog': typeof pagesChangelogRoute
   '/contact': typeof pagesContactRoute
   '/pricing': typeof pagesPricingRoute
@@ -354,6 +362,7 @@ export interface FileRoutesById {
   '/(legals)/privacy': typeof legalsPrivacyRoute
   '/(legals)/terms': typeof legalsTermsRoute
   '/(pages)/about': typeof pagesAboutRoute
+  '/(pages)/ai': typeof pagesAiRoute
   '/(pages)/changelog': typeof pagesChangelogRoute
   '/(pages)/contact': typeof pagesContactRoute
   '/(pages)/pricing': typeof pagesPricingRoute
@@ -399,6 +408,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/terms'
     | '/about'
+    | '/ai'
     | '/changelog'
     | '/contact'
     | '/pricing'
@@ -439,6 +449,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/terms'
     | '/about'
+    | '/ai'
     | '/changelog'
     | '/contact'
     | '/pricing'
@@ -482,6 +493,7 @@ export interface FileRouteTypes {
     | '/(legals)/privacy'
     | '/(legals)/terms'
     | '/(pages)/about'
+    | '/(pages)/ai'
     | '/(pages)/changelog'
     | '/(pages)/contact'
     | '/(pages)/pricing'
@@ -526,6 +538,7 @@ export interface RootRouteChildren {
   legalsPrivacyRoute: typeof legalsPrivacyRoute
   legalsTermsRoute: typeof legalsTermsRoute
   pagesAboutRoute: typeof pagesAboutRoute
+  pagesAiRoute: typeof pagesAiRoute
   pagesChangelogRoute: typeof pagesChangelogRoute
   pagesContactRoute: typeof pagesContactRoute
   pagesPricingRoute: typeof pagesPricingRoute
@@ -774,6 +787,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof pagesChangelogRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(pages)/ai': {
+      id: '/(pages)/ai'
+      path: '/ai'
+      fullPath: '/ai'
+      preLoaderRoute: typeof pagesAiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/(pages)/about': {
       id: '/(pages)/about'
       path: '/about'
@@ -914,6 +934,7 @@ const rootRouteChildren: RootRouteChildren = {
   legalsPrivacyRoute: legalsPrivacyRoute,
   legalsTermsRoute: legalsTermsRoute,
   pagesAboutRoute: pagesAboutRoute,
+  pagesAiRoute: pagesAiRoute,
   pagesChangelogRoute: pagesChangelogRoute,
   pagesContactRoute: pagesContactRoute,
   pagesPricingRoute: pagesPricingRoute,
