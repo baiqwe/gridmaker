@@ -12,7 +12,7 @@ function getLocalD1DB() {
     const basePath = path.resolve('.wrangler');
     const dbFile = fs
       .readdirSync(basePath, { encoding: 'utf-8', recursive: true })
-      .find((f) => f.endsWith('.sqlite'));
+      .find((f) => f.endsWith('.sqlite') && !f.startsWith('metadata'));
 
     if (!dbFile) {
       return undefined;
