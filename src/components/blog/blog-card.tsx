@@ -19,8 +19,12 @@ export function BlogCard({ post }: { post: BlogPost }) {
           <div className="aspect-video w-full overflow-hidden rounded-t-xl bg-muted">
             <img
               src={post.image}
-              alt="blog post"
+              alt={post.title}
               className="size-full object-cover transition-transform hover:scale-[1.05]"
+              width={1280}
+              height={720}
+              loading="lazy"
+              decoding="async"
             />
           </div>
         )}

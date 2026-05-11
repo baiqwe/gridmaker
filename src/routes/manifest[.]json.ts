@@ -16,10 +16,12 @@ export const Route = createFileRoute('/manifest.json')({
           name: metadata?.name,
           short_name: metadata?.name,
           description: metadata?.description,
-          start_url: '.',
+          start_url: '/',
+          scope: '/',
           display: 'standalone',
-          background_color: '#ffffff',
-          theme_color: '#ffffff',
+          // Keep in sync with <meta name="theme-color"> in src/routes/__root.tsx
+          background_color: '#09090b',
+          theme_color: '#09090b',
           icons: [
             { src: '/favicon.ico', sizes: '48x48', type: 'image/x-icon' },
             {
@@ -39,6 +41,7 @@ export const Route = createFileRoute('/manifest.json')({
         return new Response(JSON.stringify(body), {
           headers: {
             'Content-Type': 'application/manifest+json',
+            'Cache-Control': 'public, max-age=3600',
           },
         });
       },

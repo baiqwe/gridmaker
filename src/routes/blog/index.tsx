@@ -6,6 +6,7 @@ import { getPaginatedPosts } from '@/lib/blog';
 import { websiteConfig } from '@/config/website';
 import { messages } from '@/messages';
 import { seo } from '@/lib/seo';
+import { getCanonicalUrl } from '@/lib/urls';
 
 export const Route = createFileRoute('/blog/')({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -20,11 +21,61 @@ export const Route = createFileRoute('/blog/')({
     const page = Number(new URLSearchParams(location.search).get('page')) || 1;
     return getPaginatedPosts(page);
   },
-  head: () =>
-    seo('/blog', {
-      title: `${messages.blog.title} | ${websiteConfig.metadata?.name}`,
+  head: ({ loaderData }) => {
+    const path = '/blog';
+    const currentPage = loaderData?.currentPage ?? 1;
+    const totalPages = loaderData?.totalPages ?? 1;
+    const pageSuffix = currentPage > 1 ? ` - Page ${currentPage}` : '';
+    const metadata = seo(path, {
+      title: `${messages.blog.title}${pageSuffix} | ${websiteConfig.metadata?.name}`,
       description: messages.blog.description,
-    }),
+    });
+
+    // Canonicalize each paginated page to itself so Google can index them
+    // independently instead of folding everything into /blog.
+    const canonicalHref =
+      currentPage > 1
+        ? `${getCanonicalUrl(path)}?page=${currentPage}`
+        : getCanonicalUrl(path);
+
+    const paginationLinks: Array<{ rel: string; href: string }> = [
+      { rel: 'canonical', href: canonicalHref },
+    ];
+    if (currentPage > 1) {
+      const prevPage = currentPage - 1;
+      paginationLinks.push({
+        rel: 'prev',
+        href:
+          prevPage === 1
+            ? getCanonicalUrl(path)
+            : `${getCanonicalUrl(path)}?page=${prevPage}`,
+      });
+    }
+    if (currentPage < totalPages) {
+      paginationLinks.push({
+        rel: 'next',
+        href: `${getCanonicalUrl(path)}?page=${currentPage + 1}`,
+      });
+    }
+
+    const blogJsonLd = {
+      '@context': 'https://schema.org',
+      '@type': 'Blog',
+      name: messages.blog.title,
+      description: messages.blog.description,
+      url: getCanonicalUrl(path),
+    };
+    return {
+      ...metadata,
+      links: paginationLinks,
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(blogJsonLd),
+        },
+      ],
+    };
+  },
   component: BlogListPage,
 });
 

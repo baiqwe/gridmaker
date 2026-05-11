@@ -36,7 +36,12 @@ export const Route = createFileRoute('/blog/$slug')({
       description,
       ...(image && { image }),
       datePublished: new Date(post.date).toISOString(),
+      dateModified: new Date(post.date).toISOString(),
       url: getCanonicalUrl(path),
+      author: {
+        '@type': 'Organization',
+        name: websiteConfig.metadata?.name ?? '',
+      },
       publisher: {
         '@type': 'Organization',
         name: websiteConfig.metadata?.name ?? '',
