@@ -80,12 +80,16 @@ export function getSidebarLinks(): MenuItemConfig[] {
           href: Routes.SettingsApiKeys,
           external: false,
         },
-        {
-          title: m.notifications,
-          icon: IconBell,
-          href: Routes.SettingsNotifications,
-          external: false,
-        },
+        ...(websiteConfig.newsletter?.enable
+          ? [
+              {
+                title: m.notifications,
+                icon: IconBell,
+                href: Routes.SettingsNotifications,
+                external: false,
+              },
+            ]
+          : []),
       ],
     },
   ];
