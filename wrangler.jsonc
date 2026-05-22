@@ -77,12 +77,4 @@
       "binding": "BUCKET"
     }
   ]
-
-  /**
-   * AI integrations are consumed via REST APIs (see `src/api/ai.ts`),
-   * so no `ai` binding is required here. Set the following Worker secrets:
-   *   - CLOUDFLARE_ACCOUNT_ID  account ID (Workers AI summarize)
-   *   - CLOUDFLARE_API_TOKEN   Workers AI API token (summarize)
-   *   - FAL_KEY                fal.ai API key (image generation)
-   */
 }
