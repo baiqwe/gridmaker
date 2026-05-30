@@ -141,7 +141,7 @@ export function DataTableDateFilter<TData>({
             <>
               <Separator
                 orientation="vertical"
-                className="mx-0.5 data-[orientation=vertical]:h-4"
+                className="mx-0.5 h-4 self-auto!"
               />
               <span>{dateText}</span>
             </>
@@ -164,7 +164,7 @@ export function DataTableDateFilter<TData>({
           <>
             <Separator
               orientation="vertical"
-              className="mx-0.5 data-[orientation=vertical]:h-4"
+              className="mx-0.5 h-4 self-auto!"
             />
             <span>{dateText}</span>
           </>

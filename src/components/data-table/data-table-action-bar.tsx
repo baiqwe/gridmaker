@@ -153,7 +153,7 @@ function DataTableActionBarSelection<TData>({
       </span>
       <Separator
         orientation="vertical"
-        className="mr-1 ml-2 data-[orientation=vertical]:h-4"
+        className="mr-1 ml-2 h-4 self-auto!"
       />
       <Tooltip>
         <TooltipTrigger

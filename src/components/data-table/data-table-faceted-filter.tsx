@@ -106,7 +106,7 @@ export function DataTableFacetedFilter<TData, TValue>({
               <>
                 <Separator
                   orientation="vertical"
-                  className="mx-0.5 data-[orientation=vertical]:h-4"
+                  className="mx-0.5 h-4 self-auto!"
                 />
                 <Badge
                   variant="secondary"
