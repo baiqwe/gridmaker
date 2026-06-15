@@ -1,0 +1,112 @@
+import type { ToolPageConfig } from '@/lib/grid-maker/tool-pages';
+import { landingToolPages } from '@/lib/grid-maker/tool-pages';
+import { GridMakerTool } from '@/components/grid-maker/grid-maker-tool';
+import { Link } from '@tanstack/react-router';
+
+export function ToolPage({ page }: { page: ToolPageConfig }) {
+  return (
+    <div className="bg-[#fbfaf7] text-[#151515]">
+      <section className="border-b border-black/10">
+        <div className="mx-auto grid min-h-[calc(100svh-76px)] max-w-7xl gap-6 px-4 py-6 lg:grid-cols-[minmax(0,1fr)_390px] lg:px-6 lg:py-8">
+          <div className="flex min-w-0 flex-col gap-5">
+            <div className="max-w-3xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#b84c16]">
+                {page.eyebrow}
+              </p>
+              <h1 className="mt-3 text-4xl font-bold leading-[1.02] text-[#151515] md:text-6xl">
+                {page.h1}
+              </h1>
+              <p className="mt-4 max-w-2xl text-base leading-7 text-[#5b554d] md:text-lg">
+                {page.description}
+              </p>
+            </div>
+            <GridMakerTool key={page.slug} config={page} />
+          </div>
+
+          <aside className="hidden lg:block">
+            <div className="sticky top-24 rounded-lg border border-black/10 bg-white p-5 shadow-[0_18px_50px_rgba(21,21,21,0.08)]">
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#70675d]">
+                Best for
+              </p>
+              <ul className="mt-4 space-y-3 text-sm text-[#2d2a26]">
+                {page.bestFor.map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <span className="mt-1 size-2 shrink-0 rounded-full bg-[#1c9b7a]" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-6 rounded-md bg-[#f4efe7] p-4 text-sm leading-6 text-[#514a42]">
+                No uploads. No watermark. No registration. The image work stays
+                in your browser.
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 py-14 lg:px-6">
+        <div className="grid gap-10 md:grid-cols-[1fr_280px]">
+          <div>
+            <h2 className="text-2xl font-bold text-[#151515]">
+              About this tool
+            </h2>
+            <p className="mt-4 text-base leading-8 text-[#514a42]">
+              {page.intro}
+            </p>
+            <p className="mt-4 text-base leading-8 text-[#514a42]">
+              The workflow is intentionally simple: upload an image, choose the
+              grid style, adjust the rows and columns, then download the result.
+              For split grids, each tile is generated locally and bundled in a
+              ZIP file. For drawing and craft grids, the exported PNG keeps the
+              reference image and grid lines together.
+            </p>
+            <p className="mt-4 text-base leading-8 text-[#514a42]">
+              Because processing happens in the browser, the site can stay fast
+              on Cloudflare Workers while avoiding server-side image storage.
+              That also keeps the experience private for personal photos,
+              artwork references, and campaign assets.
+            </p>
+          </div>
+
+          <nav aria-label="Related tools" className="rounded-lg bg-white p-5">
+            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#70675d]">
+              Related tools
+            </p>
+            <div className="mt-4 flex flex-col gap-2">
+              {landingToolPages.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className="rounded-md px-3 py-2 text-sm font-medium text-[#2d2a26] transition hover:bg-[#f4efe7]"
+                >
+                  {item.h1}
+                </Link>
+              ))}
+            </div>
+          </nav>
+        </div>
+      </section>
+
+      <section className="border-t border-black/10 bg-white">
+        <div className="mx-auto max-w-5xl px-4 py-14 lg:px-6">
+          <h2 className="text-2xl font-bold text-[#151515]">
+            Frequently asked questions
+          </h2>
+          <div className="mt-6 divide-y divide-black/10 rounded-lg border border-black/10">
+            {page.faq.map((item) => (
+              <details key={item.question} className="group p-5">
+                <summary className="cursor-pointer list-none text-base font-semibold text-[#151515]">
+                  {item.question}
+                </summary>
+                <p className="mt-3 text-sm leading-7 text-[#514a42]">
+                  {item.answer}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

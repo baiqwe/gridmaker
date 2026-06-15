@@ -1,10 +1,7 @@
 import { getNavbarLinks } from '@/config/navbar-config';
 import { useScroll } from '@/hooks/use-scroll';
-import { authClient } from '@/auth/client';
 import { isLinkActive } from '@/lib/urls';
 import { cn } from '@/lib/utils';
-import { Routes } from '@/lib/routes';
-import { buttonVariants } from '@/components/ui/button';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,18 +11,14 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import { Skeleton } from '@/components/ui/skeleton';
 import Container from '@/components/layout/container';
 import { Logo } from '@/components/shared/logo';
 import { ModeSwitcher } from '@/components/theme/mode-switcher';
 import { NavbarMobile } from '@/components/layout/navbar-mobile';
-import { UserButton } from '@/components/shared/user-button';
-import { LoginWrapper } from '@/components/auth/login-wrapper';
 import { IconArrowUpRight } from '@tabler/icons-react';
 import { Link, useLocation } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { websiteConfig } from '@/config/website';
-import { messages } from '@/messages';
 
 interface NavbarProps {
   scroll?: boolean;
@@ -35,15 +28,11 @@ export function Navbar({ scroll = true }: NavbarProps) {
   const pathname = useLocation().pathname;
   const scrolled = useScroll(50);
   const menuLinks = getNavbarLinks();
-  const [mounted, setMounted] = useState(false);
   const [menuValue, setMenuValue] = useState<string | null>(null);
-  const { data: session, isPending } = authClient.useSession();
-  const user = session?.user;
   const showBarBg = scroll && scrolled;
 
-  // Sync mount (avoid auth hydration mismatch) and close menu on route change
+  // Close open menu on route change.
   useEffect(() => {
-    setMounted(true);
     setMenuValue(null);
   }, [pathname]);
 
@@ -165,35 +154,6 @@ export function Navbar({ scroll = true }: NavbarProps) {
 
             <div className="flex items-center gap-4 shrink-0">
               <ModeSwitcher />
-              {websiteConfig.auth?.enable &&
-                (!mounted || isPending ? (
-                  <Skeleton className="size-8 rounded-full" />
-                ) : user ? (
-                  <UserButton user={user} />
-                ) : (
-                  <>
-                    <LoginWrapper mode="modal" asChild>
-                      <button
-                        type="button"
-                        className={cn(
-                          buttonVariants({
-                            variant: 'outline',
-                            size: 'sm',
-                          }),
-                          'cursor-pointer'
-                        )}
-                      >
-                        {messages.auth.common.login}
-                      </button>
-                    </LoginWrapper>
-                    <Link
-                      to={Routes.Register}
-                      className={buttonVariants({ size: 'sm' })}
-                    >
-                      {messages.auth.common.signup}
-                    </Link>
-                  </>
-                ))}
             </div>
           </nav>
 

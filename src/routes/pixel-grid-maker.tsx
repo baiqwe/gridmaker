@@ -1,11 +1,12 @@
 import { ToolPage } from '@/components/grid-maker/tool-page';
 import { toolRouteHead } from '@/lib/grid-maker/route-head';
 import { getToolPageByPath } from '@/lib/grid-maker/tool-pages';
+import { Routes } from '@/lib/routes';
 import { createFileRoute } from '@tanstack/react-router';
 
-const page = getToolPageByPath('/');
+const page = getToolPageByPath(Routes.PixelGridMaker);
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute('/pixel-grid-maker')({
   head: () => toolRouteHead(page),
   component: () => <ToolPage page={page} />,
 });

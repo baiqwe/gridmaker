@@ -1,33 +1,40 @@
-import { createFileRoute, notFound } from '@tanstack/react-router';
-import Container from '@/components/layout/container';
-import { MarkdownPage } from '@/components/page/markdown-page';
-import { getPageBySlug } from '@/lib/pages';
+import { SimpleLegalPage } from '@/components/page/simple-legal-page';
 import { websiteConfig } from '@/config/website';
 import { seo } from '@/lib/seo';
+import { createFileRoute } from '@tanstack/react-router';
+
+const title = 'Cookie Policy';
+const description =
+  'Cookie and analytics information for Grid Maker, a browser-based image grid tool.';
 
 export const Route = createFileRoute('/(legals)/cookie')({
-  loader: () => {
-    const page = getPageBySlug('cookie');
-    if (!page) throw notFound();
-    return { page };
-  },
-  head: ({ loaderData }) => {
-    const p = loaderData?.page;
-    if (!p) return {};
-    return seo('/cookie', {
-      title: `${p.title} | ${websiteConfig.metadata?.name}`,
-      description: p.description,
-    });
-  },
+  head: () =>
+    seo('/cookie', {
+      title: `${title} | ${websiteConfig.metadata?.name}`,
+      description,
+    }),
   component: CookiePage,
 });
 
 function CookiePage() {
-  const { page } = Route.useLoaderData();
-  if (!page) throw notFound();
   return (
-    <Container className="py-16 px-4">
-      <MarkdownPage page={page} />
-    </Container>
+    <SimpleLegalPage
+      title={title}
+      description={description}
+      sections={[
+        {
+          title: 'Essential storage',
+          body: 'The site may use essential browser storage for theme preferences or basic functionality. Uploaded image files are not stored by the server.',
+        },
+        {
+          title: 'Analytics cookies',
+          body: 'If analytics are enabled, they are used to understand aggregate traffic and improve the product. You can control cookie behavior in your browser settings.',
+        },
+        {
+          title: 'Advertising',
+          body: 'The MVP does not require advertising cookies. If ads are added later, this page should be updated before launch.',
+        },
+      ]}
+    />
   );
 }

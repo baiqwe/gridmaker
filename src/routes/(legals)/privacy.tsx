@@ -1,33 +1,40 @@
-import { createFileRoute, notFound } from '@tanstack/react-router';
-import Container from '@/components/layout/container';
-import { MarkdownPage } from '@/components/page/markdown-page';
-import { getPageBySlug } from '@/lib/pages';
+import { SimpleLegalPage } from '@/components/page/simple-legal-page';
 import { websiteConfig } from '@/config/website';
 import { seo } from '@/lib/seo';
+import { createFileRoute } from '@tanstack/react-router';
+
+const title = 'Privacy Policy';
+const description =
+  'Grid Maker processes images in your browser and does not upload your files to a server.';
 
 export const Route = createFileRoute('/(legals)/privacy')({
-  loader: () => {
-    const page = getPageBySlug('privacy');
-    if (!page) throw notFound();
-    return { page };
-  },
-  head: ({ loaderData }) => {
-    const p = loaderData?.page;
-    if (!p) return {};
-    return seo('/privacy', {
-      title: `${p.title} | ${websiteConfig.metadata?.name}`,
-      description: p.description,
-    });
-  },
+  head: () =>
+    seo('/privacy', {
+      title: `${title} | ${websiteConfig.metadata?.name}`,
+      description,
+    }),
   component: PrivacyPage,
 });
 
 function PrivacyPage() {
-  const { page } = Route.useLoaderData();
-  if (!page) throw notFound();
   return (
-    <Container className="py-16 px-4">
-      <MarkdownPage page={page} />
-    </Container>
+    <SimpleLegalPage
+      title={title}
+      description={description}
+      sections={[
+        {
+          title: 'Browser-only image processing',
+          body: 'Uploaded images are handled locally by your browser using Canvas APIs. We do not receive, store, or inspect the images you edit with the tool.',
+        },
+        {
+          title: 'Analytics',
+          body: 'We may use privacy-conscious analytics to understand aggregate product usage, such as page views and tool interactions. Analytics data is not used to reconstruct your uploaded images.',
+        },
+        {
+          title: 'Contact',
+          body: 'If contact details are added later, privacy requests will be handled through the listed support channel. Until then, avoid uploading files that you do not have permission to edit.',
+        },
+      ]}
+    />
   );
 }

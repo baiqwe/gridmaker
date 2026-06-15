@@ -4,10 +4,8 @@ import { isLinkActive } from '@/lib/urls';
 import { cn } from '@/lib/utils';
 import Container from '@/components/layout/container';
 import { Logo } from '@/components/shared/logo';
-import BuiltWithButton from '@/components/shared/built-with-button';
 import { Link, useLocation } from '@tanstack/react-router';
 import { websiteConfig } from '@/config/website';
-import { messages } from '@/messages';
 
 export function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
   const pathname = useLocation().pathname;
@@ -26,7 +24,8 @@ export function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
               </span>
             </div>
             <p className="text-muted-foreground text-base py-2 md:pr-12">
-              {messages.footer.tagline}
+              Free browser-based image grid tools. No uploads, no watermark, no
+              registration.
             </p>
             <nav
               aria-label="Social links"
@@ -99,10 +98,9 @@ export function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
       <div className="border-t py-8">
         <Container className="px-4 flex flex-col items-center justify-between gap-4 sm:flex-row">
           <span className="text-muted-foreground text-sm">
-            &copy; {new Date().getFullYear()} {websiteConfig.metadata?.name}.{' '}
-            {messages.footer.rightsReserved}
+            &copy; {new Date().getFullYear()} {websiteConfig.metadata?.name}.
+            All rights reserved.
           </span>
-          <BuiltWithButton />
         </Container>
       </div>
     </footer>

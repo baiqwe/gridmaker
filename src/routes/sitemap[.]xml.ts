@@ -1,7 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { getBaseUrl } from '@/lib/urls';
-import { getSortedPosts } from '@/lib/blog';
-import { websiteConfig } from '@/config/website';
+import { toolPages } from '@/lib/grid-maker/tool-pages';
 
 /**
  * Dynamic sitemap.xml
@@ -18,22 +17,17 @@ export const Route = createFileRoute('/sitemap.xml')({
           priority?: string;
         }[] = [
           { path: '/', changefreq: 'daily', priority: '1.0' },
-          { path: '/about', changefreq: 'monthly' },
-          { path: '/changelog', changefreq: 'weekly' },
-          { path: '/roadmap', changefreq: 'monthly' },
-          { path: '/contact', changefreq: 'monthly' },
-          { path: '/waitlist', changefreq: 'monthly' },
+          ...toolPages
+            .filter((page) => page.path !== '/')
+            .map((page) => ({
+              path: page.path,
+              changefreq: 'weekly',
+              priority: '0.9',
+            })),
           { path: '/terms', changefreq: 'monthly' },
           { path: '/privacy', changefreq: 'monthly' },
           { path: '/cookie', changefreq: 'monthly' },
         ];
-
-        if (websiteConfig.blog?.enable) {
-          staticUrls.push({ path: '/blog', changefreq: 'weekly' });
-        }
-        if (websiteConfig.payment?.enable) {
-          staticUrls.push({ path: '/pricing', changefreq: 'weekly' });
-        }
 
         const urlEntry = (
           path: string,
@@ -57,23 +51,9 @@ export const Route = createFileRoute('/sitemap.xml')({
           )
           .join('\n');
 
-        let blogPart = '';
-        if (websiteConfig.blog?.enable) {
-          const posts = getSortedPosts();
-          blogPart = posts
-            .map((p) =>
-              urlEntry(`/blog/${p.slug}`, {
-                changefreq: 'weekly',
-                lastmod: new Date(p.date).toISOString().slice(0, 10),
-              })
-            )
-            .join('\n');
-        }
-
         const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${staticPart}
-${blogPart ? `\n${blogPart}` : ''}
 </urlset>`;
 
         return new Response(sitemap, {

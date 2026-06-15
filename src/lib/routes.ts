@@ -1,5 +1,9 @@
 export const Routes = {
   Root: '/',
+  InstagramGridMaker: '/instagram-grid-maker',
+  DrawingGridMaker: '/drawing-grid-maker',
+  CrochetGridMaker: '/crochet-grid-maker',
+  PixelGridMaker: '/pixel-grid-maker',
 
   // Marketing routes
   Features: '/#features',

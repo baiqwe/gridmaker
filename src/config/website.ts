@@ -33,14 +33,15 @@ const priceIds = isPaymentEnabled
 export const websiteConfig: WebsiteConfig = {
   ui: {
     mode: {
-      defaultMode: 'dark',
+      defaultMode: 'light',
       enableSwitch: true,
     },
   },
   metadata: {
-    name: messages.site.name,
-    title: messages.site.title,
-    description: messages.site.description,
+    name: 'Grid Maker',
+    title: 'Free Online Grid Maker - No Watermark, No Sign Up',
+    description:
+      'Create image grids, split Instagram posts, and add drawing grids in your browser. Free, private, no watermark, and no uploads.',
     images: {
       ogImage: '/og.png',
       logoLight: '/logo.png',
@@ -48,19 +49,19 @@ export const websiteConfig: WebsiteConfig = {
     },
   },
   social: {
-    github: 'https://github.com/MkFastHQ',
-    discord: 'https://mksaas.link/discord',
-    twitter: 'https://x.com/TanStarter',
-    youtube: 'https://www.youtube.com/@TanStarter',
+    github: '',
+    discord: '',
+    twitter: '',
+    youtube: '',
   },
   auth: {
-    enable: true,
+    enable: false,
     enableGoogleLogin: true,
     enableCredentialLogin: true,
     enableDeleteAccount: true,
   },
   blog: {
-    enable: true,
+    enable: false,
     paginationSize: 6,
   },
   affiliates: {
@@ -68,22 +69,22 @@ export const websiteConfig: WebsiteConfig = {
     provider: 'affonso',
   },
   mail: {
-    enable: true,
+    enable: false,
     provider: 'cloudflare',
-    fromEmail: 'TanStarter <support@tanstarter.dev>',
-    supportEmail: 'TanStarter <support@tanstarter.dev>',
+    fromEmail: '',
+    supportEmail: '',
   },
   newsletter: {
-    enable: true,
+    enable: false,
     provider: 'resend',
     autoSubscribeAfterSignUp: true,
   },
   notification: {
-    enable: true,
+    enable: false,
     provider: 'discord',
   },
   storage: {
-    enable: true,
+    enable: false,
     provider: 'r2',
     maxFileSize: DEFAULT_MAX_FILE_SIZE,
     allowedTypes: DEFAULT_ALLOWED_TYPES,
