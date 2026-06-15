@@ -16,6 +16,7 @@ import { Route as ManifestDotjsonRouteImport } from './routes/manifest[.]json'
 import { Route as InstagramGridMakerRouteImport } from './routes/instagram-grid-maker'
 import { Route as DrawingGridMakerRouteImport } from './routes/drawing-grid-maker'
 import { Route as CrochetGridMakerRouteImport } from './routes/crochet-grid-maker'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPingRouteImport } from './routes/api/ping'
 import { Route as legalsTermsRouteImport } from './routes/(legals)/terms'
@@ -57,6 +58,11 @@ const CrochetGridMakerRoute = CrochetGridMakerRouteImport.update({
   path: '/crochet-grid-maker',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -85,6 +91,7 @@ const legalsCookieRoute = legalsCookieRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/crochet-grid-maker': typeof CrochetGridMakerRoute
   '/drawing-grid-maker': typeof DrawingGridMakerRoute
   '/instagram-grid-maker': typeof InstagramGridMakerRoute
@@ -99,6 +106,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/crochet-grid-maker': typeof CrochetGridMakerRoute
   '/drawing-grid-maker': typeof DrawingGridMakerRoute
   '/instagram-grid-maker': typeof InstagramGridMakerRoute
@@ -114,6 +122,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/crochet-grid-maker': typeof CrochetGridMakerRoute
   '/drawing-grid-maker': typeof DrawingGridMakerRoute
   '/instagram-grid-maker': typeof InstagramGridMakerRoute
@@ -130,6 +139,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/crochet-grid-maker'
     | '/drawing-grid-maker'
     | '/instagram-grid-maker'
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/crochet-grid-maker'
     | '/drawing-grid-maker'
     | '/instagram-grid-maker'
@@ -158,6 +169,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/crochet-grid-maker'
     | '/drawing-grid-maker'
     | '/instagram-grid-maker'
@@ -173,6 +185,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   CrochetGridMakerRoute: typeof CrochetGridMakerRoute
   DrawingGridMakerRoute: typeof DrawingGridMakerRoute
   InstagramGridMakerRoute: typeof InstagramGridMakerRoute
@@ -237,6 +250,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CrochetGridMakerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -277,6 +297,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   CrochetGridMakerRoute: CrochetGridMakerRoute,
   DrawingGridMakerRoute: DrawingGridMakerRoute,
   InstagramGridMakerRoute: InstagramGridMakerRoute,

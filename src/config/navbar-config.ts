@@ -1,5 +1,6 @@
 import { Routes } from '@/lib/routes';
 import {
+  IconBuilding,
   IconCookie,
   IconFileText,
   IconGridDots,
@@ -58,6 +59,13 @@ export function getNavbarLinks(): MenuItemConfig[] {
           description: 'Images stay in your browser while you edit.',
           href: Routes.Root,
           icon: IconGrid3x3,
+          external: false,
+        },
+        {
+          title: 'About Grid Maker',
+          description: 'Why this private browser-based tool exists.',
+          href: Routes.About,
+          icon: IconBuilding,
           external: false,
         },
         {

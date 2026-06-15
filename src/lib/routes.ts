@@ -4,6 +4,7 @@ export const Routes = {
   DrawingGridMaker: '/drawing-grid-maker',
   CrochetGridMaker: '/crochet-grid-maker',
   PixelGridMaker: '/pixel-grid-maker',
+  About: '/about',
 
   // Marketing routes
   Features: '/#features',
@@ -12,7 +13,6 @@ export const Routes = {
   Blog: '/blog',
   Changelog: '/changelog',
   Roadmap: '/roadmap',
-  About: '/about',
   Contact: '/contact',
   Waitlist: '/waitlist',
   Ai: '/ai',

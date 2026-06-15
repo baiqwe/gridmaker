@@ -1,7 +1,33 @@
 import type { ToolPageConfig } from '@/lib/grid-maker/tool-pages';
 import { landingToolPages } from '@/lib/grid-maker/tool-pages';
-import { GridMakerTool } from '@/components/grid-maker/grid-maker-tool';
 import { Link } from '@tanstack/react-router';
+import { useEffect, useState } from 'react';
+
+type GridMakerToolComponent = typeof import('./grid-maker-tool').GridMakerTool;
+
+function ClientGridMakerTool({ page }: { page: ToolPageConfig }) {
+  const [Tool, setTool] = useState<GridMakerToolComponent | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    import('./grid-maker-tool').then((module) => {
+      if (active) setTool(() => module.GridMakerTool);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  if (!Tool) {
+    return (
+      <div className="grid min-h-[520px] place-items-center rounded-lg border border-black/10 bg-white text-sm text-[#70675d]">
+        Loading image tools...
+      </div>
+    );
+  }
+
+  return <Tool key={page.slug} config={page} />;
+}
 
 export function ToolPage({ page }: { page: ToolPageConfig }) {
   return (
@@ -10,6 +36,16 @@ export function ToolPage({ page }: { page: ToolPageConfig }) {
         <div className="mx-auto grid min-h-[calc(100svh-76px)] max-w-7xl gap-6 px-4 py-6 lg:grid-cols-[minmax(0,1fr)_390px] lg:px-6 lg:py-8">
           <div className="flex min-w-0 flex-col gap-5">
             <div className="max-w-3xl">
+              <nav
+                aria-label="Breadcrumb"
+                className="mb-4 flex items-center gap-2 text-sm text-[#70675d]"
+              >
+                <Link to="/" className="font-medium hover:text-[#151515]">
+                  Grid Maker
+                </Link>
+                <span aria-hidden="true">/</span>
+                <span aria-current="page">{page.navLabel}</span>
+              </nav>
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#b84c16]">
                 {page.eyebrow}
               </p>
@@ -20,7 +56,7 @@ export function ToolPage({ page }: { page: ToolPageConfig }) {
                 {page.description}
               </p>
             </div>
-            <GridMakerTool key={page.slug} config={page} />
+            <ClientGridMakerTool page={page} />
           </div>
 
           <aside className="hidden lg:block">

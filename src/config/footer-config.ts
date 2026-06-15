@@ -30,6 +30,7 @@ export function getFooterLinks(): MenuItemConfig[] {
   ];
 
   const legalItems: MenuItemConfig[] = [
+    { title: 'About', href: Routes.About, external: false },
     { title: 'Privacy Policy', href: Routes.PrivacyPolicy, external: false },
     {
       title: 'Terms of Service',
