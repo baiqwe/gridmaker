@@ -23,8 +23,8 @@
   // The path to the entrypoint of your Worker that will be executed
   "main": "./src/server.ts",
 
-  // Enables Workers Trace Events Logpush for a Worker
-  "logpush": true,
+  // Logpush is Enterprise-only on Cloudflare; keep it disabled for launch.
+  "logpush": false,
 
   // Whether Wrangler should keep variables configured in the dashboard on deploy
   "keep_vars": true,
@@ -46,8 +46,8 @@
   // https://developers.cloudflare.com/workers/configuration/routing/custom-domains/
   "routes": [
     {
-      "pattern": "anygridmaker.com",
-      "custom_domain": true
+      "pattern": "anygridmaker.com/*",
+      "zone_name": "anygridmaker.com"
     }
   ]
 }
