@@ -12,10 +12,16 @@ export const Route = createFileRoute('/robots.txt')({
         const base = getBaseUrl().replace(/\/$/, '');
         const robots = `User-agent: *
 Allow: /
-Disallow: /auth
-Disallow: /dashboard
-Disallow: /settings
-Disallow: /admin
+Disallow: /api/
+Disallow: /auth/
+Disallow: /dashboard/
+Disallow: /settings/
+Disallow: /admin/
+Disallow: /blog/
+Disallow: /changelog/
+Disallow: /pricing/
+Disallow: /roadmap/
+Disallow: /waitlist/
 
 Sitemap: ${base}/sitemap.xml`;
 

@@ -4,10 +4,10 @@
  */
 export const messages = {
   site: {
-    name: 'TanStarter Demo',
-    title: 'TanStarter - Ship Faster with TanStack, Cost Less with Cloudflare',
+    name: 'Grid Maker',
+    title: 'Free Online Grid Maker - No Watermark, No Sign Up',
     description:
-      'TanStarter is the complete TanStack Start boilerplate for building profitable SaaS, packed with AI, auth, database, storage, blog, email, newsletter, payments, dashboard, SEO, and more, fully deployed on Cloudflare Workers',
+      'Create image grids, split Instagram posts, and add drawing grids in your browser. Free, private, no watermark, and no uploads.',
   },
 
   nav: {
@@ -564,9 +564,9 @@ export const messages = {
   about: {
     title: 'About',
     description: 'Learn more about our mission and how we can help you',
-    bio: 'We help you build SaaS faster',
+    bio: 'Private browser-based image grid tools',
     introduction:
-      '👋 Hi there! This is TanStarter, the complete TanStack Start boilerplate for building profitable SaaS, packed with AI, auth, database, storage, blog, email, newsletter, payments, dashboard, SEO, and more, fully deployed on Cloudflare Workers. If you have any questions, please welcome to contact us for free.',
+      'Grid Maker helps creators split images for social media and add reference grids for drawing, crafts, and pixel layouts. The image processing runs in your browser, so your files are not uploaded to a server.',
     followUs: 'Follow us on X',
     contactUs: 'Contact us',
   },

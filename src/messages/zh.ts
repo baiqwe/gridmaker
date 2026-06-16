@@ -3,10 +3,10 @@
  */
 export const messages = {
   site: {
-    name: 'TanStarter Demo',
-    title: 'TanStarter - 用 TanStack 更快交付，用 Cloudflare 更省成本',
+    name: 'Grid Maker',
+    title: '免费在线图片网格工具 - 无水印，无需注册',
     description:
-      'TanStarter 是完整的 TanStack Start SaaS 模板，集成 AI、认证、数据库、存储、博客、邮件、邮件列表、支付、仪表盘、SEO 等，全栈部署于 Cloudflare Workers',
+      '在浏览器中制作图片网格、Instagram 切图和绘画参考线。免费、私密、无水印，不上传图片。',
   },
 
   nav: {
@@ -549,9 +549,9 @@ export const messages = {
   about: {
     title: '关于我们',
     description: '了解更多关于我们的使命以及我们如何帮助您',
-    bio: '助您更快构建 SaaS',
+    bio: '私密、快速的浏览器图片网格工具',
     introduction:
-      '👋 你好！这是 TanStarter，完整的 TanStack Start SaaS 模板，集成 AI、认证、数据库、存储、博客、邮件、邮件列表、支付、仪表盘、SEO 等，全栈部署于 Cloudflare Workers。如有问题欢迎免费联系我们。',
+      'Grid Maker 帮助创作者完成社交媒体切图、绘画参考网格、手作和像素布局规划。图片处理在浏览器中完成，不会上传到服务器。',
     followUs: '在 X 上关注我们',
     contactUs: '联系我们',
   },
