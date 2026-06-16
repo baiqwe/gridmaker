@@ -17,11 +17,14 @@ import { Route as InstagramGridMakerRouteImport } from './routes/instagram-grid-
 import { Route as DrawingGridMakerRouteImport } from './routes/drawing-grid-maker'
 import { Route as CrochetGridMakerRouteImport } from './routes/crochet-grid-maker'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as LocaleRouteImport } from './routes/$locale'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LocaleIndexRouteImport } from './routes/$locale/index'
 import { Route as ApiPingRouteImport } from './routes/api/ping'
 import { Route as legalsTermsRouteImport } from './routes/(legals)/terms'
 import { Route as legalsPrivacyRouteImport } from './routes/(legals)/privacy'
 import { Route as legalsCookieRouteImport } from './routes/(legals)/cookie'
+import { Route as LocaleSlugRouteImport } from './routes/$locale/$slug'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -63,10 +66,20 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LocaleRoute = LocaleRouteImport.update({
+  id: '/$locale',
+  path: '/$locale',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const LocaleIndexRoute = LocaleIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LocaleRoute,
 } as any)
 const ApiPingRoute = ApiPingRouteImport.update({
   id: '/api/ping',
@@ -88,9 +101,15 @@ const legalsCookieRoute = legalsCookieRouteImport.update({
   path: '/cookie',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LocaleSlugRoute = LocaleSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => LocaleRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$locale': typeof LocaleRouteWithChildren
   '/about': typeof AboutRoute
   '/crochet-grid-maker': typeof CrochetGridMakerRoute
   '/drawing-grid-maker': typeof DrawingGridMakerRoute
@@ -99,10 +118,12 @@ export interface FileRoutesByFullPath {
   '/pixel-grid-maker': typeof PixelGridMakerRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/$locale/$slug': typeof LocaleSlugRoute
   '/cookie': typeof legalsCookieRoute
   '/privacy': typeof legalsPrivacyRoute
   '/terms': typeof legalsTermsRoute
   '/api/ping': typeof ApiPingRoute
+  '/$locale/': typeof LocaleIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -114,14 +135,17 @@ export interface FileRoutesByTo {
   '/pixel-grid-maker': typeof PixelGridMakerRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/$locale/$slug': typeof LocaleSlugRoute
   '/cookie': typeof legalsCookieRoute
   '/privacy': typeof legalsPrivacyRoute
   '/terms': typeof legalsTermsRoute
   '/api/ping': typeof ApiPingRoute
+  '/$locale': typeof LocaleIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/$locale': typeof LocaleRouteWithChildren
   '/about': typeof AboutRoute
   '/crochet-grid-maker': typeof CrochetGridMakerRoute
   '/drawing-grid-maker': typeof DrawingGridMakerRoute
@@ -130,15 +154,18 @@ export interface FileRoutesById {
   '/pixel-grid-maker': typeof PixelGridMakerRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/$locale/$slug': typeof LocaleSlugRoute
   '/(legals)/cookie': typeof legalsCookieRoute
   '/(legals)/privacy': typeof legalsPrivacyRoute
   '/(legals)/terms': typeof legalsTermsRoute
   '/api/ping': typeof ApiPingRoute
+  '/$locale/': typeof LocaleIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/$locale'
     | '/about'
     | '/crochet-grid-maker'
     | '/drawing-grid-maker'
@@ -147,10 +174,12 @@ export interface FileRouteTypes {
     | '/pixel-grid-maker'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/$locale/$slug'
     | '/cookie'
     | '/privacy'
     | '/terms'
     | '/api/ping'
+    | '/$locale/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -162,13 +191,16 @@ export interface FileRouteTypes {
     | '/pixel-grid-maker'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/$locale/$slug'
     | '/cookie'
     | '/privacy'
     | '/terms'
     | '/api/ping'
+    | '/$locale'
   id:
     | '__root__'
     | '/'
+    | '/$locale'
     | '/about'
     | '/crochet-grid-maker'
     | '/drawing-grid-maker'
@@ -177,14 +209,17 @@ export interface FileRouteTypes {
     | '/pixel-grid-maker'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/$locale/$slug'
     | '/(legals)/cookie'
     | '/(legals)/privacy'
     | '/(legals)/terms'
     | '/api/ping'
+    | '/$locale/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LocaleRoute: typeof LocaleRouteWithChildren
   AboutRoute: typeof AboutRoute
   CrochetGridMakerRoute: typeof CrochetGridMakerRoute
   DrawingGridMakerRoute: typeof DrawingGridMakerRoute
@@ -257,12 +292,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$locale': {
+      id: '/$locale'
+      path: '/$locale'
+      fullPath: '/$locale'
+      preLoaderRoute: typeof LocaleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/$locale/': {
+      id: '/$locale/'
+      path: '/'
+      fullPath: '/$locale/'
+      preLoaderRoute: typeof LocaleIndexRouteImport
+      parentRoute: typeof LocaleRoute
     }
     '/api/ping': {
       id: '/api/ping'
@@ -292,11 +341,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof legalsCookieRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$locale/$slug': {
+      id: '/$locale/$slug'
+      path: '/$slug'
+      fullPath: '/$locale/$slug'
+      preLoaderRoute: typeof LocaleSlugRouteImport
+      parentRoute: typeof LocaleRoute
+    }
   }
 }
 
+interface LocaleRouteChildren {
+  LocaleSlugRoute: typeof LocaleSlugRoute
+  LocaleIndexRoute: typeof LocaleIndexRoute
+}
+
+const LocaleRouteChildren: LocaleRouteChildren = {
+  LocaleSlugRoute: LocaleSlugRoute,
+  LocaleIndexRoute: LocaleIndexRoute,
+}
+
+const LocaleRouteWithChildren =
+  LocaleRoute._addFileChildren(LocaleRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LocaleRoute: LocaleRouteWithChildren,
   AboutRoute: AboutRoute,
   CrochetGridMakerRoute: CrochetGridMakerRoute,
   DrawingGridMakerRoute: DrawingGridMakerRoute,

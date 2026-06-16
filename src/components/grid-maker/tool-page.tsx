@@ -1,11 +1,33 @@
 import type { ToolPageConfig } from '@/lib/grid-maker/tool-pages';
 import { landingToolPages } from '@/lib/grid-maker/tool-pages';
+import type { ToolPageCopy } from '@/lib/grid-maker/i18n';
 import { Link } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 
 type GridMakerToolComponent = typeof import('./grid-maker-tool').GridMakerTool;
 
-function ClientGridMakerTool({ page }: { page: ToolPageConfig }) {
+const defaultCopy: ToolPageCopy = {
+  homeLabel: 'Grid Maker',
+  bestForLabel: 'Best for',
+  privacyNote:
+    'No uploads. No watermark. No registration. The image work stays in your browser.',
+  aboutHeading: 'About this tool',
+  workflowParagraph:
+    'The workflow is intentionally simple: upload an image, choose the grid style, adjust the rows and columns, then download the result. For split grids, each tile is generated locally and bundled in a ZIP file. For drawing and craft grids, the exported PNG keeps the reference image and grid lines together.',
+  privacyParagraph:
+    'Because processing happens in the browser, the site can stay fast on Cloudflare Workers while avoiding server-side image storage. That also keeps the experience private for personal photos, artwork references, and campaign assets.',
+  relatedToolsLabel: 'Related tools',
+  faqHeading: 'Frequently asked questions',
+  loadingLabel: 'Loading image tools...',
+};
+
+function ClientGridMakerTool({
+  page,
+  loadingLabel,
+}: {
+  page: ToolPageConfig;
+  loadingLabel: string;
+}) {
   const [Tool, setTool] = useState<GridMakerToolComponent | null>(null);
 
   useEffect(() => {
@@ -21,7 +43,7 @@ function ClientGridMakerTool({ page }: { page: ToolPageConfig }) {
   if (!Tool) {
     return (
       <div className="grid min-h-[520px] place-items-center rounded-lg border border-black/10 bg-white text-sm text-[#70675d]">
-        Loading image tools...
+        {loadingLabel}
       </div>
     );
   }
@@ -29,7 +51,17 @@ function ClientGridMakerTool({ page }: { page: ToolPageConfig }) {
   return <Tool key={page.slug} config={page} />;
 }
 
-export function ToolPage({ page }: { page: ToolPageConfig }) {
+export function ToolPage({
+  page,
+  copy = defaultCopy,
+  relatedPages = landingToolPages,
+  homePath = '/',
+}: {
+  page: ToolPageConfig;
+  copy?: ToolPageCopy;
+  relatedPages?: ToolPageConfig[];
+  homePath?: string;
+}) {
   return (
     <div className="bg-[#fbfaf7] text-[#151515]">
       <section className="border-b border-black/10">
@@ -40,8 +72,11 @@ export function ToolPage({ page }: { page: ToolPageConfig }) {
                 aria-label="Breadcrumb"
                 className="mb-4 flex items-center gap-2 text-sm text-[#70675d]"
               >
-                <Link to="/" className="font-medium hover:text-[#151515]">
-                  Grid Maker
+                <Link
+                  to={homePath}
+                  className="font-medium hover:text-[#151515]"
+                >
+                  {copy.homeLabel}
                 </Link>
                 <span aria-hidden="true">/</span>
                 <span aria-current="page">{page.navLabel}</span>
@@ -56,13 +91,13 @@ export function ToolPage({ page }: { page: ToolPageConfig }) {
                 {page.description}
               </p>
             </div>
-            <ClientGridMakerTool page={page} />
+            <ClientGridMakerTool page={page} loadingLabel={copy.loadingLabel} />
           </div>
 
           <aside className="hidden lg:block">
             <div className="sticky top-24 rounded-lg border border-black/10 bg-white p-5 shadow-[0_18px_50px_rgba(21,21,21,0.08)]">
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#70675d]">
-                Best for
+                {copy.bestForLabel}
               </p>
               <ul className="mt-4 space-y-3 text-sm text-[#2d2a26]">
                 {page.bestFor.map((item) => (
@@ -73,8 +108,7 @@ export function ToolPage({ page }: { page: ToolPageConfig }) {
                 ))}
               </ul>
               <div className="mt-6 rounded-md bg-[#f4efe7] p-4 text-sm leading-6 text-[#514a42]">
-                No uploads. No watermark. No registration. The image work stays
-                in your browser.
+                {copy.privacyNote}
               </div>
             </div>
           </aside>
@@ -85,32 +119,25 @@ export function ToolPage({ page }: { page: ToolPageConfig }) {
         <div className="grid gap-10 md:grid-cols-[1fr_280px]">
           <div>
             <h2 className="text-2xl font-bold text-[#151515]">
-              About this tool
+              {copy.aboutHeading}
             </h2>
             <p className="mt-4 text-base leading-8 text-[#514a42]">
               {page.intro}
             </p>
             <p className="mt-4 text-base leading-8 text-[#514a42]">
-              The workflow is intentionally simple: upload an image, choose the
-              grid style, adjust the rows and columns, then download the result.
-              For split grids, each tile is generated locally and bundled in a
-              ZIP file. For drawing and craft grids, the exported PNG keeps the
-              reference image and grid lines together.
+              {copy.workflowParagraph}
             </p>
             <p className="mt-4 text-base leading-8 text-[#514a42]">
-              Because processing happens in the browser, the site can stay fast
-              on Cloudflare Workers while avoiding server-side image storage.
-              That also keeps the experience private for personal photos,
-              artwork references, and campaign assets.
+              {copy.privacyParagraph}
             </p>
           </div>
 
           <nav aria-label="Related tools" className="rounded-lg bg-white p-5">
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#70675d]">
-              Related tools
+              {copy.relatedToolsLabel}
             </p>
             <div className="mt-4 flex flex-col gap-2">
-              {landingToolPages.map((item) => (
+              {relatedPages.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
@@ -127,7 +154,7 @@ export function ToolPage({ page }: { page: ToolPageConfig }) {
       <section className="border-t border-black/10 bg-white">
         <div className="mx-auto max-w-5xl px-4 py-14 lg:px-6">
           <h2 className="text-2xl font-bold text-[#151515]">
-            Frequently asked questions
+            {copy.faqHeading}
           </h2>
           <div className="mt-6 divide-y divide-black/10 rounded-lg border border-black/10">
             {page.faq.map((item) => (

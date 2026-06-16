@@ -21,6 +21,7 @@ import { DefaultCatchBoundary } from '@/components/layout/default-catch-boundary
 import { Routes } from '@/lib/routes';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { lazy } from 'react';
+import { getLocaleConfig, isLocale } from '@/lib/grid-maker/i18n';
 
 const DevTools = import.meta.env.DEV
   ? lazy(() => import('@/integrations/devtools'))
@@ -132,8 +133,12 @@ function RootComponent() {
  * Root document
  */
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname }) ?? '';
+  const locale = pathname.split('/')[1];
+  const htmlLang = isLocale(locale) ? getLocaleConfig(locale).htmlLang : 'en';
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={htmlLang} suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
