@@ -43,8 +43,25 @@ function ClientGridMakerTool({
 
   if (!Tool) {
     return (
-      <div className="grid min-h-[520px] place-items-center rounded-lg border border-black/10 bg-white text-sm text-[#70675d]">
-        {loadingLabel}
+      <div className="relative grid min-h-[520px] overflow-hidden rounded-lg border border-black/10 bg-white text-sm text-[#70675d]">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 opacity-60"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(21,21,21,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(21,21,21,0.08) 1px, transparent 1px)',
+            backgroundSize: '56px 56px',
+          }}
+        />
+        <div className="absolute inset-x-8 top-8 h-16 rounded-md border border-dashed border-black/15 bg-[#fbfaf7]/80" />
+        <div className="absolute inset-x-8 bottom-8 grid grid-cols-3 gap-3">
+          <div className="h-20 rounded-md border border-dashed border-black/15 bg-[#fbfaf7]/80" />
+          <div className="h-20 rounded-md border border-dashed border-black/15 bg-[#fbfaf7]/80" />
+          <div className="h-20 rounded-md border border-dashed border-black/15 bg-[#fbfaf7]/80" />
+        </div>
+        <div className="relative z-10 place-self-center rounded-md bg-white/90 px-4 py-2 shadow-sm">
+          {loadingLabel}
+        </div>
       </div>
     );
   }

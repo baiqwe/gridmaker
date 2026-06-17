@@ -29,7 +29,7 @@ export const toolPages: ToolPageConfig[] = [
     path: Routes.Root,
     navLabel: 'Grid Maker',
     eyebrow: 'Private browser-based image grid tool',
-    title: 'Free Online Grid Maker - No Watermark, No Sign Up',
+    title: 'Grid Maker Online: Free Image Grid Tool',
     description:
       'Create image grids, split Instagram posts, and add drawing grids in your browser. Free, private, no watermark, and no uploads.',
     h1: 'Free Online Grid Maker',
@@ -72,7 +72,7 @@ export const toolPages: ToolPageConfig[] = [
     path: Routes.InstagramGridMaker,
     navLabel: 'Instagram',
     eyebrow: 'Instagram grid maker',
-    title: 'Free Instagram Grid Maker Online - No Watermark, No Sign Up',
+    title: 'Instagram Grid Maker: Free 3x3 Split',
     description:
       'Split any photo into a 3x3 Instagram grid online. Free, private, no watermark, no registration, and all images are processed in your browser.',
     h1: 'Free Online Instagram Grid Maker',
@@ -115,7 +115,7 @@ export const toolPages: ToolPageConfig[] = [
     path: Routes.DrawingGridMaker,
     navLabel: 'Drawing',
     eyebrow: 'Drawing reference grid',
-    title: 'Drawing Grid Maker Online - Add Grid to Any Photo',
+    title: 'Drawing Grid Maker: Add Grid to Photo',
     description:
       'Add a customizable drawing grid to any image online. Adjust rows, columns, line color, opacity, and labels. Free and private.',
     h1: 'Drawing Grid Maker Online',
@@ -158,7 +158,7 @@ export const toolPages: ToolPageConfig[] = [
     path: Routes.CrochetGridMaker,
     navLabel: 'Crochet',
     eyebrow: 'Crochet and craft grid',
-    title: 'Crochet Grid Maker Online - Create Craft Grids from Images',
+    title: 'Crochet Grid Maker: Image Craft Grid',
     description:
       'Make a crochet grid from an image with dense rows and columns, adjustable lines, and browser-only processing. Free and no uploads.',
     h1: 'Crochet Grid Maker Online',
@@ -200,7 +200,7 @@ export const toolPages: ToolPageConfig[] = [
     path: Routes.PixelGridMaker,
     navLabel: 'Pixel',
     eyebrow: 'Pixel grid maker',
-    title: 'Pixel Grid Maker Online - Pixelate Images with a Grid',
+    title: 'Pixel Grid Maker: Pixelate Images Online',
     description:
       'Pixelate an image and add a clear grid online. Great for pixel art previews, craft layouts, and block-based references.',
     h1: 'Pixel Grid Maker Online',
@@ -241,7 +241,7 @@ export const toolPages: ToolPageConfig[] = [
     path: Routes.AddGridToPhoto,
     navLabel: 'Add Grid',
     eyebrow: 'Add grid to photo online',
-    title: 'Add Grid to Photo Online - Free Image Grid Overlay',
+    title: 'Add Grid to Photo: Free Grid Overlay',
     description:
       'Add a clean, adjustable grid to any photo online. Choose rows, columns, line color, opacity, and labels with private browser-only processing.',
     h1: 'Add Grid to Photo Online',
@@ -284,7 +284,7 @@ export const toolPages: ToolPageConfig[] = [
     path: Routes.CrossStitchGridMaker,
     navLabel: 'Cross Stitch',
     eyebrow: 'Cross-stitch grid maker',
-    title: 'Cross Stitch Grid Maker Online - Make Craft Grids from Photos',
+    title: 'Cross Stitch Grid Maker: Photo to Grid',
     description:
       'Create a dense cross-stitch grid from a photo online. Add fine rows and columns for craft planning with private browser-based image processing.',
     h1: 'Cross Stitch Grid Maker Online',
