@@ -1,6 +1,7 @@
 import type { ToolPageConfig } from '@/lib/grid-maker/tool-pages';
 import { landingToolPages } from '@/lib/grid-maker/tool-pages';
-import type { ToolPageCopy } from '@/lib/grid-maker/i18n';
+import type { Locale, ToolPageCopy } from '@/lib/grid-maker/i18n';
+import { getSeoContent } from '@/lib/grid-maker/seo-content';
 import { Link } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 
@@ -56,12 +57,16 @@ export function ToolPage({
   copy = defaultCopy,
   relatedPages = landingToolPages,
   homePath = '/',
+  locale = 'en',
 }: {
   page: ToolPageConfig;
   copy?: ToolPageCopy;
   relatedPages?: ToolPageConfig[];
   homePath?: string;
+  locale?: Locale | 'en';
 }) {
+  const seoContent = getSeoContent(page.slug, locale);
+
   return (
     <div className="bg-[#fbfaf7] text-[#151515]">
       <section className="border-b border-black/10">
@@ -148,6 +153,45 @@ export function ToolPage({
               ))}
             </div>
           </nav>
+        </div>
+      </section>
+
+      <section className="border-t border-black/10 bg-[#fbfaf7]">
+        <div className="mx-auto max-w-5xl px-4 py-14 lg:px-6">
+          <div className="grid gap-8">
+            {[seoContent.what, seoContent.how, seoContent.why, seoContent.tips]
+              .filter(Boolean)
+              .map((section) => (
+                <article
+                  key={section.title}
+                  className="rounded-lg bg-white p-6 shadow-[0_12px_35px_rgba(21,21,21,0.05)]"
+                >
+                  <h2 className="text-2xl font-bold text-[#151515]">
+                    {section.title}
+                  </h2>
+                  {section.paragraphs?.map((paragraph) => (
+                    <p
+                      key={paragraph}
+                      className="mt-4 text-base leading-8 text-[#514a42]"
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                  {section.items ? (
+                    <ol className="mt-5 grid gap-3 text-base leading-7 text-[#514a42]">
+                      {section.items.map((item, index) => (
+                        <li key={item} className="flex gap-3">
+                          <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full bg-[#f4efe7] text-sm font-semibold text-[#b84c16]">
+                            {index + 1}
+                          </span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  ) : null}
+                </article>
+              ))}
+          </div>
         </div>
       </section>
 

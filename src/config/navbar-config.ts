@@ -7,6 +7,7 @@ import {
   IconGrid3x3,
   IconNeedleThread,
   IconPencil,
+  IconPhoto,
   IconPhotoDown,
   IconShieldCheck,
 } from '@tabler/icons-react';
@@ -47,6 +48,20 @@ export function getNavbarLinks(): MenuItemConfig[] {
           description: 'Pixelate an image and preview a clean grid.',
           href: Routes.PixelGridMaker,
           icon: IconGridDots,
+          external: false,
+        },
+        {
+          title: 'Add Grid to Photo',
+          description: 'Overlay grid lines on a photo without splitting it.',
+          href: Routes.AddGridToPhoto,
+          icon: IconPhoto,
+          external: false,
+        },
+        {
+          title: 'Cross Stitch Grid Maker',
+          description: 'Make dense counted grids for cross-stitch planning.',
+          href: Routes.CrossStitchGridMaker,
+          icon: IconGrid3x3,
           external: false,
         },
       ],

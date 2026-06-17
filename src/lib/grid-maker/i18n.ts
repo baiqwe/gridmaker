@@ -51,6 +51,8 @@ const localeConfigs: Record<Locale, LocaleConfig> = {
       'drawing-grid-maker': 'cuadricula-para-dibujar',
       'crochet-grid-maker': 'cuadricula-crochet',
       'pixel-grid-maker': 'cuadricula-pixel',
+      'add-grid-to-photo': 'agregar-cuadricula-a-foto',
+      'cross-stitch-grid-maker': 'cuadricula-punto-de-cruz',
     },
     pageCopy: {
       homeLabel: 'Grid Maker',
@@ -235,6 +237,74 @@ const localeConfigs: Record<Locale, LocaleConfig> = {
           },
         ],
       },
+      'add-grid-to-photo': {
+        navLabel: 'Añadir cuadrícula',
+        eyebrow: 'Añade una cuadrícula a una foto',
+        title: 'Añadir Cuadrícula a Foto Online - Gratis y Privado',
+        description:
+          'Añade una cuadrícula ajustable a cualquier foto. Cambia filas, columnas, color, opacidad y etiquetas sin subir la imagen.',
+        h1: 'Añadir Cuadrícula a Foto Online',
+        keywords:
+          'añadir cuadrícula a foto, agregar cuadrícula a imagen, cuadrícula sobre foto',
+        intro:
+          'Añade líneas de cuadrícula sobre una foto sin cortar la imagen en piezas. Es ideal para referencias, clases, diseño y comentarios visuales.',
+        bestFor: [
+          'Cuadrículas sobre fotos',
+          'Referencias imprimibles',
+          'Comentarios con coordenadas',
+        ],
+        faq: [
+          {
+            question: '¿Cómo añado una cuadrícula a una foto?',
+            answer:
+              'Sube la foto, usa Overlay, ajusta filas y columnas y descarga el PNG con la cuadrícula aplicada.',
+          },
+          {
+            question: '¿Puedo cambiar el estilo de las líneas?',
+            answer: 'Sí. Puedes cambiar color, grosor, opacidad y etiquetas.',
+          },
+          {
+            question: '¿La foto se sube al servidor?',
+            answer:
+              'No. La imagen se procesa localmente en tu navegador con Canvas.',
+          },
+        ],
+      },
+      'cross-stitch-grid-maker': {
+        navLabel: 'Punto de cruz',
+        eyebrow: 'Cuadrícula para punto de cruz',
+        title: 'Cuadrícula Punto de Cruz Online - Desde una Foto',
+        description:
+          'Crea una cuadrícula densa para punto de cruz desde una imagen. Gratis, privada y sin subir archivos.',
+        h1: 'Cuadrícula Punto de Cruz Online',
+        keywords:
+          'cross stitch grid maker, cuadrícula punto de cruz, imagen a punto de cruz',
+        intro:
+          'Convierte una imagen en una referencia de cuadros contados para punto de cruz, cuentas y manualidades por bloques.',
+        bestFor: [
+          'Referencias de punto de cruz',
+          'Planificación de manualidades contadas',
+          'Diseños densos desde fotos',
+        ],
+        faq: [
+          {
+            question:
+              '¿Puedo hacer una cuadrícula de punto de cruz desde una foto?',
+            answer:
+              'Sí. Sube una foto, usa una cuadrícula densa y descarga la referencia como PNG.',
+          },
+          {
+            question: '¿Genera una tabla completa de hilos?',
+            answer:
+              'La primera versión se centra en la cuadrícula. Las paletas de hilo son una función avanzada futura.',
+          },
+          {
+            question: '¿Puedo imprimir la cuadrícula?',
+            answer:
+              'Sí. Descarga el PNG y luego imprímelo desde tu dispositivo.',
+          },
+        ],
+      },
     },
   },
   pt: {
@@ -246,6 +316,8 @@ const localeConfigs: Record<Locale, LocaleConfig> = {
       'drawing-grid-maker': 'grade-para-desenho',
       'crochet-grid-maker': 'grade-croche',
       'pixel-grid-maker': 'grade-pixel',
+      'add-grid-to-photo': 'adicionar-grade-a-foto',
+      'cross-stitch-grid-maker': 'grade-ponto-cruz',
     },
     pageCopy: {
       homeLabel: 'Grid Maker',
@@ -272,6 +344,8 @@ const localeConfigs: Record<Locale, LocaleConfig> = {
       'drawing-grid-maker': 'drawing-grid-maker',
       'crochet-grid-maker': 'crochet-grid-maker',
       'pixel-grid-maker': 'pixel-grid-maker',
+      'add-grid-to-photo': 'add-grid-to-photo',
+      'cross-stitch-grid-maker': 'cross-stitch-grid-maker',
     },
     pageCopy: {
       homeLabel: 'Grid Maker',
@@ -298,6 +372,8 @@ const localeConfigs: Record<Locale, LocaleConfig> = {
       'drawing-grid-maker': 'drawing-grid-maker',
       'crochet-grid-maker': 'crochet-grid-maker',
       'pixel-grid-maker': 'pixel-grid-maker',
+      'add-grid-to-photo': 'add-grid-to-photo',
+      'cross-stitch-grid-maker': 'cross-stitch-grid-maker',
     },
     pageCopy: {
       homeLabel: 'Grid Maker',

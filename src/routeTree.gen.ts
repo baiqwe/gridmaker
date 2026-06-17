@@ -15,7 +15,9 @@ import { Route as PixelGridMakerRouteImport } from './routes/pixel-grid-maker'
 import { Route as ManifestDotjsonRouteImport } from './routes/manifest[.]json'
 import { Route as InstagramGridMakerRouteImport } from './routes/instagram-grid-maker'
 import { Route as DrawingGridMakerRouteImport } from './routes/drawing-grid-maker'
+import { Route as CrossStitchGridMakerRouteImport } from './routes/cross-stitch-grid-maker'
 import { Route as CrochetGridMakerRouteImport } from './routes/crochet-grid-maker'
+import { Route as AddGridToPhotoRouteImport } from './routes/add-grid-to-photo'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as LocaleRouteImport } from './routes/$locale'
 import { Route as IndexRouteImport } from './routes/index'
@@ -56,9 +58,19 @@ const DrawingGridMakerRoute = DrawingGridMakerRouteImport.update({
   path: '/drawing-grid-maker',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CrossStitchGridMakerRoute = CrossStitchGridMakerRouteImport.update({
+  id: '/cross-stitch-grid-maker',
+  path: '/cross-stitch-grid-maker',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CrochetGridMakerRoute = CrochetGridMakerRouteImport.update({
   id: '/crochet-grid-maker',
   path: '/crochet-grid-maker',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AddGridToPhotoRoute = AddGridToPhotoRouteImport.update({
+  id: '/add-grid-to-photo',
+  path: '/add-grid-to-photo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -111,7 +123,9 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$locale': typeof LocaleRouteWithChildren
   '/about': typeof AboutRoute
+  '/add-grid-to-photo': typeof AddGridToPhotoRoute
   '/crochet-grid-maker': typeof CrochetGridMakerRoute
+  '/cross-stitch-grid-maker': typeof CrossStitchGridMakerRoute
   '/drawing-grid-maker': typeof DrawingGridMakerRoute
   '/instagram-grid-maker': typeof InstagramGridMakerRoute
   '/manifest.json': typeof ManifestDotjsonRoute
@@ -128,7 +142,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/add-grid-to-photo': typeof AddGridToPhotoRoute
   '/crochet-grid-maker': typeof CrochetGridMakerRoute
+  '/cross-stitch-grid-maker': typeof CrossStitchGridMakerRoute
   '/drawing-grid-maker': typeof DrawingGridMakerRoute
   '/instagram-grid-maker': typeof InstagramGridMakerRoute
   '/manifest.json': typeof ManifestDotjsonRoute
@@ -147,7 +163,9 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$locale': typeof LocaleRouteWithChildren
   '/about': typeof AboutRoute
+  '/add-grid-to-photo': typeof AddGridToPhotoRoute
   '/crochet-grid-maker': typeof CrochetGridMakerRoute
+  '/cross-stitch-grid-maker': typeof CrossStitchGridMakerRoute
   '/drawing-grid-maker': typeof DrawingGridMakerRoute
   '/instagram-grid-maker': typeof InstagramGridMakerRoute
   '/manifest.json': typeof ManifestDotjsonRoute
@@ -167,7 +185,9 @@ export interface FileRouteTypes {
     | '/'
     | '/$locale'
     | '/about'
+    | '/add-grid-to-photo'
     | '/crochet-grid-maker'
+    | '/cross-stitch-grid-maker'
     | '/drawing-grid-maker'
     | '/instagram-grid-maker'
     | '/manifest.json'
@@ -184,7 +204,9 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/add-grid-to-photo'
     | '/crochet-grid-maker'
+    | '/cross-stitch-grid-maker'
     | '/drawing-grid-maker'
     | '/instagram-grid-maker'
     | '/manifest.json'
@@ -202,7 +224,9 @@ export interface FileRouteTypes {
     | '/'
     | '/$locale'
     | '/about'
+    | '/add-grid-to-photo'
     | '/crochet-grid-maker'
+    | '/cross-stitch-grid-maker'
     | '/drawing-grid-maker'
     | '/instagram-grid-maker'
     | '/manifest.json'
@@ -221,7 +245,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LocaleRoute: typeof LocaleRouteWithChildren
   AboutRoute: typeof AboutRoute
+  AddGridToPhotoRoute: typeof AddGridToPhotoRoute
   CrochetGridMakerRoute: typeof CrochetGridMakerRoute
+  CrossStitchGridMakerRoute: typeof CrossStitchGridMakerRoute
   DrawingGridMakerRoute: typeof DrawingGridMakerRoute
   InstagramGridMakerRoute: typeof InstagramGridMakerRoute
   ManifestDotjsonRoute: typeof ManifestDotjsonRoute
@@ -278,11 +304,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DrawingGridMakerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cross-stitch-grid-maker': {
+      id: '/cross-stitch-grid-maker'
+      path: '/cross-stitch-grid-maker'
+      fullPath: '/cross-stitch-grid-maker'
+      preLoaderRoute: typeof CrossStitchGridMakerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/crochet-grid-maker': {
       id: '/crochet-grid-maker'
       path: '/crochet-grid-maker'
       fullPath: '/crochet-grid-maker'
       preLoaderRoute: typeof CrochetGridMakerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/add-grid-to-photo': {
+      id: '/add-grid-to-photo'
+      path: '/add-grid-to-photo'
+      fullPath: '/add-grid-to-photo'
+      preLoaderRoute: typeof AddGridToPhotoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -368,7 +408,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LocaleRoute: LocaleRouteWithChildren,
   AboutRoute: AboutRoute,
+  AddGridToPhotoRoute: AddGridToPhotoRoute,
   CrochetGridMakerRoute: CrochetGridMakerRoute,
+  CrossStitchGridMakerRoute: CrossStitchGridMakerRoute,
   DrawingGridMakerRoute: DrawingGridMakerRoute,
   InstagramGridMakerRoute: InstagramGridMakerRoute,
   ManifestDotjsonRoute: ManifestDotjsonRoute,

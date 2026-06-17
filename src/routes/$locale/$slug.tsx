@@ -52,6 +52,7 @@ function LocalizedToolPage() {
     <ToolPage
       page={page}
       copy={config.pageCopy}
+      locale={locale}
       homePath={`/${locale}`}
       relatedPages={getLocalizedLandingToolPages(locale)}
     />

@@ -4,6 +4,8 @@ export const Routes = {
   DrawingGridMaker: '/drawing-grid-maker',
   CrochetGridMaker: '/crochet-grid-maker',
   PixelGridMaker: '/pixel-grid-maker',
+  AddGridToPhoto: '/add-grid-to-photo',
+  CrossStitchGridMaker: '/cross-stitch-grid-maker',
   About: '/about',
 
   // Marketing routes

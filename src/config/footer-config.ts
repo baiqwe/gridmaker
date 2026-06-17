@@ -27,6 +27,16 @@ export function getFooterLinks(): MenuItemConfig[] {
       href: Routes.PixelGridMaker,
       external: false,
     },
+    {
+      title: 'Add Grid to Photo',
+      href: Routes.AddGridToPhoto,
+      external: false,
+    },
+    {
+      title: 'Cross Stitch Grid Maker',
+      href: Routes.CrossStitchGridMaker,
+      external: false,
+    },
   ];
 
   const legalItems: MenuItemConfig[] = [

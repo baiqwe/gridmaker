@@ -236,6 +236,92 @@ export const toolPages: ToolPageConfig[] = [
       },
     ],
   },
+  {
+    slug: 'add-grid-to-photo',
+    path: Routes.AddGridToPhoto,
+    navLabel: 'Add Grid',
+    eyebrow: 'Add grid to photo online',
+    title: 'Add Grid to Photo Online - Free Image Grid Overlay',
+    description:
+      'Add a clean, adjustable grid to any photo online. Choose rows, columns, line color, opacity, and labels with private browser-only processing.',
+    h1: 'Add Grid to Photo Online',
+    mode: 'overlay',
+    rows: 10,
+    columns: 10,
+    lineColor: '#111827',
+    lineWidth: 2,
+    opacity: 62,
+    labels: true,
+    keywords:
+      'add grid to photo, add grid to image, photo grid overlay, image grid overlay',
+    intro:
+      'Add Grid to Photo is a focused overlay tool for placing accurate grid lines over a reference image. It is useful when you want a proportional guide without splitting the image into separate files.',
+    bestFor: [
+      'Adding a grid overlay to photos',
+      'Printable reference images',
+      'Labeled image planning guides',
+    ],
+    faq: [
+      {
+        question: 'How do I add a grid to a photo?',
+        answer:
+          'Upload a photo, use Overlay mode, choose the number of rows and columns, then download the PNG with the grid applied.',
+      },
+      {
+        question: 'Can I change the grid line style?',
+        answer:
+          'Yes. You can adjust line color, line width, opacity, and optional coordinate labels before exporting.',
+      },
+      {
+        question: 'Will the original photo be uploaded?',
+        answer:
+          'No. The photo is loaded into your browser and processed locally with Canvas.',
+      },
+    ],
+  },
+  {
+    slug: 'cross-stitch-grid-maker',
+    path: Routes.CrossStitchGridMaker,
+    navLabel: 'Cross Stitch',
+    eyebrow: 'Cross-stitch grid maker',
+    title: 'Cross Stitch Grid Maker Online - Make Craft Grids from Photos',
+    description:
+      'Create a dense cross-stitch grid from a photo online. Add fine rows and columns for craft planning with private browser-based image processing.',
+    h1: 'Cross Stitch Grid Maker Online',
+    mode: 'overlay',
+    rows: 40,
+    columns: 40,
+    lineColor: '#111827',
+    lineWidth: 1,
+    opacity: 52,
+    labels: false,
+    keywords:
+      'cross stitch grid maker, cross stitch pattern grid, image to cross stitch grid, craft grid maker',
+    intro:
+      'Cross Stitch Grid Maker helps turn a reference image into a clear counted grid for stitch planning, beadwork, and other square-based craft layouts.',
+    bestFor: [
+      'Cross-stitch reference grids',
+      'Counted craft planning',
+      'Dense square layouts from images',
+    ],
+    faq: [
+      {
+        question: 'Can I make a cross-stitch grid from a photo?',
+        answer:
+          'Yes. Upload a photo, choose a dense row and column count, then download the image with grid lines for reference.',
+      },
+      {
+        question: 'Does this generate a full thread-color chart?',
+        answer:
+          'This MVP focuses on accurate grid overlays. Color palettes and thread charts are planned as advanced features.',
+      },
+      {
+        question: 'Can I print the cross-stitch grid?',
+        answer:
+          'Yes. Download the grid as a PNG and print it from your device or design software.',
+      },
+    ],
+  },
 ];
 
 export const landingToolPages = toolPages.filter((page) => page.path !== '/');
