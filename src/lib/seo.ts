@@ -1,5 +1,9 @@
 import { websiteConfig } from '@/config/website';
-import { getCanonicalUrl, getOgImage, twitterHandleFromUrl } from '@/lib/urls';
+import {
+  getCanonicalUrl,
+  getLocalizedOgImage,
+  twitterHandleFromUrl,
+} from '@/lib/urls';
 
 /**
  * Build metadata + canonical link for a page
@@ -18,7 +22,7 @@ export function seo(
   }
 ) {
   const url = getCanonicalUrl(path);
-  const image = options.image ?? getOgImage();
+  const image = options.image ?? getLocalizedOgImage(path);
   return {
     meta: metadata({ ...options, url, image, type: options.type ?? 'website' }),
     links: [{ rel: 'canonical', href: url }],
@@ -28,7 +32,6 @@ export function seo(
 export const metadata = ({
   title,
   description,
-  keywords,
   image,
   url,
   type = 'website',
@@ -51,7 +54,6 @@ export const metadata = ({
   }> = [
     { title },
     ...(description ? [{ name: 'description', content: description }] : []),
-    ...(keywords ? [{ name: 'keywords', content: keywords }] : []),
     // OG metadata
     { property: 'og:type', content: type },
     { property: 'og:site_name', content: websiteConfig.metadata?.name ?? '' },

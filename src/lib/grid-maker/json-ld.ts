@@ -1,9 +1,18 @@
 import { websiteConfig } from '@/config/website';
+import { getSeoContent } from '@/lib/grid-maker/seo-content';
 import type { ToolPageConfig } from '@/lib/grid-maker/tool-pages';
 import { getCanonicalUrl } from '@/lib/urls';
 
+function getLocaleFromPath(path: string) {
+  const firstSegment = path.split('/').filter(Boolean)[0];
+  return ['es', 'pt', 'ja', 'zh'].includes(firstSegment ?? '')
+    ? (firstSegment as 'es' | 'pt' | 'ja' | 'zh')
+    : 'en';
+}
+
 export function getToolJsonLd(page: ToolPageConfig) {
   const url = getCanonicalUrl(page.path);
+  const seoContent = getSeoContent(page.slug, getLocaleFromPath(page.path));
   const app = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
@@ -17,6 +26,19 @@ export function getToolJsonLd(page: ToolPageConfig) {
       price: '0',
       priceCurrency: 'USD',
     },
+  };
+
+  const howTo = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: seoContent.how.title,
+    description: page.description,
+    step: seoContent.how.items?.map((item, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      name: item,
+      text: item,
+    })),
   };
 
   const faq = {
@@ -51,5 +73,5 @@ export function getToolJsonLd(page: ToolPageConfig) {
     ],
   };
 
-  return [app, faq, breadcrumb];
+  return [app, howTo, faq, breadcrumb];
 }

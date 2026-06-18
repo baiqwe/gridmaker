@@ -43,6 +43,14 @@ export function getOgImage(): string | undefined {
   return path ? getImageUrl(path) : undefined;
 }
 
+export function getLocalizedOgImage(path: string): string | undefined {
+  const firstSegment = path.split('/').filter(Boolean)[0];
+  const locale = ['es', 'pt', 'ja', 'zh'].includes(firstSegment ?? '')
+    ? firstSegment
+    : 'en';
+  return getImageUrl(`/og-${locale}.svg`);
+}
+
 /**
  * Get the Stripe customer dashboard URL
  * @param customerId - The Stripe customer ID

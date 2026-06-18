@@ -17,10 +17,7 @@ Disallow: /auth/
 Disallow: /dashboard/
 Disallow: /settings/
 Disallow: /admin/
-Disallow: /blog/
-Disallow: /changelog/
 Disallow: /pricing/
-Disallow: /roadmap/
 Disallow: /waitlist/
 
 Sitemap: ${base}/sitemap.xml`;

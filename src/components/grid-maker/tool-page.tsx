@@ -83,6 +83,9 @@ export function ToolPage({
   locale?: Locale | 'en';
 }) {
   const seoContent = getSeoContent(page.slug, locale);
+  const visibleRelatedPages = relatedPages.filter(
+    (item) => item.path !== page.path
+  );
 
   return (
     <div className="bg-[#fbfaf7] text-[#151515]">
@@ -159,7 +162,7 @@ export function ToolPage({
               {copy.relatedToolsLabel}
             </p>
             <div className="mt-4 flex flex-col gap-2">
-              {relatedPages.map((item) => (
+              {visibleRelatedPages.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
