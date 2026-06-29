@@ -83,9 +83,20 @@ export function ToolPage({
   locale?: Locale | 'en';
 }) {
   const seoContent = getSeoContent(page.slug, locale);
-  const visibleRelatedPages = relatedPages.filter(
-    (item) => item.path !== page.path
-  );
+  const relatedPriority = [
+    'pixel-grid-maker',
+    'drawing-grid-maker',
+    'instagram-grid-maker',
+    'add-grid-to-photo',
+    'crochet-grid-maker',
+    'cross-stitch-grid-maker',
+  ];
+  const visibleRelatedPages = relatedPages
+    .filter((item) => item.path !== page.path)
+    .sort(
+      (a, b) =>
+        relatedPriority.indexOf(a.slug) - relatedPriority.indexOf(b.slug)
+    );
 
   return (
     <div className="bg-[#fbfaf7] text-[#151515]">

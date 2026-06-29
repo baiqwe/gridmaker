@@ -31,7 +31,7 @@ export const toolPages: ToolPageConfig[] = [
     eyebrow: 'Private browser-based image grid tool',
     title: 'Grid Maker Online: Free Image Grid Tool',
     description:
-      'Create image grids, split Instagram posts, and add drawing grids in your browser. Free, private, no watermark, and no uploads.',
+      'Create image grids, photo grids, pixel grids, and drawing grids in your browser. Free, private, no watermark, and no uploads.',
     h1: 'Free Online Grid Maker',
     mode: 'overlay',
     rows: 3,
@@ -43,15 +43,15 @@ export const toolPages: ToolPageConfig[] = [
     keywords:
       'grid maker, grid maker online, image grid maker, photo grid maker',
     intro:
-      'Use Grid Maker to split a photo into tiles or add a clean reference grid over any image. Everything runs locally in your browser, so your image is not uploaded to a server.',
+      'Use Grid Maker as a free image grid maker, photo grid maker, drawing grid tool, and pixel grid creator. Split a photo into tiles, add a clean reference grid over an image, or preview a block-based pixel art grid. Everything runs locally in your browser, so your image is not uploaded to a server.',
     bestFor: [
-      'Quick social media grids',
+      'Image grids and photo grid layouts',
       'Drawing reference grids',
-      'Craft and pixel layout planning',
+      'Pixel art, craft, and social media grids',
     ],
     faq: [
       {
-        question: 'Is this grid maker free?',
+        question: 'Is this online grid maker free?',
         answer:
           'Yes. The core grid, split, and download tools are free to use with no watermark and no registration.',
       },
@@ -59,6 +59,16 @@ export const toolPages: ToolPageConfig[] = [
         question: 'Are my images uploaded?',
         answer:
           'No. Images are processed in your browser with Canvas APIs and are not sent to a server.',
+      },
+      {
+        question: 'Can I use it as an image grid maker or photo grid maker?',
+        answer:
+          'Yes. You can add a grid overlay to one image, create a photo grid reference, or split an image into separate tiles.',
+      },
+      {
+        question: 'What grid sizes should I use?',
+        answer:
+          'Use 3x3 for social media grids, 8x8 or 10x10 for drawing references, and 24x24, 30x30, or 40x40 for pixel art and craft planning.',
       },
       {
         question: 'Can I split an image into multiple files?',
@@ -74,7 +84,7 @@ export const toolPages: ToolPageConfig[] = [
     eyebrow: 'Instagram grid maker',
     title: 'Instagram Grid Maker: Free 3x3 Split',
     description:
-      'Split any photo into a 3x3 Instagram grid online. Free, private, no watermark, no registration, and all images are processed in your browser.',
+      'Split any photo into a 3x3 Instagram grid or crop grid online. Free, private, no watermark, no registration, and browser-only processing.',
     h1: 'Free Online Instagram Grid Maker',
     mode: 'split',
     rows: 3,
@@ -86,7 +96,7 @@ export const toolPages: ToolPageConfig[] = [
     keywords:
       'instagram grid maker, ig grid maker, instagram 3x3 grid, split image for instagram',
     intro:
-      'Turn one image into a clean Instagram grid without signing up or adding a watermark. The default 3x3 preset creates nine ordered tiles that are ready to post.',
+      'Turn one image into a clean Instagram grid, 3x3 profile mosaic, or crop grid without signing up or adding a watermark. The default 3x3 preset creates nine ordered tiles that are ready to post.',
     bestFor: [
       'Instagram 3x3 profile grids',
       'Carousel planning',
@@ -107,6 +117,11 @@ export const toolPages: ToolPageConfig[] = [
         question: 'Does this Instagram grid maker add a watermark?',
         answer:
           'No. Downloads are watermark-free and do not require an account.',
+      },
+      {
+        question: 'Can I use it as an Instagram crop grid online?',
+        answer:
+          'Yes. Use the preview to check how the image is cropped into each tile before downloading the 3x3 grid.',
       },
     ],
   },
@@ -202,7 +217,7 @@ export const toolPages: ToolPageConfig[] = [
     eyebrow: 'Pixel grid maker',
     title: 'Pixel Grid Maker: Pixelate Images Online',
     description:
-      'Pixelate an image and add a clear grid online. Great for pixel art previews, craft layouts, and block-based references.',
+      'Create a pixel art grid from an image online. Pixelate photos, add clear grid lines, and download a block-based reference.',
     h1: 'Pixel Grid Maker Online',
     mode: 'pixel',
     rows: 24,
@@ -213,11 +228,11 @@ export const toolPages: ToolPageConfig[] = [
     labels: false,
     keywords: 'pixel grid maker, pixel art grid maker, image pixel grid',
     intro:
-      'Preview an image as a blocky pixel grid for pixel art, crafts, and layout planning. Adjust the grid size to control the pixel detail.',
+      'Preview an image as a blocky pixel art grid for sprites, icons, crafts, and layout planning. Adjust the grid size to control pixel detail before downloading the reference.',
     bestFor: [
-      'Pixel art references',
+      'Pixel art grid references',
       'Block-based image previews',
-      'Craft grids with simplified detail',
+      'Image-to-pixel craft grids',
     ],
     faq: [
       {
@@ -229,6 +244,16 @@ export const toolPages: ToolPageConfig[] = [
         question: 'Can I choose the pixel grid size?',
         answer:
           'Yes. Change rows and columns to make the pixel preview coarser or more detailed.',
+      },
+      {
+        question: 'Can I make a pixel art grid from a photo?',
+        answer:
+          'Yes. Upload a photo, switch to Pixel mode, choose a grid size such as 24x24 or 32x32, and download the pixel art reference.',
+      },
+      {
+        question: 'What grid size is best for pixel art?',
+        answer:
+          'Start with 16x16 or 24x24 for icons, 32x32 for simple sprites, and 48x48 or higher for portraits and detailed objects.',
       },
       {
         question: 'Is the pixel grid processed on the server?',

@@ -141,24 +141,24 @@ const localeConfigs: Record<Locale, LocaleConfig> = {
       'drawing-grid-maker': {
         navLabel: 'Dibujo',
         eyebrow: 'Cuadrícula de referencia para dibujo',
-        title: 'Cuadrícula para Dibujar Online - Añade Guías a una Foto',
+        title: 'Cuadrícula para Dibujar Online - Gratis',
         description:
-          'Añade una cuadrícula personalizable a cualquier imagen. Ajusta filas, columnas, color, opacidad y etiquetas.',
+          'Añade una cuadrícula para dibujar sobre una foto online. Ajusta filas, columnas, color, opacidad y etiquetas sin subir la imagen.',
         h1: 'Cuadrícula para Dibujar Online',
         keywords:
-          'cuadrícula para dibujar, grid maker for drawing, añadir cuadrícula a imagen',
+          'cuadrícula para dibujar online, poner cuadrícula a foto, cuadricular imagen para dibujar',
         intro:
-          'Añade una cuadrícula proporcional sobre una foto de referencia para dibujar, pintar o transferir proporciones.',
+          'Añade una cuadrícula proporcional sobre una foto de referencia para dibujar, pintar, imprimir una guía o transferir proporciones a papel, lienzo o tablet.',
         bestFor: [
           'Referencias para retratos',
-          'Transferencia a lienzo',
-          'Guías imprimibles de proporción',
+          'Cuadrículas imprimibles para dibujo',
+          'Cuadricular una imagen sin subir archivos',
         ],
         faq: [
           {
-            question: '¿Puedo añadir una cuadrícula a una foto?',
+            question: '¿Cómo poner una cuadrícula a una foto para dibujar?',
             answer:
-              'Sí. Sube una foto, usa Overlay y ajusta filas y columnas según tu superficie de dibujo.',
+              'Sube una foto, usa Overlay, ajusta filas y columnas y descarga la imagen con la cuadrícula aplicada.',
           },
           {
             question: '¿Puedo cambiar color y opacidad?',
@@ -169,6 +169,11 @@ const localeConfigs: Record<Locale, LocaleConfig> = {
             question: '¿Puedo mostrar etiquetas?',
             answer:
               'Sí. Activa las etiquetas para mostrar coordenadas simples como A1 o B2.',
+          },
+          {
+            question: '¿Puedo imprimir la cuadrícula para dibujar?',
+            answer:
+              'Sí. Descarga el PNG con la cuadrícula y luego imprímelo desde tu dispositivo.',
           },
         ],
       },
@@ -337,34 +342,39 @@ const localeConfigs: Record<Locale, LocaleConfig> = {
       home: {
         navLabel: 'Início',
         eyebrow: 'Ferramenta privada de grade para imagens',
-        title: 'Grid Maker Online: Ferramenta Grátis',
+        title: 'Ferramenta de Grade Online: Grátis e Privada',
         description:
-          'Crie grades de imagem, divida posts para redes sociais e adicione guias de desenho no navegador. Grátis, privado, sem marca d agua e sem upload.',
-        h1: 'Grid Maker Online Grátis',
+          'Use uma ferramenta de grade online para colocar grade em imagem, dividir fotos e criar guias de desenho. Grátis, privada, sem upload e sem marca d agua.',
+        h1: 'Ferramenta de Grade Online Grátis',
         keywords:
-          'grid maker, criador de grade online, grade para imagem, dividir imagem',
+          'ferramenta de grade, grade online, colocar grade em imagem, dividir imagem em grade',
         intro:
-          'Use o Grid Maker para dividir uma foto em partes ou adicionar uma grade limpa sobre qualquer imagem. Tudo roda localmente no navegador, então a imagem não é enviada para um servidor.',
+          'Use esta ferramenta de grade para colocar grade em uma imagem, dividir uma foto em partes, criar uma grade para desenho ou preparar uma referência de pixel art. Tudo roda localmente no navegador, então a imagem não é enviada para um servidor.',
         bestFor: [
-          'Grades rápidas para redes sociais',
-          'Guias de referência para desenho',
-          'Planejamento de artesanato e pixel art',
+          'Colocar grade em imagem online',
+          'Dividir imagem em grade para redes sociais',
+          'Guias para desenho, crochê e pixel art',
         ],
         faq: [
           {
-            question: 'O Grid Maker é grátis?',
+            question: 'Esta ferramenta de grade é grátis?',
             answer:
               'Sim. As ferramentas principais de grade, divisão e download são gratuitas, sem marca d agua e sem cadastro.',
+          },
+          {
+            question: 'Como colocar grade em uma imagem?',
+            answer:
+              'Envie a imagem, escolha Overlay, defina linhas e colunas e baixe o PNG com a grade aplicada.',
+          },
+          {
+            question: 'Como dividir uma imagem em grade?',
+            answer:
+              'Use o modo Split, escolha a quantidade de linhas e colunas e baixe todas as partes em ZIP.',
           },
           {
             question: 'Minhas imagens são enviadas?',
             answer:
               'Não. As imagens são processadas no navegador com Canvas e não são enviadas para um servidor.',
-          },
-          {
-            question: 'Posso dividir uma imagem em vários arquivos?',
-            answer:
-              'Sim. Escolha o modo Split, defina linhas e colunas e baixe todas as partes em um arquivo ZIP.',
           },
         ],
       },

@@ -23,6 +23,7 @@ const enContent: Record<string, ToolSeoContent> = {
       paragraphs: [
         'An online grid maker is a browser tool for turning a regular image into a structured reference. Depending on the mode you choose, it can split one image into several separate tiles, draw grid lines over the original image, or simplify a picture into a blocky pixel-style preview. That makes it useful for social media layouts, drawing references, crochet planning, cross-stitch charts, pixel art, and any workflow where a picture needs clear rows and columns.',
         'This tool is designed as a practical canvas workspace rather than a gallery or template library. You upload an image, decide whether you need a split grid, an overlay grid, or a pixel grid, then tune rows, columns, line color, opacity, and labels. The same engine powers each focused page, but the presets are tuned for different search intents so an Instagram creator, a portrait artist, and a craft maker do not have to start from a blank configuration.',
+        'People use different names for the same job: grid maker, image grid maker, photo grid maker, grid tool, grid creator, or online grid maker. This page intentionally covers all of those basic workflows in one place so you can start from the broad tool and then move into a focused Instagram, drawing, crochet, cross-stitch, or pixel grid page when the task becomes more specific.',
         sharedPrivacy,
       ],
     },
@@ -34,6 +35,7 @@ const enContent: Record<string, ToolSeoContent> = {
         'Set the number of rows and columns. Small grids work well for social posts; dense grids work better for crafts and drawing references.',
         'Adjust line color, thickness, opacity, and labels so the grid is visible without hiding important details.',
         'Preview the result in the canvas. If the image looks too busy, reduce opacity or use a lighter line color.',
+        'Use the related tool links when you need a tuned workflow, such as a pixel art grid, drawing grid, or Instagram 3x3 split.',
         'Download the final PNG, or use ZIP download on split-grid pages when you need every tile at once.',
       ],
     },
@@ -48,8 +50,10 @@ const enContent: Record<string, ToolSeoContent> = {
       title: 'Practical grid settings',
       items: [
         'Use 3x3 for Instagram profile mosaics and 3x1 or 1x3 for simple carousel planning.',
+        'Use 4x5 or 5x4 when you need a portrait-style photo grid or worksheet layout.',
         'Use 8x8, 10x10, or 12x12 for most drawing references because the cells stay readable.',
-        'Use 30x30 or denser grids for crochet, cross-stitch, beadwork, and pixel-style planning.',
+        'Use 16x16, 24x24, or 32x32 for pixel art grids and icon-style block previews.',
+        'Use 30x30, 40x40, or denser grids for crochet, cross-stitch, beadwork, and craft planning.',
         'Turn labels on when you need to discuss a reference with someone else, such as “adjust the shape in C4.”',
       ],
     },
@@ -60,6 +64,7 @@ const enContent: Record<string, ToolSeoContent> = {
       paragraphs: [
         'An Instagram grid maker splits one image into ordered tiles that can be posted separately to create a larger picture on a profile grid or used as a structured carousel concept. The most common layout is 3x3 because Instagram profiles display posts in three columns, but smaller layouts can also work for announcements, product reveals, portfolio teasers, and campaign visuals.',
         'The goal is not only to cut an image. A good Instagram grid workflow helps you keep the tiles in the right order, preserve image quality, and avoid adding watermarks or unnecessary compression. This page starts with a 3x3 split preset so a creator can upload one image and quickly export nine pieces that line up cleanly when posted in sequence.',
+        'You can also use the preview as an Instagram crop grid online. Before downloading, check whether text, faces, logos, or product details are split across tile borders. That small review step prevents the most common problem with profile mosaics: a large image that looks good as a whole but confusing as separate posts.',
         sharedPrivacy,
       ],
     },
@@ -71,6 +76,7 @@ const enContent: Record<string, ToolSeoContent> = {
         'Preview the crop and make sure faces, text, and product details do not land awkwardly on tile edges.',
         'Download the ZIP so every tile is saved together in the correct order.',
         'Post the last tile first and the first tile last if you want the full image to appear in the correct profile order.',
+        'Use the crop preview before posting to make sure important details stay readable inside individual tiles.',
         'Check the profile after posting because captions, pinned posts, and deleted posts can shift the visual grid.',
       ],
     },
@@ -171,14 +177,16 @@ const enContent: Record<string, ToolSeoContent> = {
       paragraphs: [
         'A pixel grid maker converts a photo or illustration into a block-based preview with visible cells. It helps you see how an image might look as pixel art, a mosaic, a bead pattern, a block build, or a simplified craft layout. Instead of keeping every original detail, the image is redrawn at the selected grid resolution.',
         'This page is tuned for visual simplification. Rows and columns control how coarse or detailed the result becomes. A lower count creates large blocks and a more abstract preview; a higher count keeps more detail but can become harder to count. Grid lines make the blocks easier to inspect and transfer.',
+        'For pixel art planning, the grid size is the creative decision. A 16x16 or 24x24 grid works for simple icons, 32x32 is useful for sprites and small characters, and 48x48 or higher can preserve more facial or object detail. Testing a few sizes before exporting is usually faster than redrawing a design in a pixel editor from scratch.',
         sharedPrivacy,
       ],
     },
     how: {
-      title: 'How to create a pixel grid',
+      title: 'How to create a pixel art grid from an image',
       items: [
         'Upload a photo, logo, or illustration with a clear subject.',
-        'Start with 24x24 for a simple pixel preview or increase the grid for more detail.',
+        'Start with 16x16 or 24x24 for a simple icon-style pixel art grid.',
+        'Try 32x32 for sprites and 48x48 or higher for portraits, pets, and detailed objects.',
         'Use Pixel mode to redraw the image at the selected resolution.',
         'Adjust line opacity so you can see both the image and the cell boundaries.',
         'Compare several row and column counts before choosing a final version.',
@@ -355,17 +363,19 @@ const esContent: Record<string, ToolSeoContent> = {
       title: 'Qué es una cuadrícula para dibujar',
       paragraphs: [
         'Una cuadrícula para dibujar añade filas y columnas sobre una foto de referencia. Así puedes copiar proporciones por partes pequeñas en lugar de mirar toda la imagen a la vez.',
-        'Es útil para retratos, animales, arquitectura, bodegones y transferencia a lienzo. Puedes ajustar densidad, color, opacidad y etiquetas.',
+        'Es útil para retratos, animales, arquitectura, bodegones, transferencia a lienzo y ejercicios de dibujo. Puedes poner una cuadrícula a una foto, ajustar densidad, color, opacidad y etiquetas, y descargar una guía imprimible.',
+        'La página está enfocada en cuadricular una imagen para dibujar sin subir archivos. La foto se procesa en tu navegador, por lo que puedes preparar referencias personales, trabajos de clase o bocetos privados con más tranquilidad.',
       ],
     },
     how: {
-      title: 'Cómo añadir una cuadrícula para dibujo',
+      title: 'Cómo poner una cuadrícula a una foto para dibujar',
       items: [
         'Sube la foto de referencia.',
         'Empieza con 8x8 o 10x10.',
         'Dibuja la misma proporción en papel, lienzo o tablet.',
         'Baja la opacidad si las líneas molestan.',
         'Activa etiquetas si necesitas coordenadas.',
+        'Descarga el PNG y úsalo como cuadrícula imprimible para dibujo.',
       ],
     },
     why: {
@@ -381,6 +391,7 @@ const esContent: Record<string, ToolSeoContent> = {
         'Usa pocas celdas para bocetos rápidos.',
         'Usa más celdas para realismo.',
         'Mantén la misma proporción en la referencia y el soporte.',
+        'Usa etiquetas cuando quieras comparar zonas concretas como B3 o C4.',
         'Oculta o borra la cuadrícula al terminar las proporciones principales.',
       ],
     },
@@ -462,8 +473,9 @@ const ptContent: Record<string, ToolSeoContent> = {
     what: {
       title: 'O que é um criador de grades online?',
       paragraphs: [
-        'Um criador de grades online transforma uma imagem comum em uma referência organizada por linhas e colunas. Dependendo do modo escolhido, ele pode dividir uma imagem em partes separadas, desenhar linhas sobre a foto original ou simplificar a imagem em uma prévia pixelada.',
-        'A ferramenta foi pensada para fluxos práticos: redes sociais, desenho, crochê, ponto cruz, pixel art e qualquer trabalho visual que precise de proporção clara. Você ajusta linhas, colunas, cor, opacidade e etiquetas sem abrir um editor pesado.',
+        'Uma ferramenta de grade online transforma uma imagem comum em uma referência organizada por linhas e colunas. Ela pode colocar grade em uma imagem, dividir uma foto em partes separadas, desenhar linhas sobre a foto original ou simplificar a imagem em uma prévia pixelada.',
+        'A ferramenta foi pensada para fluxos práticos no Brasil e em português: redes sociais, desenho, crochê, ponto cruz, pixel art e qualquer trabalho visual que precise de proporção clara. Você ajusta linhas, colunas, cor, opacidade e etiquetas sem abrir um editor pesado.',
+        'Se você procura por ferramenta de grade, grade online, colocar grade em imagem ou dividir imagem em grade, o fluxo é o mesmo: escolha a imagem, ajuste a quantidade de linhas e colunas e baixe o resultado sem marca d agua.',
         'Todo o processamento acontece no navegador. A imagem é carregada em um canvas local e exportada pelo seu dispositivo, mantendo fotos pessoais, referências de clientes e materiais de campanha fora de servidores de processamento remoto.',
       ],
     },
@@ -473,6 +485,8 @@ const ptContent: Record<string, ToolSeoContent> = {
         'Envie uma imagem JPG, PNG ou WebP do seu dispositivo.',
         'Use Split para criar partes separadas, Overlay para adicionar linhas ou Pixel para uma prévia em blocos.',
         'Defina linhas e colunas de acordo com o uso final.',
+        'Para colocar grade em uma imagem, mantenha Overlay ativo e ajuste cor, espessura e opacidade.',
+        'Para dividir imagem em grade, use Split e baixe as partes em um ZIP.',
         'Ajuste cor, espessura, opacidade e etiquetas para manter a imagem legível.',
         'Confira a prévia no canvas antes de exportar.',
         'Baixe o PNG final ou use ZIP quando precisar de todas as partes de uma divisão.',
@@ -490,7 +504,8 @@ const ptContent: Record<string, ToolSeoContent> = {
       items: [
         'Use 3x3 para mosaicos de Instagram.',
         'Use 8x8, 10x10 ou 12x12 para referências de desenho.',
-        'Use 30x30 ou mais para crochê, ponto cruz e pixel art.',
+        'Use 16x16, 24x24 ou 32x32 para pixel art.',
+        'Use 30x30, 40x40 ou mais para crochê, ponto cruz e artesanato.',
         'Ative etiquetas quando precisar conversar sobre uma área específica, como C4.',
       ],
     },
