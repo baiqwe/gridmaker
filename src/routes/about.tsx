@@ -58,6 +58,30 @@ function AboutPage() {
         </section>
 
         <section className="mt-10 space-y-4">
+          <h2 className="text-2xl font-semibold">How the site is maintained</h2>
+          <p className="text-base leading-8 text-muted-foreground">
+            The site is intentionally focused on one topic: practical image grid
+            tools. New pages are added only when they serve a distinct workflow,
+            such as splitting images for social media, adding drawing reference
+            lines, or preparing dense craft grids. That keeps the site useful
+            for visitors and easier for search engines to understand.
+          </p>
+          <p className="text-base leading-8 text-muted-foreground">
+            Feedback and bug reports can be shared through the public{' '}
+            <a
+              href="https://github.com/baiqwe/gridmaker"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium underline"
+            >
+              Grid Maker GitHub repository
+            </a>
+            . This is the best place to report export problems, browser issues,
+            or workflow ideas.
+          </p>
+        </section>
+
+        <section className="mt-10 space-y-4">
           <h2 className="text-2xl font-semibold">Core tools</h2>
           <ul className="space-y-3 text-base leading-8 text-muted-foreground">
             <li>

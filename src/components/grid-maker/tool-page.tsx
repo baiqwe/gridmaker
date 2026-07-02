@@ -4,6 +4,7 @@ import type { Locale, ToolPageCopy } from '@/lib/grid-maker/i18n';
 import { getSeoContent } from '@/lib/grid-maker/seo-content';
 import { Link } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
+import { getCanonicalUrl } from '@/lib/urls';
 
 type GridMakerToolComponent = typeof import('./grid-maker-tool').GridMakerTool;
 
@@ -97,6 +98,9 @@ export function ToolPage({
       (a, b) =>
         relatedPriority.indexOf(a.slug) - relatedPriority.indexOf(b.slug)
     );
+  const canonicalUrl = getCanonicalUrl(page.path);
+  const redditShareUrl = `https://www.reddit.com/submit?url=${encodeURIComponent(canonicalUrl)}&title=${encodeURIComponent(page.h1)}`;
+  const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(canonicalUrl)}`;
 
   return (
     <div className="bg-[#fbfaf7] text-[#151515]">
@@ -168,22 +172,51 @@ export function ToolPage({
             </p>
           </div>
 
-          <nav aria-label="Related tools" className="rounded-lg bg-white p-5">
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#70675d]">
-              {copy.relatedToolsLabel}
-            </p>
-            <div className="mt-4 flex flex-col gap-2">
-              {visibleRelatedPages.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className="rounded-md px-3 py-2 text-sm font-medium text-[#2d2a26] transition hover:bg-[#f4efe7]"
+          <div className="grid gap-4">
+            <nav aria-label="Related tools" className="rounded-lg bg-white p-5">
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#70675d]">
+                {copy.relatedToolsLabel}
+              </p>
+              <div className="mt-4 flex flex-col gap-2">
+                {visibleRelatedPages.map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className="rounded-md px-3 py-2 text-sm font-medium text-[#2d2a26] transition hover:bg-[#f4efe7]"
+                  >
+                    {item.h1}
+                  </Link>
+                ))}
+              </div>
+            </nav>
+
+            <aside
+              aria-label="Share this tool"
+              className="rounded-lg bg-white p-5"
+            >
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#70675d]">
+                Share this tool
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <a
+                  href={redditShareUrl}
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                  className="rounded-md border border-black/10 px-3 py-2 text-sm font-medium text-[#2d2a26] transition hover:bg-[#f4efe7]"
                 >
-                  {item.h1}
-                </Link>
-              ))}
-            </div>
-          </nav>
+                  Reddit
+                </a>
+                <a
+                  href={linkedinShareUrl}
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                  className="rounded-md border border-black/10 px-3 py-2 text-sm font-medium text-[#2d2a26] transition hover:bg-[#f4efe7]"
+                >
+                  LinkedIn
+                </a>
+              </div>
+            </aside>
+          </div>
         </div>
       </section>
 

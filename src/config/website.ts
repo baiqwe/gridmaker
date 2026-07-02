@@ -49,7 +49,7 @@ export const websiteConfig: WebsiteConfig = {
     },
   },
   social: {
-    github: '',
+    github: 'https://github.com/baiqwe/gridmaker',
     discord: '',
     twitter: '',
     youtube: '',

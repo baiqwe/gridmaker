@@ -40,7 +40,22 @@ function PrivacyPage() {
         },
         {
           title: 'Contact',
-          body: 'If contact details are added later, privacy requests will be handled through the listed support channel. Until then, avoid uploading files that you do not have permission to edit.',
+          body: (
+            <>
+              Privacy questions, bug reports, or requests about site behavior
+              can be shared through the public{' '}
+              <a
+                href="https://github.com/baiqwe/gridmaker"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium underline"
+              >
+                Grid Maker GitHub repository
+              </a>
+              . Avoid processing files that you do not own or do not have
+              permission to edit.
+            </>
+          ),
         },
       ]}
     />

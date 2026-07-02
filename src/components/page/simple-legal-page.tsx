@@ -1,9 +1,11 @@
 import Container from '@/components/layout/container';
+import { Link } from '@tanstack/react-router';
+import type { ReactNode } from 'react';
 
 type SimpleLegalPageProps = {
   title: string;
   description: string;
-  sections: Array<{ title: string; body: string }>;
+  sections: Array<{ title: string; body: ReactNode }>;
 };
 
 export function SimpleLegalPage({
@@ -14,6 +16,16 @@ export function SimpleLegalPage({
   return (
     <Container className="px-4 py-16">
       <article className="mx-auto max-w-3xl">
+        <nav
+          aria-label="Breadcrumb"
+          className="mb-4 flex items-center gap-2 text-sm text-muted-foreground"
+        >
+          <Link to="/" className="font-medium hover:text-foreground">
+            Grid Maker
+          </Link>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">{title}</span>
+        </nav>
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
           Grid Maker
         </p>
@@ -25,9 +37,9 @@ export function SimpleLegalPage({
           {sections.map((section) => (
             <section key={section.title}>
               <h2 className="text-xl font-semibold">{section.title}</h2>
-              <p className="mt-3 text-base leading-8 text-muted-foreground">
+              <div className="mt-3 text-base leading-8 text-muted-foreground">
                 {section.body}
-              </p>
+              </div>
             </section>
           ))}
         </div>
