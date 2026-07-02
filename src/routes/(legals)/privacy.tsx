@@ -5,7 +5,7 @@ import { createFileRoute } from '@tanstack/react-router';
 
 const title = 'Privacy Policy';
 const description =
-  'Grid Maker processes images in your browser and does not upload your files to a server.';
+  'Grid Maker processes images in your browser and explains how analytics and advertising partners may use limited site data.';
 
 export const Route = createFileRoute('/(legals)/privacy')({
   head: () =>
@@ -29,6 +29,14 @@ function PrivacyPage() {
         {
           title: 'Analytics',
           body: 'We may use privacy-conscious analytics to understand aggregate product usage, such as page views and tool interactions. Analytics data is not used to reconstruct your uploaded images.',
+        },
+        {
+          title: 'Advertising',
+          body: 'When advertising is enabled, third-party advertising partners such as Google AdSense may use cookies, device identifiers, or similar technologies to serve, measure, and improve ads. These partners do not receive the images you edit because image processing remains local to your browser.',
+        },
+        {
+          title: 'Your choices',
+          body: 'You can control cookies and personalized advertising through your browser settings and Google ad settings. Blocking advertising cookies may reduce personalization, but the core grid maker tools will continue to work.',
         },
         {
           title: 'Contact',

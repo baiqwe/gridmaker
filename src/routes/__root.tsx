@@ -22,6 +22,7 @@ import { Routes } from '@/lib/routes';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { lazy } from 'react';
 import { getLocaleConfig, isLocale } from '@/lib/grid-maker/i18n';
+import { clientEnv } from '@/env/client';
 
 const DevTools = import.meta.env.DEV
   ? lazy(() => import('@/integrations/devtools'))
@@ -33,58 +34,73 @@ const DevTools = import.meta.env.DEV
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
 }>()({
-  head: () => ({
-    meta: [
-      {
-        charSet: 'utf-8',
-      },
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
-      },
-      {
-        title: websiteConfig.metadata?.title,
-      },
-      {
-        name: 'description',
-        content: websiteConfig.metadata?.description,
-      },
-      {
-        name: 'theme-color',
-        content: '#09090b',
-      },
-    ],
-    links: [
-      {
-        rel: 'stylesheet',
-        href: appCss,
-      },
-      {
-        rel: 'apple-touch-icon',
-        sizes: '180x180',
-        href: '/apple-touch-icon.png',
-      },
-      {
-        rel: 'icon',
-        type: 'image/svg+xml',
-        href: '/favicon.svg',
-      },
-      {
-        rel: 'icon',
-        type: 'image/png',
-        sizes: '32x32',
-        href: '/favicon-32x32.png',
-      },
-      {
-        rel: 'icon',
-        type: 'image/png',
-        sizes: '16x16',
-        href: '/favicon-16x16.png',
-      },
-      { rel: 'icon', href: '/favicon.ico' },
-      { rel: 'manifest', href: '/manifest.json' },
-    ],
-  }),
+  head: () => {
+    const adsenseClient = clientEnv.VITE_GOOGLE_ADSENSE_CLIENT?.trim();
+    const adsenseScripts = adsenseClient?.startsWith('ca-pub-')
+      ? [
+          {
+            id: 'google-adsense-auto-ads',
+            src: `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`,
+            async: true,
+            crossOrigin: 'anonymous',
+          },
+        ]
+      : [];
+
+    return {
+      meta: [
+        {
+          charSet: 'utf-8',
+        },
+        {
+          name: 'viewport',
+          content: 'width=device-width, initial-scale=1',
+        },
+        {
+          title: websiteConfig.metadata?.title,
+        },
+        {
+          name: 'description',
+          content: websiteConfig.metadata?.description,
+        },
+        {
+          name: 'theme-color',
+          content: '#09090b',
+        },
+      ],
+      links: [
+        {
+          rel: 'stylesheet',
+          href: appCss,
+        },
+        {
+          rel: 'apple-touch-icon',
+          sizes: '180x180',
+          href: '/apple-touch-icon.png',
+        },
+        {
+          rel: 'icon',
+          type: 'image/svg+xml',
+          href: '/favicon.svg',
+        },
+        {
+          rel: 'icon',
+          type: 'image/png',
+          sizes: '32x32',
+          href: '/favicon-32x32.png',
+        },
+        {
+          rel: 'icon',
+          type: 'image/png',
+          sizes: '16x16',
+          href: '/favicon-16x16.png',
+        },
+        { rel: 'icon', href: '/favicon.ico' },
+        { rel: 'manifest', href: '/manifest.json' },
+      ],
+      scripts: adsenseScripts,
+    };
+  },
   // shellComponent automatically wraps root component, errorComponent, and notFoundComponent
   shellComponent: RootDocument,
   component: RootComponent,

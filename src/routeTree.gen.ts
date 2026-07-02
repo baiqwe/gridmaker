@@ -17,6 +17,7 @@ import { Route as InstagramGridMakerRouteImport } from './routes/instagram-grid-
 import { Route as DrawingGridMakerRouteImport } from './routes/drawing-grid-maker'
 import { Route as CrossStitchGridMakerRouteImport } from './routes/cross-stitch-grid-maker'
 import { Route as CrochetGridMakerRouteImport } from './routes/crochet-grid-maker'
+import { Route as AdsDottxtRouteImport } from './routes/ads[.]txt'
 import { Route as AddGridToPhotoRouteImport } from './routes/add-grid-to-photo'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as LocaleRouteImport } from './routes/$locale'
@@ -66,6 +67,11 @@ const CrossStitchGridMakerRoute = CrossStitchGridMakerRouteImport.update({
 const CrochetGridMakerRoute = CrochetGridMakerRouteImport.update({
   id: '/crochet-grid-maker',
   path: '/crochet-grid-maker',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdsDottxtRoute = AdsDottxtRouteImport.update({
+  id: '/ads.txt',
+  path: '/ads.txt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AddGridToPhotoRoute = AddGridToPhotoRouteImport.update({
@@ -124,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/$locale': typeof LocaleRouteWithChildren
   '/about': typeof AboutRoute
   '/add-grid-to-photo': typeof AddGridToPhotoRoute
+  '/ads.txt': typeof AdsDottxtRoute
   '/crochet-grid-maker': typeof CrochetGridMakerRoute
   '/cross-stitch-grid-maker': typeof CrossStitchGridMakerRoute
   '/drawing-grid-maker': typeof DrawingGridMakerRoute
@@ -143,6 +150,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/add-grid-to-photo': typeof AddGridToPhotoRoute
+  '/ads.txt': typeof AdsDottxtRoute
   '/crochet-grid-maker': typeof CrochetGridMakerRoute
   '/cross-stitch-grid-maker': typeof CrossStitchGridMakerRoute
   '/drawing-grid-maker': typeof DrawingGridMakerRoute
@@ -164,6 +172,7 @@ export interface FileRoutesById {
   '/$locale': typeof LocaleRouteWithChildren
   '/about': typeof AboutRoute
   '/add-grid-to-photo': typeof AddGridToPhotoRoute
+  '/ads.txt': typeof AdsDottxtRoute
   '/crochet-grid-maker': typeof CrochetGridMakerRoute
   '/cross-stitch-grid-maker': typeof CrossStitchGridMakerRoute
   '/drawing-grid-maker': typeof DrawingGridMakerRoute
@@ -186,6 +195,7 @@ export interface FileRouteTypes {
     | '/$locale'
     | '/about'
     | '/add-grid-to-photo'
+    | '/ads.txt'
     | '/crochet-grid-maker'
     | '/cross-stitch-grid-maker'
     | '/drawing-grid-maker'
@@ -205,6 +215,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/add-grid-to-photo'
+    | '/ads.txt'
     | '/crochet-grid-maker'
     | '/cross-stitch-grid-maker'
     | '/drawing-grid-maker'
@@ -225,6 +236,7 @@ export interface FileRouteTypes {
     | '/$locale'
     | '/about'
     | '/add-grid-to-photo'
+    | '/ads.txt'
     | '/crochet-grid-maker'
     | '/cross-stitch-grid-maker'
     | '/drawing-grid-maker'
@@ -246,6 +258,7 @@ export interface RootRouteChildren {
   LocaleRoute: typeof LocaleRouteWithChildren
   AboutRoute: typeof AboutRoute
   AddGridToPhotoRoute: typeof AddGridToPhotoRoute
+  AdsDottxtRoute: typeof AdsDottxtRoute
   CrochetGridMakerRoute: typeof CrochetGridMakerRoute
   CrossStitchGridMakerRoute: typeof CrossStitchGridMakerRoute
   DrawingGridMakerRoute: typeof DrawingGridMakerRoute
@@ -316,6 +329,13 @@ declare module '@tanstack/react-router' {
       path: '/crochet-grid-maker'
       fullPath: '/crochet-grid-maker'
       preLoaderRoute: typeof CrochetGridMakerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ads.txt': {
+      id: '/ads.txt'
+      path: '/ads.txt'
+      fullPath: '/ads.txt'
+      preLoaderRoute: typeof AdsDottxtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/add-grid-to-photo': {
@@ -409,6 +429,7 @@ const rootRouteChildren: RootRouteChildren = {
   LocaleRoute: LocaleRouteWithChildren,
   AboutRoute: AboutRoute,
   AddGridToPhotoRoute: AddGridToPhotoRoute,
+  AdsDottxtRoute: AdsDottxtRoute,
   CrochetGridMakerRoute: CrochetGridMakerRoute,
   CrossStitchGridMakerRoute: CrossStitchGridMakerRoute,
   DrawingGridMakerRoute: DrawingGridMakerRoute,
