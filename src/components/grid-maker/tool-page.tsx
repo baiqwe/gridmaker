@@ -223,8 +223,15 @@ export function ToolPage({
       <section className="border-t border-black/10 bg-[#fbfaf7]">
         <div className="mx-auto max-w-5xl px-4 py-14 lg:px-6">
           <div className="grid gap-8">
-            {[seoContent.what, seoContent.how, seoContent.why, seoContent.tips]
-              .filter(Boolean)
+            {[
+              seoContent.what,
+              seoContent.how,
+              seoContent.examples,
+              seoContent.why,
+              seoContent.mistakes,
+              seoContent.tips,
+            ]
+              .filter((section) => section !== undefined)
               .map((section) => (
                 <article
                   key={section.title}

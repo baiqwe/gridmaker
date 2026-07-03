@@ -9,7 +9,9 @@ export type SeoContentSection = {
 export type ToolSeoContent = {
   what: SeoContentSection;
   how: SeoContentSection;
+  examples?: SeoContentSection;
   why: SeoContentSection;
+  mistakes?: SeoContentSection;
   tips: SeoContentSection;
 };
 
@@ -44,6 +46,22 @@ const enContent: Record<string, ToolSeoContent> = {
       paragraphs: [
         'A grid removes guesswork. Instead of relying on memory or freehand proportion, you can compare each part of the image with a visible row and column. For drawing, that helps transfer shapes more accurately. For social media, it helps preview how a single image will break across multiple posts. For crafts, it gives you a repeatable square structure that is easier to count and mark.',
         'The biggest advantage is speed. Traditional desktop editors can do the same work, but they often require layers, guides, export settings, and manual slicing. A focused grid maker turns that into a few controls. It also avoids account creation and watermark limitations, which matters when you only need to prepare one image quickly.',
+      ],
+    },
+    examples: {
+      title: 'Example workflows',
+      paragraphs: [
+        'A creator preparing a product reveal can use Split mode to test a 3x3 profile mosaic, then switch to Add Grid to Photo when the same image needs a single annotated preview for a client. An art student can upload a portrait, turn on labels, and print a gridded reference that matches the drawing paper. A craft maker can test the same picture at 24x24, 30x30, and 40x40 before deciding whether the subject is readable enough for stitches or beads.',
+        'These workflows are intentionally different from template-based collage tools. The page does not ask you to pick a decorative layout first; it starts with the image and gives you grid controls that change the exported file. That makes the site useful even when the final destination is Instagram, a sketchbook, a worksheet, a craft chart, or a block-based design.',
+      ],
+    },
+    mistakes: {
+      title: 'Common mistakes to avoid',
+      items: [
+        'Do not use a very dense grid on a low-resolution image; the lines can hide more detail than they reveal.',
+        'Do not place important text directly on split boundaries when preparing social media tiles.',
+        'Do not assume one grid size fits every task; drawing references, Instagram tiles, and craft patterns need different densities.',
+        'Do not export before checking the preview at the final size you plan to post, print, or copy.',
       ],
     },
     tips: {
@@ -87,6 +105,22 @@ const enContent: Record<string, ToolSeoContent> = {
         'The risk is that each individual tile may look incomplete in the feed. That is why planning matters. Place important text and faces near the center of each tile when possible, and avoid tiny typography that becomes unreadable after splitting. If the image contains words, test the split before posting so letters are not cut in a confusing way.',
       ],
     },
+    examples: {
+      title: 'Good Instagram grid use cases',
+      paragraphs: [
+        'A 3x3 grid works best for moments where the profile itself is part of the presentation: a music cover reveal, a new product drop, a real estate showcase, a portfolio launch, or an event poster. In those cases the viewer understands the complete image when they visit the profile, while each tile can still carry its own caption.',
+        'A smaller 3x1 split is better for carousel-style planning when the image is panoramic or when you do not want to occupy nine profile posts. For creators who post frequently, testing both layouts before downloading avoids committing to a format that disrupts the feed for too long.',
+      ],
+    },
+    mistakes: {
+      title: 'Instagram grid mistakes to avoid',
+      items: [
+        'Avoid tiny text; each tile is viewed separately in the feed and may be too small to read.',
+        'Avoid cutting a face, logo, or product detail exactly on a tile edge unless the split is intentional.',
+        'Remember that the posting order is reversed for profile mosaics: the last tile is usually posted first.',
+        'Check pinned posts and deleted posts before publishing because they can shift the final profile layout.',
+      ],
+    },
     tips: {
       title: 'Instagram grid tips',
       items: [
@@ -124,6 +158,22 @@ const enContent: Record<string, ToolSeoContent> = {
         'A grid also makes complex references less intimidating. Beginners can use it to build confidence, while experienced artists can use it to speed up layout before moving into freehand refinement. The grid is not meant to replace observation; it is a scaffold that helps you place major shapes before committing to detail.',
       ],
     },
+    examples: {
+      title: 'Drawing grid examples',
+      paragraphs: [
+        'For portraits, an 8x8 or 10x10 grid is usually enough to locate the eyes, nose, mouth, hairline, and shoulder angles without turning the page into a technical chart. For architecture or vehicles, a denser grid can help with straight edges and perspective points. For classroom worksheets, labels are useful because a teacher can refer to a specific square when explaining corrections.',
+        'A practical drawing workflow is to sketch the same grid lightly on paper, block in the biggest shapes first, then ignore the grid while refining edges and values. The exported image should guide placement, not replace observation. This page is built around that workflow: clear overlay controls, optional labels, and no forced upload step.',
+      ],
+    },
+    mistakes: {
+      title: 'Drawing grid mistakes to avoid',
+      items: [
+        'Do not use a grid ratio that differs from your paper or canvas ratio; it will distort the drawing.',
+        'Do not make the grid lines so dark that they hide shadow shapes and edge changes.',
+        'Do not copy one square at a time without checking the whole image; proportions still need global comparison.',
+        'Do not leave construction labels on a final presentation export unless the grid is meant to be instructional.',
+      ],
+    },
     tips: {
       title: 'Drawing grid tips',
       items: [
@@ -159,6 +209,22 @@ const enContent: Record<string, ToolSeoContent> = {
       paragraphs: [
         'Crochet projects can take many hours, so a poor reference choice becomes expensive quickly. A grid preview helps you decide whether a photo has enough contrast, whether the shape fits the intended square count, and whether the final design will still look recognizable after being translated into stitches.',
         'A browser grid also lets you experiment before committing to yarn. You can try different row and column counts, adjust visibility, and compare versions. This is especially helpful for handmade gifts, logos, pets, portraits, or fandom designs where the subject needs to be recognizable from a distance.',
+      ],
+    },
+    examples: {
+      title: 'Crochet planning examples',
+      paragraphs: [
+        'A simple logo can often work at 30x30 because the shapes are bold and the color count is limited. A pet portrait usually needs more squares and a simplified crop around the face. A graphghan with text should be tested carefully because letters can become jagged when the grid is too small.',
+        'Use this page as the first filter before moving into yarn colors or a full stitch chart. If the gridded preview is not recognizable at the intended size, the finished project will likely have the same problem. In that case, crop tighter, simplify the image, increase the grid count, or choose a subject with stronger contrast.',
+      ],
+    },
+    mistakes: {
+      title: 'Crochet grid mistakes to avoid',
+      items: [
+        'Do not start from a low-contrast photo with many small shadows unless you plan to simplify it first.',
+        'Do not assume a beautiful photo will become a readable crochet pattern at a small square count.',
+        'Do not use thick grid lines on dense craft grids; they can hide the exact color boundaries you need.',
+        'Do not begin a large blanket before testing a small swatch or sample section.',
       ],
     },
     tips: {
@@ -200,6 +266,22 @@ const enContent: Record<string, ToolSeoContent> = {
         'Pixel grids also make creative decisions visible. You can see when a design needs more contrast, when a background should be removed, or when the grid count is too low. That makes the tool useful even before you open a dedicated pixel editor.',
       ],
     },
+    examples: {
+      title: 'Pixel grid examples',
+      paragraphs: [
+        'A simple app icon or game item may only need 16x16 or 24x24 to stay recognizable. A character sprite often works better at 32x32 because the face, silhouette, and clothing details need a little more space. A pet photo or portrait may require 48x48 or higher, plus a tight crop, before the subject reads clearly.',
+        'The tool is also useful outside pixel art. Perler bead layouts, block builds, paper mosaics, and classroom pixel activities all need the same basic decision: how many squares can you afford before the project becomes too large? Previewing multiple grid sizes gives that answer before you start counting materials.',
+      ],
+    },
+    mistakes: {
+      title: 'Pixel grid mistakes to avoid',
+      items: [
+        'Do not keep a busy background if the subject is the only important part of the design.',
+        'Do not choose a very low grid count for faces unless you want an abstract result.',
+        'Do not treat the first export as final pixel art; use it as a planning reference and clean up important edges later.',
+        'Do not ignore contrast. Low-contrast photos often become muddy when reduced to blocks.',
+      ],
+    },
     tips: {
       title: 'Pixel grid tips',
       items: [
@@ -237,6 +319,22 @@ const enContent: Record<string, ToolSeoContent> = {
         'The browser-based workflow is fast because it removes the need for photo editing software. There is no layer setup, no account gate, and no watermark. You can make a clean reference image in seconds, then use it in a sketchbook, PDF, slide, craft note, or shared design discussion.',
       ],
     },
+    examples: {
+      title: 'Photo grid overlay examples',
+      paragraphs: [
+        'A teacher can add a labeled grid to a science diagram and ask students to identify what appears in B3 or C4. A designer can mark layout feedback on a mockup without opening a full editor. An artist can print a photo with light guide lines for a quick proportion study.',
+        'Unlike a splitter, this workflow keeps the image as one file. That matters when the output is meant to be printed, added to a slide deck, sent in a message, or used as a reference layer. The grid should clarify the image, not become the subject of the image.',
+      ],
+    },
+    mistakes: {
+      title: 'Photo grid overlay mistakes to avoid',
+      items: [
+        'Do not use labels when the final image needs to look clean or presentation-ready.',
+        'Do not use the same line color for every photo; dark, light, and high-saturation images need different line choices.',
+        'Do not make the grid denser than the task requires. Too many cells can make feedback harder to read.',
+        'Do not export before checking that the most important part of the image remains visible under the lines.',
+      ],
+    },
     tips: {
       title: 'Photo grid overlay tips',
       items: [
@@ -272,6 +370,22 @@ const enContent: Record<string, ToolSeoContent> = {
       paragraphs: [
         'Cross-stitch is a counted craft, so the grid is the structure of the project. A photo may look beautiful, but it can fail when reduced to a limited number of squares. A grid preview shows whether the subject will survive that reduction and whether the crop should be changed before deeper pattern work begins.',
         'Using a browser grid maker also keeps experimentation lightweight. You can try multiple sizes, line colors, and crops without uploading private photos or installing software. That makes it a good first step for family portraits, pet designs, game sprites, icons, and gift projects.',
+      ],
+    },
+    examples: {
+      title: 'Cross-stitch planning examples',
+      paragraphs: [
+        'A game sprite or simple icon may work well at a modest grid size because it already has strong edges. A pet portrait often needs a tighter crop around the face and a higher grid count. A landscape photo usually needs simplification because subtle sky and shadow gradients can become noisy in a counted pattern.',
+        'This page helps decide whether an image deserves full pattern work. If the preview still communicates the subject after the grid is applied, it is a stronger candidate for thread mapping. If the preview collapses into small unclear patches, adjust the image before spending time on color symbols.',
+      ],
+    },
+    mistakes: {
+      title: 'Cross-stitch grid mistakes to avoid',
+      items: [
+        'Do not start with a photo that has many tiny details unless you are planning a very large piece.',
+        'Do not rely only on the grid for final floss selection; it is a planning layer, not a full color chart.',
+        'Do not use thick dark lines on small patterns because they can hide stitch boundaries.',
+        'Do not skip a test section when the design includes faces, text, or subtle shading.',
       ],
     },
     tips: {
