@@ -130,9 +130,9 @@ export const toolPages: ToolPageConfig[] = [
     path: Routes.DrawingGridMaker,
     navLabel: 'Drawing',
     eyebrow: 'Drawing reference grid',
-    title: 'Drawing Grid Maker: Add Grid to Photo',
+    title: 'Drawing Grid Maker: Grid Method Tool',
     description:
-      'Add a customizable drawing grid to any image online. Adjust rows, columns, line color, opacity, and labels. Free and private.',
+      'Add a drawing grid to any photo for the grid method. Adjust rows, columns, color, opacity, and labels. Free, private, no uploads.',
     h1: 'Drawing Grid Maker Online',
     mode: 'overlay',
     rows: 8,
@@ -142,7 +142,7 @@ export const toolPages: ToolPageConfig[] = [
     opacity: 65,
     labels: true,
     keywords:
-      'drawing grid maker, grid maker for drawing, add grid to image for drawing',
+      'drawing grid maker, grid maker for drawing, grid method drawing, add grid to image for drawing',
     intro:
       'Add a proportional grid over a reference photo for drawing, painting, and sketch transfer. Adjust the grid density, line color, opacity, and labels before downloading.',
     bestFor: [
@@ -215,9 +215,9 @@ export const toolPages: ToolPageConfig[] = [
     path: Routes.PixelGridMaker,
     navLabel: 'Pixel',
     eyebrow: 'Pixel grid maker',
-    title: 'Pixel Grid Maker: Pixelate Images Online',
+    title: 'Pixel Grid Maker: Pixel Art Grid Generator',
     description:
-      'Create a pixel art grid from an image online. Pixelate photos, add clear grid lines, and download a block-based reference.',
+      'Create a pixel art grid from an image online. Pixelate photos with grid lines for sprites, mosaics, beads, and block references.',
     h1: 'Pixel Grid Maker Online',
     mode: 'pixel',
     rows: 24,
@@ -226,7 +226,8 @@ export const toolPages: ToolPageConfig[] = [
     lineWidth: 1,
     opacity: 60,
     labels: false,
-    keywords: 'pixel grid maker, pixel art grid maker, image pixel grid',
+    keywords:
+      'pixel grid maker, pixel art grid maker, pixel art grid generator, pixelate image with grid',
     intro:
       'Preview an image as a blocky pixel art grid for sprites, icons, crafts, and layout planning. Adjust the grid size to control pixel detail before downloading the reference.',
     bestFor: [

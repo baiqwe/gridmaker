@@ -23,6 +23,198 @@ const defaultCopy: ToolPageCopy = {
   loadingLabel: 'Loading image tools...',
 };
 
+type ModeComparisonCopy = {
+  title: string;
+  description: string;
+  rows: Array<{
+    slug: string;
+    mode: string;
+    bestFor: string;
+    setting: string;
+  }>;
+};
+
+const modeComparisonByLocale: Record<string, ModeComparisonCopy> = {
+  en: {
+    title: 'Choose the right grid mode',
+    description:
+      'Grid maker searches can mean very different jobs. Use this quick guide to start with the mode that matches your image, then open the focused tool page for better presets.',
+    rows: [
+      {
+        slug: 'instagram-grid-maker',
+        mode: 'Split grid',
+        bestFor:
+          'Cut one image into separate tiles for Instagram profiles, carousel planning, and social media mosaics.',
+        setting:
+          'Start with 3x3 for profile grids or 3x1 for panoramic carousel ideas.',
+      },
+      {
+        slug: 'drawing-grid-maker',
+        mode: 'Overlay grid',
+        bestFor:
+          'Add guide lines over a photo for the grid method, drawing references, worksheets, and proportion transfer.',
+        setting:
+          'Use 8x8 or 10x10 for portraits; increase to 12x12 or 16x16 for detail.',
+      },
+      {
+        slug: 'pixel-grid-maker',
+        mode: 'Pixel grid',
+        bestFor:
+          'Pixelate an image with visible cells for pixel art, sprites, mosaics, beads, and block-based references.',
+        setting:
+          'Try 16x16 or 24x24 for icons, 32x32 for sprites, and 48x48 for portraits.',
+      },
+      {
+        slug: 'crochet-grid-maker',
+        mode: 'Craft grid',
+        bestFor:
+          'Create dense counted grids for crochet, C2C, graphghan, cross-stitch, beadwork, and handmade planning.',
+        setting:
+          'Begin around 30x30 or 40x40, then adjust until the subject remains readable.',
+      },
+    ],
+  },
+  es: {
+    title: 'Elige el modo de cuadrícula correcto',
+    description:
+      'Una búsqueda de cuadrícula puede significar cortar una imagen, añadir líneas para dibujar o pixelizarla para manualidades. Usa esta guía para elegir el flujo adecuado.',
+    rows: [
+      {
+        slug: 'instagram-grid-maker',
+        mode: 'Dividir imagen',
+        bestFor:
+          'Cortar una foto en piezas para Instagram, carruseles y mosaicos de redes sociales.',
+        setting: 'Empieza con 3x3 para perfil o 3x1 para ideas panorámicas.',
+      },
+      {
+        slug: 'drawing-grid-maker',
+        mode: 'Cuadrícula sobre foto',
+        bestFor:
+          'Poner líneas sobre una imagen para dibujo, proporción, láminas imprimibles y transferencia a papel.',
+        setting:
+          'Usa 8x8 o 10x10 para retratos; sube a 12x12 o 16x16 para más detalle.',
+      },
+      {
+        slug: 'pixel-grid-maker',
+        mode: 'Cuadrícula pixel',
+        bestFor:
+          'Pixelizar una imagen con celdas visibles para pixel art, mosaicos, cuentas y bloques.',
+        setting:
+          'Prueba 16x16 o 24x24 para iconos, 32x32 para sprites y 48x48 para retratos.',
+      },
+      {
+        slug: 'crochet-grid-maker',
+        mode: 'Cuadrícula manualidades',
+        bestFor:
+          'Crear cuadrículas densas para crochet, C2C, graphghan, punto de cruz y cuentas.',
+        setting:
+          'Empieza con 30x30 o 40x40 y ajusta hasta que el motivo sea legible.',
+      },
+    ],
+  },
+  pt: {
+    title: 'Escolha o modo de grade certo',
+    description:
+      'Ferramenta de grade pode significar dividir imagem, colocar linhas para desenho ou pixelizar uma foto para artesanato. Use este guia para escolher o fluxo certo.',
+    rows: [
+      {
+        slug: 'instagram-grid-maker',
+        mode: 'Dividir imagem',
+        bestFor:
+          'Cortar uma foto em partes para Instagram, carrossel e mosaicos de redes sociais.',
+        setting: 'Comece com 3x3 para perfil ou 3x1 para ideias panorâmicas.',
+      },
+      {
+        slug: 'drawing-grid-maker',
+        mode: 'Grade sobre foto',
+        bestFor:
+          'Adicionar linhas sobre uma imagem para desenho, proporção, impressão e transferência para papel ou tela.',
+        setting:
+          'Use 8x8 ou 10x10 para retratos; aumente para 12x12 ou 16x16 quando houver detalhes.',
+      },
+      {
+        slug: 'pixel-grid-maker',
+        mode: 'Grade pixel',
+        bestFor:
+          'Pixelizar imagem com células visíveis para pixel art, mosaicos, miçangas e blocos.',
+        setting:
+          'Teste 16x16 ou 24x24 para ícones, 32x32 para sprites e 48x48 para retratos.',
+      },
+      {
+        slug: 'crochet-grid-maker',
+        mode: 'Grade artesanal',
+        bestFor:
+          'Criar grades densas para crochê, C2C, graphghan, ponto cruz, miçangas e trabalhos contados.',
+        setting:
+          'Comece em 30x30 ou 40x40 e ajuste até o assunto continuar legível.',
+      },
+    ],
+  },
+  ja: {
+    title: '目的に合うグリッドモードを選ぶ',
+    description:
+      '画像を分割する、写真に線を重ねる、ピクセル風にするなど、目的に応じて最適なページを選べます。',
+    rows: [
+      {
+        slug: 'instagram-grid-maker',
+        mode: '分割グリッド',
+        bestFor:
+          'Instagram 投稿、プロフィール用モザイク、カルーセル構成の準備。',
+        setting: 'プロフィールには 3x3、横長の案には 3x1 から始めます。',
+      },
+      {
+        slug: 'drawing-grid-maker',
+        mode: '重ねるグリッド',
+        bestFor: 'デッサン、比率確認、印刷用の参照画像、下描き転写。',
+        setting: '人物画は 8x8 または 10x10、細部は 12x12 以上を試します。',
+      },
+      {
+        slug: 'pixel-grid-maker',
+        mode: 'ピクセルグリッド',
+        bestFor: 'ピクセルアート、スプライト、モザイク、ビーズ、ブロック配置。',
+        setting: 'アイコンは 16x16 や 24x24、人物は 48x48 以上を試します。',
+      },
+      {
+        slug: 'crochet-grid-maker',
+        mode: '手芸グリッド',
+        bestFor: 'かぎ針編み、C2C、クロスステッチ、ビーズ作品の計画。',
+        setting: '30x30 または 40x40 から始め、見やすさに合わせて調整します。',
+      },
+    ],
+  },
+  zh: {
+    title: '选择合适的网格模式',
+    description:
+      '搜索网格工具时，用户可能想切图、加参考线，或把图片变成像素格。先选对模式，再进入对应工具页会更快。',
+    rows: [
+      {
+        slug: 'instagram-grid-maker',
+        mode: '切图网格',
+        bestFor: '把一张图切成 Instagram 主页九宫格、轮播图或社媒拼图。',
+        setting: '主页拼图从 3x3 开始，横向轮播可以试 3x1。',
+      },
+      {
+        slug: 'drawing-grid-maker',
+        mode: '叠加网格',
+        bestFor: '给照片加绘画参考线，用于比例观察、打印练习和转描。',
+        setting: '人像常用 8x8 或 10x10，细节多时试 12x12 或 16x16。',
+      },
+      {
+        slug: 'pixel-grid-maker',
+        mode: '像素网格',
+        bestFor: '把图片像素化，用于 pixel art、马赛克、串珠和方块参考。',
+        setting: '图标试 16x16 或 24x24，头像和宠物照试 48x48 以上。',
+      },
+      {
+        slug: 'crochet-grid-maker',
+        mode: '手作网格',
+        bestFor: '为钩针、C2C、十字绣、串珠等计数类手作创建密集网格。',
+        setting: '从 30x30 或 40x40 开始，调到主体仍然清晰为止。',
+      },
+    ],
+  },
+};
+
 function ClientGridMakerTool({
   page,
   loadingLabel,
@@ -101,6 +293,10 @@ export function ToolPage({
   const canonicalUrl = getCanonicalUrl(page.path);
   const redditShareUrl = `https://www.reddit.com/submit?url=${encodeURIComponent(canonicalUrl)}&title=${encodeURIComponent(page.h1)}`;
   const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(canonicalUrl)}`;
+  const modeComparison =
+    modeComparisonByLocale[locale] ?? modeComparisonByLocale.en;
+  const getRelatedPageBySlug = (slug: string) =>
+    relatedPages.find((item) => item.slug === slug);
 
   return (
     <div className="bg-[#fbfaf7] text-[#151515]">
@@ -219,6 +415,52 @@ export function ToolPage({
           </div>
         </div>
       </section>
+
+      {page.slug === 'home' ? (
+        <section className="border-t border-black/10 bg-white">
+          <div className="mx-auto max-w-5xl px-4 py-14 lg:px-6">
+            <div className="max-w-3xl">
+              <h2 className="text-2xl font-bold text-[#151515]">
+                {modeComparison.title}
+              </h2>
+              <p className="mt-4 text-base leading-8 text-[#514a42]">
+                {modeComparison.description}
+              </p>
+            </div>
+            <div className="mt-8 grid gap-4 md:grid-cols-2">
+              {modeComparison.rows.map((row) => {
+                const targetPage = getRelatedPageBySlug(row.slug);
+                return (
+                  <article
+                    key={row.slug}
+                    className="rounded-lg border border-black/10 bg-[#fbfaf7] p-5"
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <h3 className="text-lg font-bold text-[#151515]">
+                        {row.mode}
+                      </h3>
+                      {targetPage ? (
+                        <Link
+                          to={targetPage.path}
+                          className="shrink-0 rounded-md border border-black/10 bg-white px-3 py-1.5 text-sm font-semibold text-[#2d2a26] transition hover:bg-[#f4efe7]"
+                        >
+                          {targetPage.navLabel}
+                        </Link>
+                      ) : null}
+                    </div>
+                    <p className="mt-3 text-sm leading-7 text-[#514a42]">
+                      {row.bestFor}
+                    </p>
+                    <p className="mt-3 rounded-md bg-white p-3 text-sm leading-7 text-[#5b554d]">
+                      {row.setting}
+                    </p>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="border-t border-black/10 bg-[#fbfaf7]">
         <div className="mx-auto max-w-5xl px-4 py-14 lg:px-6">

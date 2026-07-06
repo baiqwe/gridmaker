@@ -161,8 +161,8 @@ const enContent: Record<string, ToolSeoContent> = {
     examples: {
       title: 'Drawing grid examples',
       paragraphs: [
-        'For portraits, an 8x8 or 10x10 grid is usually enough to locate the eyes, nose, mouth, hairline, and shoulder angles without turning the page into a technical chart. For architecture or vehicles, a denser grid can help with straight edges and perspective points. For classroom worksheets, labels are useful because a teacher can refer to a specific square when explaining corrections.',
-        'A practical drawing workflow is to sketch the same grid lightly on paper, block in the biggest shapes first, then ignore the grid while refining edges and values. The exported image should guide placement, not replace observation. This page is built around that workflow: clear overlay controls, optional labels, and no forced upload step.',
+        'For portraits, an 8x8 or 10x10 grid is usually enough to locate the eyes, nose, mouth, hairline, and shoulder angles without turning the page into a technical chart. The classic grid method for drawing works best when the reference and paper share the same aspect ratio, because each square can be copied without stretching the subject. For architecture or vehicles, a denser 12x12 or 16x16 grid can help with straight edges and perspective points. For classroom worksheets, labels are useful because a teacher can refer to a specific square when explaining corrections.',
+        'A practical drawing workflow is to sketch the same grid lightly on paper, block in the biggest shapes first, then ignore the grid while refining edges and values. If you are transferring to a larger canvas, count the rows and columns first, then draw the same number of cells at a larger physical size. The exported image should guide placement, not replace observation. This page is built around that workflow: clear overlay controls, optional labels, and no forced upload step.',
       ],
     },
     mistakes: {
@@ -178,6 +178,7 @@ const enContent: Record<string, ToolSeoContent> = {
       title: 'Drawing grid tips',
       items: [
         'Use fewer cells for loose sketching and more cells for realistic detail.',
+        'Use 8x8 or 10x10 for most portraits; move to 12x12 or 16x16 when perspective or small details matter.',
         'Choose a red, blue, or white line if black disappears into the photo.',
         'Keep the grid ratio consistent between the photo and drawing surface.',
         'Erase or hide the construction grid after the main proportions are complete.',
@@ -269,8 +270,8 @@ const enContent: Record<string, ToolSeoContent> = {
     examples: {
       title: 'Pixel grid examples',
       paragraphs: [
-        'A simple app icon or game item may only need 16x16 or 24x24 to stay recognizable. A character sprite often works better at 32x32 because the face, silhouette, and clothing details need a little more space. A pet photo or portrait may require 48x48 or higher, plus a tight crop, before the subject reads clearly.',
-        'The tool is also useful outside pixel art. Perler bead layouts, block builds, paper mosaics, and classroom pixel activities all need the same basic decision: how many squares can you afford before the project becomes too large? Previewing multiple grid sizes gives that answer before you start counting materials.',
+        'A simple app icon or game item may only need 16x16 or 24x24 to stay recognizable. A character sprite often works better at 32x32 because the face, silhouette, and clothing details need a little more space. A pet photo or portrait may require 48x48 or higher, plus a tight crop, before the subject reads clearly. That makes the page useful as a pixel art grid generator before you spend time redrawing by hand.',
+        'The tool is also useful outside pixel art. Perler bead layouts, block builds, paper mosaics, classroom pixel activities, and small game references all need the same basic decision: how many squares can you afford before the project becomes too large? Previewing multiple grid sizes gives that answer before you start counting materials, beads, blocks, stitches, or printed worksheet cells.',
       ],
     },
     mistakes: {
@@ -499,6 +500,22 @@ const esContent: Record<string, ToolSeoContent> = {
         'También hace menos intimidantes las imágenes complejas. Es una ayuda de construcción, no un reemplazo de la observación.',
       ],
     },
+    examples: {
+      title: 'Ejemplos de cuadrícula para dibujo',
+      paragraphs: [
+        'Para retratos, una cuadrícula de 8x8 o 10x10 suele bastar para ubicar ojos, nariz, boca, línea del cabello y hombros sin llenar la referencia de demasiadas líneas. Para arquitectura, vehículos o perspectiva, una cuadrícula de 12x12 o 16x16 puede ayudar a controlar bordes rectos, ventanas y ángulos. Si necesitas imprimir una guía para clase, las etiquetas facilitan señalar una zona concreta como B3 o D5.',
+        'Un flujo práctico es dibujar la misma proporción en papel, bloquear primero las formas grandes y usar la cuadrícula solo como referencia de construcción. Después conviene mirar la imagen completa para corregir valores, bordes y gesto general. Esta página sirve para ese método: poner cuadrícula a una foto, ajustar visibilidad y descargar una referencia limpia sin subir la imagen.',
+      ],
+    },
+    mistakes: {
+      title: 'Errores comunes al cuadricular una imagen',
+      items: [
+        'No uses una proporción distinta entre la foto y el papel, porque la imagen se deformará.',
+        'No pongas líneas demasiado oscuras si tapan sombras, contornos o detalles importantes.',
+        'No copies cada cuadro de forma aislada sin revisar la composición completa.',
+        'No uses demasiadas celdas en un boceto rápido; más cuadrícula no siempre significa mejor dibujo.',
+      ],
+    },
     tips: {
       title: 'Consejos de dibujo',
       items: [
@@ -514,8 +531,8 @@ const esContent: Record<string, ToolSeoContent> = {
     what: {
       title: 'Qué es una cuadrícula para crochet',
       paragraphs: [
-        'Una cuadrícula para crochet coloca cuadros densos sobre una imagen para planificar bloques de color, motivos o gráficos. Sirve para graphghan, tapestry crochet, C2C, cuentas y otras manualidades contadas.',
-        'Esta versión se centra en crear una referencia visual clara antes de hacer una tabla completa de colores o hilos.',
+        'Una cuadrícula para crochet coloca cuadros densos sobre una imagen para planificar bloques de color, motivos o gráficos. Sirve para graphghan, tapestry crochet, C2C, cuentas, punto de cruz y otras manualidades contadas donde cada cuadro puede representar un punto, una cuenta, un bloque o una referencia de color.',
+        'Esta versión se centra en crear una referencia visual clara antes de hacer una tabla completa de colores o hilos. Si buscas crear un patrón crochet desde imagen, el primer paso no es elegir la paleta: primero necesitas saber si la foto sigue siendo legible cuando se convierte en una cuadrícula contable.',
       ],
     },
     how: {
@@ -525,6 +542,7 @@ const esContent: Record<string, ToolSeoContent> = {
         'Empieza con 30x30 o 40x40.',
         'Usa líneas finas y opacidad media.',
         'Comprueba si el motivo sigue siendo reconocible.',
+        'Prueba un recorte cuadrado si el proyecto final será una manta o panel cuadrado.',
         'Descarga el PNG y añade notas de color en tu app favorita.',
       ],
     },
@@ -533,6 +551,22 @@ const esContent: Record<string, ToolSeoContent> = {
       paragraphs: [
         'Los proyectos de crochet llevan mucho tiempo. Una vista con cuadrícula permite comprobar contraste, tamaño y legibilidad antes de invertir horas.',
         'También puedes comparar versiones y decidir si necesitas simplificar la imagen o reducir colores.',
+      ],
+    },
+    examples: {
+      title: 'Ejemplos para crochet, C2C y manualidades',
+      paragraphs: [
+        'Un logotipo sencillo puede funcionar con una cuadrícula de 30x30 porque las formas son grandes y los colores son pocos. Una mascota o un retrato normalmente necesita más cuadros, un recorte cercano al rostro y contraste fuerte. Las letras requieren una revisión especial, porque los bordes diagonales pueden verse irregulares cuando la cuadrícula es demasiado pequeña.',
+        'La cuadrícula también sirve como filtro antes de abrir una aplicación de patrón más avanzada. Si el motivo no se entiende en la vista previa, el proyecto final probablemente tendrá el mismo problema. En ese caso conviene recortar mejor, aumentar filas y columnas, simplificar el fondo o elegir una imagen con silueta más clara.',
+      ],
+    },
+    mistakes: {
+      title: 'Errores comunes en cuadrículas de crochet',
+      items: [
+        'No empieces con una foto oscura o de bajo contraste sin simplificarla antes.',
+        'No uses líneas gruesas en una cuadrícula densa, porque pueden tapar los cambios de color.',
+        'No conviertas una foto muy detallada en pocos cuadros si necesitas un patrón reconocible.',
+        'No empieces una pieza grande sin probar una muestra pequeña o una sección del diseño.',
       ],
     },
     tips: {
@@ -549,17 +583,18 @@ const esContent: Record<string, ToolSeoContent> = {
     what: {
       title: 'Qué es un pixel grid maker',
       paragraphs: [
-        'Un pixel grid maker transforma una imagen en una vista por bloques con celdas visibles. Ayuda a prever cómo se verá una foto como pixel art, mosaico, patrón de cuentas o diseño simplificado.',
-        'Las filas y columnas controlan el nivel de detalle. Menos celdas dan un resultado más abstracto; más celdas conservan más información.',
+        'Un pixel grid maker transforma una imagen en una vista por bloques con celdas visibles. Ayuda a prever cómo se verá una foto como pixel art, mosaico, patrón de cuentas, diseño para bloques o actividad escolar de píxeles. En lugar de conservar todos los detalles, la imagen se redibuja con la resolución de cuadrícula que elijas.',
+        'Las filas y columnas controlan el nivel de detalle. Menos celdas dan un resultado más abstracto; más celdas conservan más información pero también hacen que el proyecto sea más grande. Por eso una cuadrícula pixel no es solo un efecto visual: es una forma rápida de decidir si una imagen puede convertirse en pixel art, mosaico o manualidad contable.',
       ],
     },
     how: {
       title: 'Cómo crear una cuadrícula pixel',
       items: [
         'Sube una imagen con un sujeto claro.',
-        'Empieza con 24x24.',
-        'Aumenta filas y columnas si necesitas más detalle.',
+        'Empieza con 16x16 o 24x24 para iconos simples.',
+        'Prueba 32x32 para sprites y 48x48 o más para retratos, mascotas u objetos detallados.',
         'Ajusta opacidad de líneas.',
+        'Compara varias densidades antes de decidir el tamaño final.',
         'Descarga el PNG como referencia.',
       ],
     },
@@ -568,6 +603,22 @@ const esContent: Record<string, ToolSeoContent> = {
       paragraphs: [
         'Una foto normal tiene demasiado detalle para muchos proyectos por bloques. Pixelizar permite ver si el sujeto sigue siendo reconocible.',
         'También ayuda a decidir si necesitas más contraste, menos fondo o una cuadrícula más densa.',
+      ],
+    },
+    examples: {
+      title: 'Ejemplos de cuadrícula pixel',
+      paragraphs: [
+        'Un icono pequeño, un objeto de videojuego o una silueta simple puede funcionar en 16x16 o 24x24. Un personaje con cara, ropa y gesto suele necesitar 32x32. Una mascota, retrato o imagen con detalles finos puede requerir 48x48 o más, además de un recorte cercano para que el sujeto siga siendo reconocible.',
+        'La misma lógica sirve para mosaicos, cuentas, bloques y actividades de aula. Antes de contar materiales, conviene probar si el diseño cabe en la cantidad de cuadros que quieres construir. Si la vista previa se ve confusa, aumenta la cuadrícula, recorta el fondo o elige una imagen con más contraste.',
+      ],
+    },
+    mistakes: {
+      title: 'Errores comunes en pixel grid',
+      items: [
+        'No mantengas un fondo recargado si el sujeto principal es lo único importante.',
+        'No uses una cuadrícula demasiado pequeña para rostros si necesitas parecido.',
+        'No trates la primera exportación como arte final; úsala como guía y limpia bordes después.',
+        'No ignores el contraste, porque una foto suave puede verse borrosa al convertirla en bloques.',
       ],
     },
     tips: {
@@ -611,6 +662,22 @@ const ptContent: Record<string, ToolSeoContent> = {
       paragraphs: [
         'A grade reduz tentativa e erro. Para desenho, ela ajuda a comparar proporções. Para redes sociais, mostra como uma imagem será dividida. Para artesanato, cria uma estrutura contável que facilita marcar áreas pequenas.',
         'Também economiza tempo. Editores tradicionais exigem camadas, guias e configurações de exportação. Um grid maker focado transforma esse trabalho em poucos controles e não bloqueia o download com cadastro ou marca d agua.',
+      ],
+    },
+    examples: {
+      title: 'Exemplos de uso da ferramenta de grade',
+      paragraphs: [
+        'Quem precisa dividir imagem em grade para redes sociais pode começar no modo Split, testar 3x3 e baixar as partes em ZIP. Quem precisa colocar grade em imagem para desenho pode usar Overlay, escolher 8x8 ou 10x10 e baixar uma referência imprimível. Para artesanato, crochê, ponto cruz ou pixel art, o modo Pixel ajuda a ver se a imagem ainda funciona quando vira blocos contáveis.',
+        'Esses usos parecem parecidos, mas têm intenções diferentes. Redes sociais precisam de corte limpo e ordem correta. Desenho precisa de proporção e linhas legíveis. Artesanato precisa de uma grade mais densa, com contraste suficiente para contar áreas. A página inicial reúne essas opções e aponta para ferramentas específicas quando o trabalho exige presets próprios.',
+      ],
+    },
+    mistakes: {
+      title: 'Erros comuns ao criar uma grade',
+      items: [
+        'Não use uma grade muito densa em imagem pequena, porque as linhas podem esconder o assunto.',
+        'Não coloque texto importante sobre linhas de corte quando for dividir imagem para redes sociais.',
+        'Não use a mesma quantidade de linhas para desenho, Instagram e crochê; cada tarefa precisa de densidade diferente.',
+        'Não exporte antes de conferir a prévia no tamanho em que pretende postar, imprimir ou copiar.',
       ],
     },
     tips: {
@@ -684,6 +751,22 @@ const ptContent: Record<string, ToolSeoContent> = {
         'Ela também torna referências complexas menos intimidadoras. Iniciantes ganham confiança e artistas experientes aceleram a etapa de composição antes do acabamento livre.',
       ],
     },
+    examples: {
+      title: 'Exemplos de grade para desenho',
+      paragraphs: [
+        'Para retratos, uma grade de 8x8 ou 10x10 costuma ser suficiente para posicionar olhos, nariz, boca, cabelo e ombros. Para arquitetura, carros ou perspectiva, 12x12 ou 16x16 pode ajudar a acompanhar linhas retas e pequenos pontos de referência. Em atividades de aula, etiquetas como A1, B2 e C4 facilitam explicar correções sem apontar vagamente para a imagem.',
+        'O método mais confiável é manter a mesma proporção entre referência e papel, desenhar a grade levemente, posicionar primeiro as formas grandes e depois observar a imagem inteira para refinar valores e bordas. A ferramenta serve para adicionar grade a foto com controle de cor, opacidade e etiquetas, sem enviar o arquivo para um servidor.',
+      ],
+    },
+    mistakes: {
+      title: 'Erros comuns em grade para desenho',
+      items: [
+        'Não mude a proporção entre imagem e superfície de desenho, pois isso distorce o resultado.',
+        'Não deixe as linhas escuras demais se elas escondem sombras e contornos.',
+        'Não copie um quadrado por vez sem comparar o conjunto da imagem.',
+        'Não use células demais em um esboço rápido; mais linhas podem atrapalhar a leitura.',
+      ],
+    },
     tips: {
       title: 'Dicas para desenho com grade',
       items: [
@@ -719,6 +802,22 @@ const ptContent: Record<string, ToolSeoContent> = {
         'Também permite comparar versões, ajustar a densidade e decidir se a imagem precisa ser simplificada para virar um padrão mais fácil de executar.',
       ],
     },
+    examples: {
+      title: 'Exemplos para crochê, C2C e artesanato',
+      paragraphs: [
+        'Um logotipo simples pode funcionar em 30x30 porque tem formas fortes e poucas cores. Um retrato de pet geralmente precisa de mais células, recorte próximo ao rosto e bom contraste. Letras e nomes precisam de teste extra, porque diagonais e curvas podem ficar quebradas se a grade for pequena demais.',
+        'Use esta página como triagem antes de escolher paleta de fios ou montar uma tabela completa. Se a prévia em grade não estiver reconhecível, a peça final provavelmente terá o mesmo problema. Nesse caso, recorte melhor, aumente linhas e colunas, remova o fundo ou escolha uma imagem com silhueta mais clara.',
+      ],
+    },
+    mistakes: {
+      title: 'Erros comuns em grade de crochê',
+      items: [
+        'Não comece com foto de baixo contraste sem simplificar a imagem primeiro.',
+        'Não use linhas grossas em grade densa, porque elas escondem limites de cor.',
+        'Não transforme uma foto muito detalhada em poucos quadrados se precisa de padrão legível.',
+        'Não inicie uma manta grande sem testar uma amostra ou uma pequena seção.',
+      ],
+    },
     tips: {
       title: 'Dicas para grade de crochê',
       items: [
@@ -752,6 +851,22 @@ const ptContent: Record<string, ToolSeoContent> = {
       paragraphs: [
         'Uma foto normal tem detalhes demais para muitos projetos baseados em quadrados. A prévia pixel mostra se um rosto, objeto ou logo continua reconhecível em tamanho reduzido.',
         'Ela também revela decisões criativas: quando aumentar contraste, remover fundo ou escolher uma grade mais densa antes de abrir um editor dedicado.',
+      ],
+    },
+    examples: {
+      title: 'Exemplos de grade pixel',
+      paragraphs: [
+        'Um ícone, item de jogo ou símbolo simples pode funcionar com 16x16 ou 24x24. Um personagem pequeno costuma precisar de 32x32 para manter rosto, silhueta e detalhes de roupa. Um retrato, pet ou objeto cheio de textura pode exigir 48x48 ou mais, além de um recorte próximo do assunto.',
+        'A mesma prévia ajuda em pixel art, mosaicos, miçangas, blocos e atividades de sala de aula. Antes de contar materiais, vale testar quantos quadrados o projeto exige para continuar legível. Se a imagem ficar confusa, aumente a grade, remova fundo ou use uma referência com contraste mais forte.',
+      ],
+    },
+    mistakes: {
+      title: 'Erros comuns em pixel grid',
+      items: [
+        'Não mantenha fundo carregado se o assunto principal é a parte importante.',
+        'Não use contagem muito baixa para rostos quando precisa de semelhança.',
+        'Não trate a primeira exportação como arte final; use como referência e limpe bordas depois.',
+        'Não ignore contraste, porque fotos suaves ficam turvas quando viram blocos.',
       ],
     },
     tips: {

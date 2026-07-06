@@ -180,16 +180,17 @@ const localeConfigs: Record<Locale, LocaleConfig> = {
       'crochet-grid-maker': {
         navLabel: 'Crochet',
         eyebrow: 'Cuadrícula para crochet y manualidades',
-        title: 'Cuadrícula Crochet Online - Crea Patrones desde Imágenes',
+        title: 'Cuadrícula Crochet Online: Patrón desde Imagen',
         description:
-          'Crea una cuadrícula densa sobre una imagen para crochet, punto de cruz y manualidades. Gratis y sin subir archivos.',
+          'Crea una cuadrícula densa para crochet, C2C, punto de cruz y manualidades desde una imagen. Gratis, privada y sin subir archivos.',
         h1: 'Cuadrícula Crochet Online',
         keywords:
-          'crochet grid maker, cuadrícula crochet, patrón crochet desde imagen',
+          'crochet grid maker, cuadrícula crochet, patrón crochet desde imagen, gráfico crochet',
         intro:
-          'Crea una cuadrícula densa sobre una imagen para planificar crochet, punto de cruz, cuentas u otras manualidades.',
+          'Crea una cuadrícula densa sobre una imagen para planificar crochet, C2C, punto de cruz, cuentas u otras manualidades contadas antes de elegir hilos o colores.',
         bestFor: [
           'Patrones de crochet',
+          'Gráficos C2C y graphghan',
           'Referencias de punto de cruz',
           'Cuadrículas densas para manualidades',
         ],
@@ -197,7 +198,7 @@ const localeConfigs: Record<Locale, LocaleConfig> = {
           {
             question: '¿Puedo crear una cuadrícula densa para crochet?',
             answer:
-              'Sí. Aumenta filas y columnas para crear una cuadrícula fina.',
+              'Sí. Aumenta filas y columnas para crear una cuadrícula fina para crochet, C2C, graphghan o punto de cruz.',
           },
           {
             question: '¿Convierte colores en paletas de hilo?',
@@ -213,15 +214,17 @@ const localeConfigs: Record<Locale, LocaleConfig> = {
       'pixel-grid-maker': {
         navLabel: 'Pixel',
         eyebrow: 'Creador de cuadrícula pixel',
-        title: 'Pixel Grid Maker Online - Pixeliza Imágenes con Cuadrícula',
+        title: 'Pixel Grid Maker: Pixelizar Imagen con Cuadrícula',
         description:
-          'Pixeliza una imagen y añade una cuadrícula clara para pixel art, manualidades y diseños por bloques.',
+          'Pixeliza una imagen con cuadrícula para pixel art, mosaicos, cuentas y diseños por bloques. Gratis, privado y sin subir archivos.',
         h1: 'Pixel Grid Maker Online',
-        keywords: 'pixel grid maker, cuadrícula pixel, pixel art grid maker',
+        keywords:
+          'pixel grid maker, cuadrícula pixel, pixelizar imagen con cuadrícula, pixel art grid maker',
         intro:
-          'Previsualiza una imagen como cuadrícula de píxeles para pixel art, manualidades y planificación por bloques.',
+          'Previsualiza una imagen como cuadrícula de píxeles para pixel art, mosaicos, cuentas, actividades escolares y planificación por bloques.',
         bestFor: [
           'Referencias de pixel art',
+          'Mosaicos y cuentas',
           'Vistas por bloques',
           'Manualidades con detalle simplificado',
         ],
@@ -342,12 +345,12 @@ const localeConfigs: Record<Locale, LocaleConfig> = {
       home: {
         navLabel: 'Início',
         eyebrow: 'Ferramenta privada de grade para imagens',
-        title: 'Ferramenta de Grade Online: Grátis e Privada',
+        title: 'Ferramenta de Grade Online Grátis para Imagens',
         description:
-          'Use uma ferramenta de grade online para colocar grade em imagem, dividir fotos e criar guias de desenho. Grátis, privada, sem upload e sem marca d agua.',
+          'Ferramenta de grade online para colocar grade em imagem, dividir fotos, criar guia de desenho e pixelizar imagem. Grátis, privada e sem upload.',
         h1: 'Ferramenta de Grade Online Grátis',
         keywords:
-          'ferramenta de grade, grade online, colocar grade em imagem, dividir imagem em grade',
+          'ferramenta de grade, grade online, colocar grade em imagem, dividir imagem em grade, grade para desenho',
         intro:
           'Use esta ferramenta de grade para colocar grade em uma imagem, dividir uma foto em partes, criar uma grade para desenho ou preparar uma referência de pixel art. Tudo roda localmente no navegador, então a imagem não é enviada para um servidor.',
         bestFor: [
@@ -415,12 +418,12 @@ const localeConfigs: Record<Locale, LocaleConfig> = {
       'drawing-grid-maker': {
         navLabel: 'Desenho',
         eyebrow: 'Grade de referência para desenho',
-        title: 'Grade para Desenho: Adicione Grade a Foto',
+        title: 'Grade para Desenho: Adicionar Grade a Foto',
         description:
-          'Adicione uma grade personalizável a qualquer imagem. Ajuste linhas, colunas, cor, opacidade e etiquetas. Grátis e privado.',
+          'Adicione grade a uma foto para desenho, pintura ou transferência de proporções. Ajuste linhas, colunas, cor, opacidade e etiquetas.',
         h1: 'Grade para Desenho Online',
         keywords:
-          'grade para desenho, grid maker for drawing, adicionar grade a imagem',
+          'grade para desenho, adicionar grade a foto, grid maker for drawing, adicionar grade a imagem',
         intro:
           'Adicione uma grade proporcional sobre uma foto de referência para desenhar, pintar ou transferir proporções com mais precisão.',
         bestFor: [
@@ -449,12 +452,12 @@ const localeConfigs: Record<Locale, LocaleConfig> = {
       'crochet-grid-maker': {
         navLabel: 'Crochê',
         eyebrow: 'Grade para crochê e artesanato',
-        title: 'Grade de Crochê: Imagem para Grade',
+        title: 'Grade de Crochê: Imagem para Padrão',
         description:
-          'Crie uma grade densa sobre uma imagem para crochê, ponto cruz e artesanato. Grátis, privado e sem upload.',
+          'Crie uma grade densa sobre uma imagem para crochê, C2C, ponto cruz e artesanato. Grátis, privado e sem upload.',
         h1: 'Grade de Crochê Online',
         keywords:
-          'crochet grid maker, grade croche, imagem para grade croche, padrão croche',
+          'crochet grid maker, grade croche, imagem para grade croche, padrão croche, gráfico croche',
         intro:
           'Crie uma grade densa sobre uma imagem para planejar crochê, ponto cruz, miçangas ou outros trabalhos manuais contados.',
         bestFor: [
@@ -483,12 +486,12 @@ const localeConfigs: Record<Locale, LocaleConfig> = {
       'pixel-grid-maker': {
         navLabel: 'Pixel',
         eyebrow: 'Criador de grade pixel',
-        title: 'Pixel Grid Maker: Pixelize Imagens Online',
+        title: 'Pixel Grid Maker: Pixelizar Imagem com Grade',
         description:
-          'Pixelize uma imagem e adicione uma grade clara para pixel art, artesanato e referências em blocos.',
+          'Pixelize uma imagem com grade para pixel art, mosaicos, miçangas e referências em blocos. Grátis, privado e sem upload.',
         h1: 'Pixel Grid Maker Online',
         keywords:
-          'pixel grid maker, grade pixel, pixel art grid maker, pixelizar imagem',
+          'pixel grid maker, grade pixel, pixel art grid maker, pixelizar imagem, pixelizar imagem com grade',
         intro:
           'Visualize uma imagem como uma grade de pixels para pixel art, artesanato e planejamento em blocos. Ajuste o tamanho da grade para controlar o detalhe.',
         bestFor: [
