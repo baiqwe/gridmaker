@@ -24,7 +24,7 @@ export function ModeSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        className="flex size-8 shrink-0 items-center justify-center rounded-full border border-border bg-transparent p-0 hover:bg-accent"
+        className="flex size-8 shrink-0 items-center justify-center rounded-full border border-border bg-background p-0 text-foreground hover:bg-muted hover:text-foreground"
         aria-label="Toggle theme"
       >
         <span className="relative inline-flex size-4 items-center justify-center">

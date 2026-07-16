@@ -36,7 +36,7 @@ function TermsPage() {
         },
         {
           title: 'Advertising and analytics',
-          body: 'The site may use analytics to understand aggregate traffic and may show advertising when Google AdSense or another advertising partner is enabled. Ads should not block the core image workflow, and privacy details are described in the Privacy Policy and Cookie Policy.',
+          body: 'The site may use analytics to understand aggregate traffic and may show advertising when Google AdSense or another advertising partner is enabled. Ads should be clearly separated from the core image workflow, should not block navigation, and should not be presented as download buttons or required actions. Privacy and cookie details are described in the Privacy Policy and Cookie Policy.',
         },
         {
           title: 'No warranty',

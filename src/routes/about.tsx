@@ -76,8 +76,11 @@ function AboutPage() {
             >
               Grid Maker GitHub repository
             </a>
-            . This is the best place to report export problems, browser issues,
-            or workflow ideas.
+            . You can also start from the{' '}
+            <Link to="/contact" className="font-medium underline">
+              Contact page
+            </Link>{' '}
+            for privacy, advertising, support, and policy questions.
           </p>
         </section>
 

@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import { Logo } from '@/components/shared/logo';
 import { ModeSwitcherHorizontal } from '@/components/theme/mode-switcher-horizontal';
 import { websiteConfig } from '@/config/website';
+import { LanguageSwitcher } from '@/components/i18n/language-switcher';
 
 const mobileLinkClass =
   'flex w-full items-center rounded-md p-2 text-base text-muted-foreground transition-colors duration-150 hover:text-foreground';
@@ -50,6 +51,7 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
         </Link>
 
         <div className="flex items-center gap-4">
+          <LanguageSwitcher compact />
           <Button
             type="button"
             variant="ghost"
@@ -57,7 +59,7 @@ export function NavbarMobile({ className, ...props }: NavbarMobileProps) {
             aria-expanded={open}
             aria-label="Toggle menu"
             onClick={() => setOpen((o) => !o)}
-            className="size-8 rounded-md border"
+            className="size-8 rounded-md border bg-background text-foreground hover:bg-muted hover:text-foreground"
           >
             {open ? (
               <IconX className="size-4" />

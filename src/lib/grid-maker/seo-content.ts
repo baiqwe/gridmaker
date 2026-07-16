@@ -109,7 +109,9 @@ const enContent: Record<string, ToolSeoContent> = {
       title: 'Good Instagram grid use cases',
       paragraphs: [
         'A 3x3 grid works best for moments where the profile itself is part of the presentation: a music cover reveal, a new product drop, a real estate showcase, a portfolio launch, or an event poster. In those cases the viewer understands the complete image when they visit the profile, while each tile can still carry its own caption.',
-        'A smaller 3x1 split is better for carousel-style planning when the image is panoramic or when you do not want to occupy nine profile posts. For creators who post frequently, testing both layouts before downloading avoids committing to a format that disrupts the feed for too long.',
+        'A smaller 3x1 split is better for carousel-style planning when the image is panoramic or when you do not want to occupy nine profile posts. For creators who post frequently, testing both layouts in an Instagram grid maker before downloading avoids committing to a format that disrupts the feed for too long.',
+        'The Instagram grid maker workflow is most useful when you treat the profile as a composition and the individual tiles as posts that still need to make sense on their own.',
+        'Before publishing, use the Instagram grid maker preview to check whether captions, pinned posts, and posting order will preserve the final mosaic.',
       ],
     },
     mistakes: {
@@ -162,7 +164,10 @@ const enContent: Record<string, ToolSeoContent> = {
       title: 'Drawing grid examples',
       paragraphs: [
         'For portraits, an 8x8 or 10x10 grid is usually enough to locate the eyes, nose, mouth, hairline, and shoulder angles without turning the page into a technical chart. The classic grid method for drawing works best when the reference and paper share the same aspect ratio, because each square can be copied without stretching the subject. For architecture or vehicles, a denser 12x12 or 16x16 grid can help with straight edges and perspective points. For classroom worksheets, labels are useful because a teacher can refer to a specific square when explaining corrections.',
-        'A practical drawing workflow is to sketch the same grid lightly on paper, block in the biggest shapes first, then ignore the grid while refining edges and values. If you are transferring to a larger canvas, count the rows and columns first, then draw the same number of cells at a larger physical size. The exported image should guide placement, not replace observation. This page is built around that workflow: clear overlay controls, optional labels, and no forced upload step.',
+        'A practical drawing workflow is to sketch the same grid lightly on paper, block in the biggest shapes first, then ignore the grid while refining edges and values. If you are transferring to a larger canvas, count the rows and columns first, then draw the same number of cells at a larger physical size. The exported image should guide placement, not replace observation. This drawing grid maker is built around that workflow: clear overlay controls, optional labels, and no forced upload step.',
+        'Use the drawing grid maker when you need a fast reference image, then rely on observation again once the main proportions are placed.',
+        'A drawing grid maker is especially helpful when you are moving from a small photo to a larger sheet because it gives every major feature a predictable location.',
+        'For classroom use, a drawing grid maker also makes feedback easier because students and teachers can discuss one labeled square at a time.',
       ],
     },
     mistakes: {
@@ -216,7 +221,10 @@ const enContent: Record<string, ToolSeoContent> = {
       title: 'Crochet planning examples',
       paragraphs: [
         'A simple logo can often work at 30x30 because the shapes are bold and the color count is limited. A pet portrait usually needs more squares and a simplified crop around the face. A graphghan with text should be tested carefully because letters can become jagged when the grid is too small.',
-        'Use this page as the first filter before moving into yarn colors or a full stitch chart. If the gridded preview is not recognizable at the intended size, the finished project will likely have the same problem. In that case, crop tighter, simplify the image, increase the grid count, or choose a subject with stronger contrast.',
+        'Use this crochet grid maker as the first filter before moving into yarn colors or a full stitch chart. If the gridded preview is not recognizable at the intended size, the finished project will likely have the same problem. In that case, crop tighter, simplify the image, increase the grid count, or choose a subject with stronger contrast.',
+        'A crochet grid maker cannot decide your yarn palette for you, but it can quickly show whether the image is worth turning into a counted project.',
+        'Use a crochet grid maker early in the planning process so you can reject weak crops before buying yarn or preparing a large graph.',
+        'A crochet grid maker is also useful for comparing several possible crops before choosing the version that will become the final handmade piece.',
       ],
     },
     mistakes: {
@@ -324,7 +332,7 @@ const enContent: Record<string, ToolSeoContent> = {
       title: 'Photo grid overlay examples',
       paragraphs: [
         'A teacher can add a labeled grid to a science diagram and ask students to identify what appears in B3 or C4. A designer can mark layout feedback on a mockup without opening a full editor. An artist can print a photo with light guide lines for a quick proportion study.',
-        'Unlike a splitter, this workflow keeps the image as one file. That matters when the output is meant to be printed, added to a slide deck, sent in a message, or used as a reference layer. The grid should clarify the image, not become the subject of the image.',
+        'Unlike a splitter, this workflow keeps the image as one file. That matters when the output is meant to be printed, added to a slide deck, sent in a message, or used as a reference layer. Use add grid to photo workflows when the image needs guidance lines, not separate tiles. The grid should clarify the image, not become the subject of the image.',
       ],
     },
     mistakes: {
@@ -348,15 +356,15 @@ const enContent: Record<string, ToolSeoContent> = {
   },
   'cross-stitch-grid-maker': {
     what: {
-      title: 'What is a cross-stitch grid maker?',
+      title: 'What is a counted craft grid maker?',
       paragraphs: [
-        'A cross-stitch grid maker turns a reference image into a counted square guide. Each cell gives you a visual place to compare shape and color before creating a full pattern. It is useful for cross-stitch, plastic canvas, beadwork, perler beads, and any craft where the final design is built from small square units.',
+        'This craft planning tool turns a reference image into a counted square guide. Each cell gives you a visual place to compare shape and color before creating a full pattern. It is useful for cross-stitch, plastic canvas, beadwork, perler beads, and any craft where the final design is built from small square units.',
         'This MVP focuses on grid clarity rather than automatic thread conversion. That is intentional for early planning: before choosing floss colors or stitch counts, you need to know whether the image works at the selected size. The grid preview helps you test subject readability, crop, and square density quickly.',
         sharedPrivacy,
       ],
     },
     how: {
-      title: 'How to make a cross-stitch grid',
+      title: 'How to make a counted craft guide',
       items: [
         'Upload a reference image with a clear subject and strong contrast.',
         'Start with a dense grid such as 40x40, then adjust for your intended fabric count.',
@@ -378,10 +386,11 @@ const enContent: Record<string, ToolSeoContent> = {
       paragraphs: [
         'A game sprite or simple icon may work well at a modest grid size because it already has strong edges. A pet portrait often needs a tighter crop around the face and a higher grid count. A landscape photo usually needs simplification because subtle sky and shadow gradients can become noisy in a counted pattern.',
         'This page helps decide whether an image deserves full pattern work. If the preview still communicates the subject after the grid is applied, it is a stronger candidate for thread mapping. If the preview collapses into small unclear patches, adjust the image before spending time on color symbols.',
+        'A cross stitch grid maker is best used as an early planning step: test the subject, crop, and square count first, then move into thread colors and symbols.',
       ],
     },
     mistakes: {
-      title: 'Cross-stitch grid mistakes to avoid',
+      title: 'Counted craft grid mistakes to avoid',
       items: [
         'Do not start with a photo that has many tiny details unless you are planning a very large piece.',
         'Do not rely only on the grid for final floss selection; it is a planning layer, not a full color chart.',
@@ -390,7 +399,7 @@ const enContent: Record<string, ToolSeoContent> = {
       ],
     },
     tips: {
-      title: 'Cross-stitch grid tips',
+      title: 'Counted craft grid tips',
       items: [
         'Simplify the image before uploading if it has a noisy background.',
         'Use a higher grid count for portraits and a lower count for icons or symbols.',

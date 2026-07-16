@@ -41,6 +41,7 @@ export function getFooterLinks(): MenuItemConfig[] {
 
   const legalItems: MenuItemConfig[] = [
     { title: 'About', href: Routes.About, external: false },
+    { title: 'Contact', href: Routes.Contact, external: false },
     { title: 'Privacy Policy', href: Routes.PrivacyPolicy, external: false },
     {
       title: 'Terms of Service',
@@ -54,16 +55,8 @@ export function getFooterLinks(): MenuItemConfig[] {
     },
   ];
 
-  const languageItems: MenuItemConfig[] = [
-    { title: 'Español', href: '/es', external: false },
-    { title: 'Português', href: '/pt', external: false },
-    { title: '日本語', href: '/ja', external: false },
-    { title: '中文', href: '/zh', external: false },
-  ];
-
   return [
     { title: 'Tools', items: toolItems },
-    { title: 'Languages', items: languageItems },
     { title: 'Legal', items: legalItems },
   ];
 }

@@ -10,7 +10,13 @@ export const Route = createFileRoute('/robots.txt')({
     handlers: {
       GET: async () => {
         const base = getBaseUrl().replace(/\/$/, '');
-        const robots = `User-agent: *
+        const robots = `User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /auth/

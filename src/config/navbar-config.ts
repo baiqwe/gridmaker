@@ -84,6 +84,13 @@ export function getNavbarLinks(): MenuItemConfig[] {
           external: false,
         },
         {
+          title: 'Contact',
+          description: 'Support, bug reports, privacy, and ad policy contact.',
+          href: Routes.Contact,
+          icon: IconFileText,
+          external: false,
+        },
+        {
           title: 'Privacy Policy',
           description: 'How this browser-based tool treats your data.',
           href: Routes.PrivacyPolicy,

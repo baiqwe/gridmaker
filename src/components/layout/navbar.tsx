@@ -19,6 +19,7 @@ import { IconArrowUpRight } from '@tabler/icons-react';
 import { Link, useLocation } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { websiteConfig } from '@/config/website';
+import { LanguageSwitcher } from '@/components/i18n/language-switcher';
 
 interface NavbarProps {
   scroll?: boolean;
@@ -153,6 +154,7 @@ export function Navbar({ scroll = true }: NavbarProps) {
             </NavigationMenu>
 
             <div className="flex items-center gap-4 shrink-0">
+              <LanguageSwitcher />
               <ModeSwitcher />
             </div>
           </nav>

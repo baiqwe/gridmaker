@@ -32,11 +32,19 @@ function PrivacyPage() {
         },
         {
           title: 'Advertising',
-          body: 'When advertising is enabled, third-party advertising partners such as Google AdSense may use cookies, device identifiers, or similar technologies to serve, measure, and improve ads. These partners do not receive the images you edit because image processing remains local to your browser.',
+          body: 'When advertising is enabled, third-party advertising partners such as Google AdSense may use cookies, device identifiers, IP addresses, web beacons, or similar technologies to serve, measure, and improve ads. Google and its partners may use these signals to show personalized or non-personalized ads depending on your location, settings, consent choices, and applicable law. These partners do not receive the images you edit because image processing remains local to your browser.',
+        },
+        {
+          title: 'Third-party advertising cookies',
+          body: 'Third-party vendors, including Google, may use cookies to serve ads based on a user’s prior visits to this site or other websites. Google’s use of advertising cookies enables it and its partners to serve ads based on visits to this site and/or other sites on the Internet.',
         },
         {
           title: 'Your choices',
-          body: 'You can control cookies and personalized advertising through your browser settings and Google ad settings. Blocking advertising cookies may reduce personalization, but the core grid maker tools will continue to work.',
+          body: 'You can control cookies and personalized advertising through your browser settings, Google ad settings, and consent controls where they are available. Users in regions that require consent, including the EEA and UK, may be shown consent choices before personalized advertising or similar storage is used. Blocking advertising cookies may reduce personalization, but the core grid maker tools will continue to work.',
+        },
+        {
+          title: 'Personal information and ad requests',
+          body: 'Do not place personal information in page URLs or tool inputs that you intend to share publicly. Grid Maker does not intentionally send names, email addresses, uploaded image contents, or other personally identifiable information to Google ad requests.',
         },
         {
           title: 'Contact',

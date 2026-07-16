@@ -32,11 +32,11 @@ function CookiePage() {
         },
         {
           title: 'Advertising cookies',
-          body: 'If Google AdSense or another advertising partner is enabled, ads may use cookies or similar technologies to deliver and measure advertising. Uploaded image files are still processed in the browser and are not sent to advertising partners by this tool.',
+          body: 'If Google AdSense or another advertising partner is enabled, ads may use cookies, web beacons, IP addresses, device identifiers, or similar technologies to deliver, personalize, limit, and measure advertising. Third-party vendors, including Google, may use cookies to serve ads based on prior visits to this site or other websites. Uploaded image files are still processed in the browser and are not sent to advertising partners by this tool.',
         },
         {
           title: 'Managing cookies',
-          body: 'Most browsers let you block, delete, or limit cookies. You can also adjust Google ad personalization settings separately. Some analytics or advertising measurements may stop working, but the main image grid features remain available.',
+          body: 'Most browsers let you block, delete, or limit cookies. You can also adjust Google ad personalization settings separately, and users in regions such as the EEA and UK may see consent controls before personalized advertising or similar storage is used. Some analytics or advertising measurements may stop working, but the main image grid features remain available.',
         },
       ]}
     />
