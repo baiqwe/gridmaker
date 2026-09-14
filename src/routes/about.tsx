@@ -60,6 +60,16 @@ function AboutPage() {
         <section className="mt-10 space-y-4">
           <h2 className="text-2xl font-semibold">How the site is maintained</h2>
           <p className="text-base leading-8 text-muted-foreground">
+            Report errors or request corrections at{' '}
+            <a
+              href="mailto:support@anygridmaker.com"
+              className="break-all font-medium underline"
+            >
+              support@anygridmaker.com
+            </a>
+            . Include the affected tool and what you expected the result to be.
+          </p>
+          <p className="text-base leading-8 text-muted-foreground">
             The site is intentionally focused on one topic: practical image grid
             tools. New pages are added only when they serve a distinct workflow,
             such as splitting images for social media, adding drawing reference

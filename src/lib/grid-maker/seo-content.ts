@@ -25,7 +25,7 @@ const enContent: Record<string, ToolSeoContent> = {
       paragraphs: [
         'An online grid maker is a browser tool for turning a regular image into a structured reference. Depending on the mode you choose, it can split one image into several separate tiles, draw grid lines over the original image, or simplify a picture into a blocky pixel-style preview. That makes it useful for social media layouts, drawing references, crochet planning, cross-stitch charts, pixel art, and any workflow where a picture needs clear rows and columns.',
         'This tool is designed as a practical canvas workspace rather than a gallery or template library. You upload an image, decide whether you need a split grid, an overlay grid, or a pixel grid, then tune rows, columns, line color, opacity, and labels. The same engine powers each focused page, but the presets are tuned for different search intents so an Instagram creator, a portrait artist, and a craft maker do not have to start from a blank configuration.',
-        'People use different names for the same job: grid maker, image grid maker, photo grid maker, grid tool, grid creator, or online grid maker. This page intentionally covers all of those basic workflows in one place so you can start from the broad tool and then move into a focused Instagram, drawing, crochet, cross-stitch, or pixel grid page when the task becomes more specific.',
+        'Start by choosing the output you need. Overlay produces one reference image with guide lines. Split produces separate image files. Pixel reduces the picture to colored cells. This tool works with one source image at a time; it does not combine several photos into a collage. Choose the matching mode before changing the grid size so the downloaded result matches your task.',
         sharedPrivacy,
       ],
     },
@@ -222,9 +222,9 @@ const enContent: Record<string, ToolSeoContent> = {
       paragraphs: [
         'A simple logo can often work at 30x30 because the shapes are bold and the color count is limited. A pet portrait usually needs more squares and a simplified crop around the face. A graphghan with text should be tested carefully because letters can become jagged when the grid is too small.',
         'Use this crochet grid maker as the first filter before moving into yarn colors or a full stitch chart. If the gridded preview is not recognizable at the intended size, the finished project will likely have the same problem. In that case, crop tighter, simplify the image, increase the grid count, or choose a subject with stronger contrast.',
-        'A crochet grid maker cannot decide your yarn palette for you, but it can quickly show whether the image is worth turning into a counted project.',
-        'Use a crochet grid maker early in the planning process so you can reject weak crops before buying yarn or preparing a large graph.',
-        'A crochet grid maker is also useful for comparing several possible crops before choosing the version that will become the final handmade piece.',
+        'Measure a swatch using the yarn, hook, and stitch you intend to use. For example, if 10 cm contains 20 stitches and 24 rows, a chart with 60 columns and 72 rows corresponds to approximately 30 by 30 cm before borders. These are example measurements, not a recommended gauge: substitute your own counts. Equal row and column counts do not necessarily produce a square finished piece because stitch width and row height can differ.',
+        'The overlay does not choose one yarn color per cell. If a cell contains both the background and the edge of the subject, you must decide which color to use in your chart. Test an edge section first and record your decisions consistently. For C2C work, calculate size using the measured size of a complete block rather than treating each block as a single stitch.',
+        'Before starting, save the reference and make a separate working copy for notes. Mark completed rows in that copy, and record whether you are reading a row left to right or right to left. The image export does not generate written stitch instructions, yarn quantities, or automatic progress tracking.',
       ],
     },
     mistakes: {
@@ -280,6 +280,9 @@ const enContent: Record<string, ToolSeoContent> = {
       paragraphs: [
         'A simple app icon or game item may only need 16x16 or 24x24 to stay recognizable. A character sprite often works better at 32x32 because the face, silhouette, and clothing details need a little more space. A pet photo or portrait may require 48x48 or higher, plus a tight crop, before the subject reads clearly. That makes the page useful as a pixel art grid generator before you spend time redrawing by hand.',
         'The tool is also useful outside pixel art. Perler bead layouts, block builds, paper mosaics, classroom pixel activities, and small game references all need the same basic decision: how many squares can you afford before the project becomes too large? Previewing multiple grid sizes gives that answer before you start counting materials, beads, blocks, stitches, or printed worksheet cells.',
+        'For an easy first pixel art grid, use a square image of a single object with a plain background. Try 16 rows and 16 columns, then examine the outline before looking at small details. If a handle, stem, or gap disappears, compare the same image at 24x24. Move to 32x32 only when those extra cells improve recognition. A larger grid costs more time to copy: 16x16 contains 256 cells, while 32x32 contains 1,024.',
+        'A landscape photo needs a different calculation. Cell width is image width divided by columns; cell height is image height divided by rows. To make square cells on a 1200 by 900 image, choose 32 columns and 24 rows. Using 24 by 24 on that same photo creates rectangular cells. Crop the source to a square before uploading when your final design must have equal rows and columns with square cells.',
+        'For a bead reference, inspect small isolated color blocks before committing to the pattern. The preview samples image colors but does not assign bead codes, reduce the result to a fixed material palette, or count supplies. A shadow can create several similar colors that look identical at a distance. Simplify those areas in your craft or pixel editor, and check a small physical sample before making the whole design.',
       ],
     },
     mistakes: {
@@ -289,6 +292,8 @@ const enContent: Record<string, ToolSeoContent> = {
         'Do not choose a very low grid count for faces unless you want an abstract result.',
         'Do not treat the first export as final pixel art; use it as a planning reference and clean up important edges later.',
         'Do not ignore contrast. Low-contrast photos often become muddy when reduced to blocks.',
+        'Do not confuse grid dimensions with exported PNG dimensions. A 32x32 layout is a reference with 1,024 cells, not a native 32x32 sprite file. The current exporter keeps a larger preview and limits its width to 1800 pixels.',
+        'Do not use coordinate labels on a dense pixel reference unless they remain legible. Letters repeat after 26 rows in the current label display, so use the unlabelled grid for larger counted projects.',
       ],
     },
     tips: {
@@ -386,7 +391,8 @@ const enContent: Record<string, ToolSeoContent> = {
       paragraphs: [
         'A game sprite or simple icon may work well at a modest grid size because it already has strong edges. A pet portrait often needs a tighter crop around the face and a higher grid count. A landscape photo usually needs simplification because subtle sky and shadow gradients can become noisy in a counted pattern.',
         'This page helps decide whether an image deserves full pattern work. If the preview still communicates the subject after the grid is applied, it is a stronger candidate for thread mapping. If the preview collapses into small unclear patches, adjust the image before spending time on color symbols.',
-        'A cross stitch grid maker is best used as an early planning step: test the subject, crop, and square count first, then move into thread colors and symbols.',
+        'To estimate the stitched area on Aida worked one stitch per square, divide the chart count by the fabric count. A 70-column by 56-row reference on 14-count Aida measures 5 by 4 inches, or approximately 12.7 by 10.2 cm. Add your chosen border and framing allowance separately. This calculation describes the stitched design, not the size of fabric to buy.',
+        'The overlay preserves the photograph rather than selecting a thread for each square. When a square crosses an outline, decide which shape should own it and record a symbol in a separate chart. Keep a legend mapping each symbol to a verified thread color. The downloaded PNG does not include that legend, floss quantities, or instructions for fractional stitches.',
       ],
     },
     mistakes: {

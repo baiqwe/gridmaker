@@ -31,7 +31,7 @@ export const toolPages: ToolPageConfig[] = [
     eyebrow: 'Private browser-based image grid tool',
     title: 'Grid Maker Online: Free Image Grid Tool',
     description:
-      'Create image grids, photo grids, pixel grids, and drawing grids in your browser. Free, private, no watermark, and no uploads.',
+      'Use this free grid maker to add guide lines, split one image into tiles, or create a pixel preview. Adjust rows and columns, then download without signing up.',
     h1: 'Free Online Grid Maker',
     mode: 'overlay',
     rows: 3,
@@ -43,7 +43,7 @@ export const toolPages: ToolPageConfig[] = [
     keywords:
       'grid maker, grid maker online, image grid maker, photo grid maker',
     intro:
-      'Use Grid Maker as a free image grid maker, photo grid maker, drawing grid tool, and pixel grid creator. Split a photo into tiles, add a clean reference grid over an image, or preview a block-based pixel art grid. Everything runs locally in your browser, so your image is not uploaded to a server.',
+      'Choose what you need to do with one image: keep it intact and add guide lines, cut it into separate tiles, or simplify it into colored cells. Set the rows and columns, inspect the preview, and download the result. Your source image stays on your device.',
     bestFor: [
       'Image grids and photo grid layouts',
       'Drawing reference grids',
@@ -215,9 +215,9 @@ export const toolPages: ToolPageConfig[] = [
     path: Routes.PixelGridMaker,
     navLabel: 'Pixel',
     eyebrow: 'Pixel grid maker',
-    title: 'Pixel Grid Maker: Pixel Art Grid Generator',
+    title: 'Pixel Grid Maker: Image to Pixel Art Grid',
     description:
-      'Create a pixel art grid from an image online. Pixelate photos with grid lines for sprites, mosaics, beads, and block references.',
+      'Turn an image into a pixel grid online. Compare 16x16, 24x24 and 32x32 layouts, adjust grid lines, and download a PNG reference. Free, no image uploads.',
     h1: 'Pixel Grid Maker Online',
     mode: 'pixel',
     rows: 24,
@@ -260,6 +260,16 @@ export const toolPages: ToolPageConfig[] = [
         question: 'Is the pixel grid processed on the server?',
         answer: 'No. The pixel preview is generated locally in your browser.',
       },
+      {
+        question: 'Why are my pixel grid cells rectangular?',
+        answer:
+          'The preview preserves the image proportions. Equal rows and columns make square cells only on a square image. For a 4:3 image, use 32 columns and 24 rows, or crop the source to a square before uploading.',
+      },
+      {
+        question: 'Is a 32x32 grid download a 32x32 pixel sprite?',
+        answer:
+          'No. The grid has 32 rows and 32 columns, but the PNG is a larger reference image with visible cells. Export width is capped at 1800 pixels. Use a pixel editor for native-resolution sprites, hand editing, and palette cleanup.',
+      },
     ],
   },
   {
@@ -267,7 +277,7 @@ export const toolPages: ToolPageConfig[] = [
     path: Routes.AddGridToPhoto,
     navLabel: 'Add Grid',
     eyebrow: 'Add grid to photo online',
-    title: 'Photo Grid Overlay: Add Guide Lines',
+    title: 'Add Grid to Photo: Free Online Grid Overlay',
     description:
       'Add a clean, adjustable grid to any photo online. Choose rows, columns, line color, opacity, and labels with private browser-only processing.',
     h1: 'Add Grid to Photo Online',

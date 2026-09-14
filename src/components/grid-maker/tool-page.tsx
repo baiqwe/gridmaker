@@ -5,6 +5,7 @@ import { getSeoContent } from '@/lib/grid-maker/seo-content';
 import { Link } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { getCanonicalUrl } from '@/lib/urls';
+import { getToolCopy } from '@/lib/grid-maker/tool-copy';
 
 type GridMakerToolComponent = typeof import('./grid-maker-tool').GridMakerTool;
 
@@ -279,10 +280,10 @@ export function ToolPage({
   const relatedPriority = [
     'pixel-grid-maker',
     'drawing-grid-maker',
-    'instagram-grid-maker',
     'add-grid-to-photo',
     'crochet-grid-maker',
     'cross-stitch-grid-maker',
+    'instagram-grid-maker',
   ];
   const visibleRelatedPages = relatedPages
     .filter((item) => item.path !== page.path)
@@ -387,11 +388,11 @@ export function ToolPage({
             </nav>
 
             <aside
-              aria-label="Share this tool"
+              aria-label={getToolCopy(page.path).share}
               className="rounded-lg bg-white p-5"
             >
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#70675d]">
-                Share this tool
+                {getToolCopy(page.path).share}
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
                 <a

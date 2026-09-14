@@ -42,12 +42,28 @@ function ContactPage() {
 
         <div className="mt-10 grid gap-6">
           <section className="rounded-lg border border-border bg-card p-6">
+            <h2 className="text-xl font-semibold">Email support</h2>
+            <p className="mt-3 text-base leading-8 text-muted-foreground">
+              For support, privacy requests, corrections, or advertising
+              questions, email{' '}
+              <a
+                href="mailto:support@anygridmaker.com"
+                className="break-all font-medium underline"
+              >
+                support@anygridmaker.com
+              </a>
+              . Include the page URL, browser, and a description of the issue.
+              Do not send passwords or sensitive images. Email attachments are
+              sent to our mailbox, unlike images edited locally in the tool.
+            </p>
+          </section>
+          <section className="rounded-lg border border-border bg-card p-6">
             <h2 className="text-xl font-semibold">Public issue tracker</h2>
             <p className="mt-3 text-base leading-8 text-muted-foreground">
-              The preferred contact channel is the public GitHub repository.
-              Please include the page URL, browser, device type, and a short
-              description of what happened. Do not attach private images or
-              files that you do not have permission to share.
+              For non-sensitive bug reports, you can use the public GitHub
+              repository. Please include the page URL, browser, device type, and
+              a short description of what happened. Do not attach private images
+              or files that you do not have permission to share.
             </p>
             <a
               href="https://github.com/baiqwe/gridmaker/issues"

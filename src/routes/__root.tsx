@@ -22,7 +22,7 @@ import { Routes } from '@/lib/routes';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { lazy } from 'react';
 import { getLocaleConfig, isLocale } from '@/lib/grid-maker/i18n';
-import { clientEnv } from '@/env/client';
+import { getAdsenseClient } from '@/lib/adsense';
 
 const DevTools = import.meta.env.DEV
   ? lazy(() => import('@/integrations/devtools'))
@@ -35,20 +35,24 @@ export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
 }>()({
   head: () => {
-    const adsenseClient = clientEnv.VITE_GOOGLE_ADSENSE_CLIENT?.trim();
-    const adsenseScripts = adsenseClient?.startsWith('ca-pub-')
-      ? [
-          {
-            id: 'google-adsense-auto-ads',
-            src: `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`,
-            async: true,
-            crossOrigin: 'anonymous',
-          },
-        ]
-      : [];
+    const adsenseClient = getAdsenseClient();
 
     return {
+      scripts:
+        adsenseClient && import.meta.env.PROD
+          ? [
+              {
+                id: 'google-adsense',
+                src: `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`,
+                async: true,
+                crossOrigin: 'anonymous',
+              },
+            ]
+          : [],
       meta: [
+        ...(adsenseClient
+          ? [{ name: 'google-adsense-account', content: adsenseClient }]
+          : []),
         {
           charSet: 'utf-8',
         },
@@ -98,7 +102,6 @@ export const Route = createRootRouteWithContext<{
         { rel: 'icon', href: '/favicon.ico' },
         { rel: 'manifest', href: '/manifest.json' },
       ],
-      scripts: adsenseScripts,
     };
   },
   // shellComponent automatically wraps root component, errorComponent, and notFoundComponent

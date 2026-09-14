@@ -1,7 +1,7 @@
 // DO NOT DELETE THIS FILE!!!
 // This file is a good smoke test to make sure the custom server entry is working
 import handler from '@tanstack/react-start/server-entry';
-import { toolPages } from '@/lib/grid-maker/tool-pages';
+import { getCanonicalPathRedirect } from '@/lib/grid-maker/canonical-path';
 
 /**
  * TanStack Start server entry
@@ -27,36 +27,24 @@ function isBlockedLegacyPath(pathname: string) {
   );
 }
 
-const englishRedirectPaths = new Set(toolPages.map((page) => page.path));
-
-function getExplicitEnglishRedirect(pathname: string) {
-  if (pathname === '/en' || pathname === '/en/') {
-    return '/';
-  }
-
-  if (!pathname.startsWith('/en/')) {
-    return null;
-  }
-
-  const pathWithoutLocale = pathname.replace(/^\/en(?=\/)/, '');
-  if (englishRedirectPaths.has(pathWithoutLocale)) {
-    return pathWithoutLocale;
-  }
-
-  return null;
-}
-
 export default {
   fetch(request: Request) {
     const url = new URL(request.url);
-    if (url.protocol === 'http:') {
-      url.protocol = 'https:';
-      return Response.redirect(url.toString(), 301);
-    }
-
-    const englishRedirect = getExplicitEnglishRedirect(url.pathname);
-    if (englishRedirect) {
-      url.pathname = englishRedirect;
+    const canonicalPath = getCanonicalPathRedirect(url.pathname);
+    const productionHost = [
+      'anygridmaker.com',
+      'www.anygridmaker.com',
+    ].includes(url.hostname);
+    if (
+      canonicalPath ||
+      (productionHost &&
+        (url.protocol === 'http:' || url.hostname.startsWith('www.')))
+    ) {
+      if (canonicalPath) url.pathname = canonicalPath;
+      if (productionHost) {
+        url.protocol = 'https:';
+        url.hostname = 'anygridmaker.com';
+      }
       return Response.redirect(url.toString(), 301);
     }
 

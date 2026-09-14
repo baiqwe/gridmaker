@@ -3,6 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import type { GridMode, ToolPageConfig } from '@/lib/grid-maker/tool-pages';
 import { createZipBlob } from '@/lib/grid-maker/zip';
+import { getToolCopy } from '@/lib/grid-maker/tool-copy';
 import {
   IconDownload,
   IconFileZip,
@@ -37,7 +38,6 @@ const sampleSvg =
     <path d="M0 660 C180 500 320 610 480 470 C630 340 760 440 900 330 C1020 238 1110 280 1200 220 L1200 900 L0 900Z" fill="#21443d"/>
     <path d="M0 760 C210 650 360 740 540 610 C720 482 900 600 1200 450 L1200 900 L0 900Z" fill="#112c2b"/>
     <rect x="120" y="120" width="360" height="110" rx="18" fill="rgba(255,255,255,.78)"/>
-    <text x="154" y="190" font-family="Arial" font-size="46" font-weight="700" fill="#151515">Upload your image</text>
   </svg>`);
 
 function initialState(config: ToolPageConfig): ToolState {
@@ -128,8 +128,10 @@ function drawImageToCanvas(
   canvas: HTMLCanvasElement,
   state: ToolState
 ) {
-  const maxWidth = 1800;
-  const scale = Math.min(1, maxWidth / image.naturalWidth);
+  const scale = Math.min(
+    1,
+    1800 / Math.max(image.naturalWidth, image.naturalHeight)
+  );
   const width = Math.round(image.naturalWidth * scale);
   const height = Math.round(image.naturalHeight * scale);
   const ctx = canvas.getContext('2d');
@@ -158,13 +160,14 @@ function drawImageToCanvas(
 }
 
 export function GridMakerTool({ config }: { config: ToolPageConfig }) {
+  const copy = getToolCopy(config.path);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [mounted, setMounted] = useState(false);
   const [state, setState] = useState<ToolState>(() => initialState(config));
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [fileName, setFileName] = useState('sample-image');
-  const [status, setStatus] = useState('Upload an image or test the sample.');
+  const [status, setStatus] = useState(copy.ready);
 
   const tileCount = useMemo(
     () => state.rows * state.columns,
@@ -177,8 +180,8 @@ export function GridMakerTool({ config }: { config: ToolPageConfig }) {
 
   useEffect(() => {
     setState(initialState(config));
-    setStatus('Upload an image or test the sample.');
-  }, [config]);
+    setStatus(copy.ready);
+  }, [config, copy.ready]);
 
   useEffect(() => {
     if (!mounted) return;
@@ -201,8 +204,8 @@ export function GridMakerTool({ config }: { config: ToolPageConfig }) {
 
   function handleUpload(file: File | undefined) {
     if (!file) return;
-    if (!file.type.startsWith('image/')) {
-      setStatus('Please choose a JPG, PNG, or WebP image.');
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+      setStatus(copy.invalid);
       return;
     }
 
@@ -211,11 +214,11 @@ export function GridMakerTool({ config }: { config: ToolPageConfig }) {
     uploaded.onload = () => {
       setImage(uploaded);
       setFileName(file.name.replace(/\.[^.]+$/, '') || 'grid-maker-image');
-      setStatus('Image loaded. Adjust the grid and download when ready.');
+      setStatus(copy.loaded);
       URL.revokeObjectURL(url);
     };
     uploaded.onerror = () => {
-      setStatus('This image could not be loaded. Try another file.');
+      setStatus(copy.error);
       URL.revokeObjectURL(url);
     };
     uploaded.src = url;
@@ -231,21 +234,32 @@ export function GridMakerTool({ config }: { config: ToolPageConfig }) {
   async function downloadZip() {
     if (!image) return;
     const files: Array<{ name: string; data: Uint8Array }> = [];
-    const tileWidth = Math.floor(image.naturalWidth / state.columns);
-    const tileHeight = Math.floor(image.naturalHeight / state.rows);
+    if (
+      state.columns > image.naturalWidth ||
+      state.rows > image.naturalHeight
+    ) {
+      setStatus(copy.limit);
+      return;
+    }
     const canvas = document.createElement('canvas');
-    canvas.width = tileWidth;
-    canvas.height = tileHeight;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     for (let row = 0; row < state.rows; row += 1) {
       for (let col = 0; col < state.columns; col += 1) {
+        const x = Math.floor((col * image.naturalWidth) / state.columns);
+        const y = Math.floor((row * image.naturalHeight) / state.rows);
+        const tileWidth =
+          Math.floor(((col + 1) * image.naturalWidth) / state.columns) - x;
+        const tileHeight =
+          Math.floor(((row + 1) * image.naturalHeight) / state.rows) - y;
+        canvas.width = tileWidth;
+        canvas.height = tileHeight;
         ctx.clearRect(0, 0, tileWidth, tileHeight);
         ctx.drawImage(
           image,
-          col * tileWidth,
-          row * tileHeight,
+          x,
+          y,
           tileWidth,
           tileHeight,
           0,
@@ -274,7 +288,7 @@ export function GridMakerTool({ config }: { config: ToolPageConfig }) {
   if (!mounted) {
     return (
       <div className="grid min-h-[520px] place-items-center rounded-lg border border-black/10 bg-white text-sm text-[#70675d]">
-        Loading image tools...
+        {copy.loading}
       </div>
     );
   }
@@ -285,7 +299,7 @@ export function GridMakerTool({ config }: { config: ToolPageConfig }) {
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-black/10 px-2 pb-3">
           <div>
             <p className="text-sm font-semibold text-[#151515]">
-              Browser preview
+              {copy.preview}
             </p>
             <p className="text-xs text-[#70675d]">{status}</p>
           </div>
@@ -295,12 +309,12 @@ export function GridMakerTool({ config }: { config: ToolPageConfig }) {
             onClick={() => fileInputRef.current?.click()}
           >
             <IconPhotoUp className="size-4" />
-            Upload
+            {copy.upload}
           </Button>
           <Input
             ref={fileInputRef}
             type="file"
-            accept="image/*"
+            accept="image/jpeg,image/png,image/webp"
             className="hidden"
             onChange={(event) => handleUpload(event.target.files?.[0])}
           />
@@ -314,17 +328,21 @@ export function GridMakerTool({ config }: { config: ToolPageConfig }) {
         </div>
       </div>
 
-      <aside className="fixed inset-x-3 bottom-3 z-30 max-h-[58svh] overflow-y-auto rounded-lg border border-black/10 bg-white/95 p-4 shadow-[0_18px_60px_rgba(21,21,21,0.22)] backdrop-blur lg:static lg:max-h-none lg:bg-white lg:shadow-[0_18px_50px_rgba(21,21,21,0.08)]">
+      <aside className="rounded-lg border border-black/10 bg-white p-4 shadow-sm">
         <div className="flex items-center justify-between gap-3">
           <div>
-            <p className="text-sm font-semibold text-[#151515]">Controls</p>
-            <p className="text-xs text-[#70675d]">{tileCount} grid cells</p>
+            <p className="text-sm font-semibold text-[#151515]">
+              {copy.controls}
+            </p>
+            <p className="text-xs text-[#70675d]">
+              {tileCount} {copy.cells}
+            </p>
           </div>
           <Button
             type="button"
             variant="ghost"
             size="icon"
-            aria-label="Reset tool"
+            aria-label={copy.reset}
             onClick={() => setState(initialState(config))}
           >
             <IconRefresh className="size-4" />
@@ -343,14 +361,14 @@ export function GridMakerTool({ config }: { config: ToolPageConfig }) {
               }`}
               onClick={() => patchState({ mode })}
             >
-              {mode}
+              {copy[mode]}
             </button>
           ))}
         </div>
 
         <div className="mt-5 grid grid-cols-2 gap-3">
           <div>
-            <Label htmlFor="rows">Rows</Label>
+            <Label htmlFor="rows">{copy.rows}</Label>
             <Input
               id="rows"
               type="number"
@@ -363,7 +381,7 @@ export function GridMakerTool({ config }: { config: ToolPageConfig }) {
             />
           </div>
           <div>
-            <Label htmlFor="columns">Columns</Label>
+            <Label htmlFor="columns">{copy.columns}</Label>
             <Input
               id="columns"
               type="number"
@@ -381,7 +399,7 @@ export function GridMakerTool({ config }: { config: ToolPageConfig }) {
 
         <div className="mt-4 grid grid-cols-[1fr_96px] gap-3">
           <div>
-            <Label htmlFor="lineColor">Line color</Label>
+            <Label htmlFor="lineColor">{copy.color}</Label>
             <Input
               id="lineColor"
               type="color"
@@ -392,7 +410,7 @@ export function GridMakerTool({ config }: { config: ToolPageConfig }) {
             />
           </div>
           <div>
-            <Label htmlFor="lineWidth">Width</Label>
+            <Label htmlFor="lineWidth">{copy.width}</Label>
             <Input
               id="lineWidth"
               type="number"
@@ -409,7 +427,7 @@ export function GridMakerTool({ config }: { config: ToolPageConfig }) {
         </div>
 
         <div className="mt-4">
-          <Label htmlFor="opacity">Opacity</Label>
+          <Label htmlFor="opacity">{copy.opacity}</Label>
           <Input
             id="opacity"
             type="range"
@@ -430,24 +448,27 @@ export function GridMakerTool({ config }: { config: ToolPageConfig }) {
             checked={state.labels}
             onChange={(event) => patchState({ labels: event.target.checked })}
           />
-          Show coordinate labels
+          {copy.labels}
         </label>
 
         <div className="mt-5 grid grid-cols-2 gap-2">
-          <Button type="button" onClick={downloadPng}>
+          <Button
+            type="button"
+            onClick={() =>
+              downloadPng().catch(() => setStatus(copy.exportError))
+            }
+          >
             <IconDownload className="size-4" />
             PNG
           </Button>
           <Button
             type="button"
             variant="outline"
-            onClick={downloadZip}
-            disabled={tileCount > 120}
-            title={
-              tileCount > 120
-                ? 'Reduce rows or columns before downloading ZIP.'
-                : undefined
+            onClick={() =>
+              downloadZip().catch(() => setStatus(copy.exportError))
             }
+            disabled={tileCount > 120}
+            title={tileCount > 120 ? copy.limit : undefined}
           >
             <IconFileZip className="size-4" />
             ZIP
@@ -456,7 +477,7 @@ export function GridMakerTool({ config }: { config: ToolPageConfig }) {
 
         <div className="mt-4 rounded-md bg-[#f4efe7] p-3 text-xs leading-5 text-[#5b554d]">
           <IconGrid3x3 className="mr-1 inline size-4" />
-          Split mode exports tiles. Overlay and Pixel modes export the preview.
+          {copy.help}
         </div>
       </aside>
     </div>

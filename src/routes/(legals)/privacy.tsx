@@ -50,18 +50,17 @@ function PrivacyPage() {
           title: 'Contact',
           body: (
             <>
-              Privacy questions, bug reports, or requests about site behavior
-              can be shared through the public{' '}
+              For privacy questions or requests, email{' '}
               <a
-                href="https://github.com/baiqwe/gridmaker"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium underline"
+                href="mailto:support@anygridmaker.com"
+                className="break-all font-medium underline"
               >
-                Grid Maker GitHub repository
+                support@anygridmaker.com
               </a>
-              . Avoid processing files that you do not own or do not have
-              permission to edit.
+              . We receive the email address, message, and any attachments you
+              send and use them to respond to your request. Do not send
+              sensitive images or passwords. Browser-only image processing does
+              not apply to files you deliberately send by email.
             </>
           ),
         },
