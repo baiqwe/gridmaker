@@ -6,6 +6,7 @@ import {
 } from '@/lib/grid-maker/i18n';
 import { getBaseUrl } from '@/lib/urls';
 import { toolPages } from '@/lib/grid-maker/tool-pages';
+import { practicePaths } from '@/lib/grid-maker/pixel-practice';
 
 /**
  * Dynamic sitemap.xml
@@ -103,6 +104,12 @@ export const Route = createFileRoute('/sitemap.xml')({
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${toolPart}
 ${staticPart}
+${Object.values(practicePaths)
+  .map(
+    (path) =>
+      `  <url><loc>${base}${path}</loc>${[...Object.entries(practicePaths), ['x-default', practicePaths.en]].map(([lang, alternate]) => `<xhtml:link rel="alternate" hreflang="${lang}" href="${base}${alternate}" />`).join('')}</url>`
+  )
+  .join('\n')}
 </urlset>`;
 
         return new Response(sitemap, {

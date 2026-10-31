@@ -1,4 +1,6 @@
 import { ToolPage } from '@/components/grid-maker/tool-page';
+import { PixelPracticePage } from '@/components/grid-maker/pixel-practice-page';
+import { practiceHead } from '@/lib/grid-maker/practice-head';
 import {
   getLocaleConfig,
   getLocalizedLandingToolPages,
@@ -11,6 +13,8 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/$locale/$slug')({
   head: ({ params }) => {
+    if (params.locale === 'pt' && params.slug === 'pixel-art-facil')
+      return practiceHead('pt');
     if (!isLocale(params.locale)) {
       throw notFound();
     }
@@ -32,6 +36,8 @@ export const Route = createFileRoute('/$locale/$slug')({
 
 function LocalizedToolPage() {
   const { locale, slug } = Route.useParams();
+  if (locale === 'pt' && slug === 'pixel-art-facil')
+    return <PixelPracticePage key="pt" locale="pt" />;
   if (!isLocale(locale)) {
     throw notFound();
   }

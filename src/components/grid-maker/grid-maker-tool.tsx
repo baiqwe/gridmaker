@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import type { GridMode, ToolPageConfig } from '@/lib/grid-maker/tool-pages';
 import { createZipBlob } from '@/lib/grid-maker/zip';
-import { getToolCopy } from '@/lib/grid-maker/tool-copy';
+import { getToolCopy, getPixelOptionsCopy } from '@/lib/grid-maker/tool-copy';
 import {
   IconDownload,
   IconFileZip,
@@ -21,6 +21,8 @@ type ToolState = {
   lineWidth: number;
   opacity: number;
   labels: boolean;
+  squareCrop: boolean;
+  showGrid: boolean;
 };
 
 const sampleSvg =
@@ -42,6 +44,8 @@ const sampleSvg =
 
 function initialState(config: ToolPageConfig): ToolState {
   return {
+    squareCrop: false,
+    showGrid: true,
     mode: config.mode,
     rows: config.rows,
     columns: config.columns,
@@ -62,7 +66,7 @@ function downloadBlob(blob: Blob, filename: string) {
   const anchor = document.createElement('a');
   anchor.href = url;
   anchor.download = filename;
-  document.body.append(anchor);
+  document.body.appendChild(anchor);
   anchor.click();
   anchor.remove();
   URL.revokeObjectURL(url);
@@ -128,12 +132,16 @@ function drawImageToCanvas(
   canvas: HTMLCanvasElement,
   state: ToolState
 ) {
-  const scale = Math.min(
-    1,
-    1800 / Math.max(image.naturalWidth, image.naturalHeight)
-  );
-  const width = Math.round(image.naturalWidth * scale);
-  const height = Math.round(image.naturalHeight * scale);
+  const crop = state.mode === 'pixel' && state.squareCrop;
+  const sourceWidth = crop
+    ? Math.min(image.naturalWidth, image.naturalHeight)
+    : image.naturalWidth;
+  const sourceHeight = crop ? sourceWidth : image.naturalHeight;
+  const sourceX = (image.naturalWidth - sourceWidth) / 2;
+  const sourceY = (image.naturalHeight - sourceHeight) / 2;
+  const scale = Math.min(1, 1800 / Math.max(sourceWidth, sourceHeight));
+  const width = Math.max(1, Math.round(sourceWidth * scale));
+  const height = Math.max(1, Math.round(sourceHeight * scale));
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
@@ -147,7 +155,17 @@ function drawImageToCanvas(
     pixelCanvas.height = state.rows;
     const pixelCtx = pixelCanvas.getContext('2d');
     if (pixelCtx) {
-      pixelCtx.drawImage(image, 0, 0, state.columns, state.rows);
+      pixelCtx.drawImage(
+        image,
+        sourceX,
+        sourceY,
+        sourceWidth,
+        sourceHeight,
+        0,
+        0,
+        state.columns,
+        state.rows
+      );
       ctx.imageSmoothingEnabled = false;
       ctx.drawImage(pixelCanvas, 0, 0, width, height);
       ctx.imageSmoothingEnabled = true;
@@ -156,11 +174,13 @@ function drawImageToCanvas(
     ctx.drawImage(image, 0, 0, width, height);
   }
 
-  drawGrid(ctx, width, height, state);
+  if (state.mode !== 'pixel' || state.showGrid)
+    drawGrid(ctx, width, height, state);
 }
 
 export function GridMakerTool({ config }: { config: ToolPageConfig }) {
   const copy = getToolCopy(config.path);
+  const pixelCopy = getPixelOptionsCopy(config.path);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [mounted, setMounted] = useState(false);
@@ -396,6 +416,40 @@ export function GridMakerTool({ config }: { config: ToolPageConfig }) {
             />
           </div>
         </div>
+
+        {state.mode === 'pixel' ? (
+          <fieldset className="mt-4 space-y-3">
+            <legend className="text-sm font-medium">{pixelCopy.preset}</legend>
+            <div className="flex flex-wrap gap-2">
+              {[16, 24, 32, 48].map((size) => (
+                <button
+                  type="button"
+                  key={size}
+                  className="rounded-md border border-black/15 bg-white px-3 py-2 text-sm text-gray-900 hover:bg-gray-100"
+                  onClick={() => patchState({ rows: size, columns: size })}
+                >
+                  {size} × {size}
+                </button>
+              ))}
+            </div>
+            <label className="flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                checked={state.squareCrop}
+                onChange={(e) => patchState({ squareCrop: e.target.checked })}
+              />
+              {pixelCopy.crop}
+            </label>
+            <label className="flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                checked={state.showGrid}
+                onChange={(e) => patchState({ showGrid: e.target.checked })}
+              />
+              {pixelCopy.grid}
+            </label>
+          </fieldset>
+        ) : null}
 
         <div className="mt-4 grid grid-cols-[1fr_96px] gap-3">
           <div>

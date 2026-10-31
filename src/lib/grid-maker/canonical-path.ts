@@ -1,7 +1,9 @@
 import { getLocalizedToolPages, locales } from './i18n';
 import { toolPages } from './tool-pages';
+import { practicePaths } from './pixel-practice';
 
 const canonicalPaths = new Set([
+  ...Object.values(practicePaths),
   ...toolPages.map((page) => page.path),
   ...locales.flatMap((locale) =>
     getLocalizedToolPages(locale).map((page) => page.path)
@@ -12,6 +14,10 @@ const canonicalPaths = new Set([
   '/terms',
   '/cookie',
 ]);
+
+export function isKnownPublicPage(pathname: string): boolean {
+  return canonicalPaths.has(pathname);
+}
 
 // Recover only known pages from historical relative-link mistakes.
 export function getCanonicalPathRedirect(pathname: string): string | null {

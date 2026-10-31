@@ -14,6 +14,7 @@ import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as PixelGridMakerRouteImport } from './routes/pixel-grid-maker'
 import { Route as ManifestDotjsonRouteImport } from './routes/manifest[.]json'
 import { Route as InstagramGridMakerRouteImport } from './routes/instagram-grid-maker'
+import { Route as EasyPixelArtGridRouteImport } from './routes/easy-pixel-art-grid'
 import { Route as DrawingGridMakerRouteImport } from './routes/drawing-grid-maker'
 import { Route as CrossStitchGridMakerRouteImport } from './routes/cross-stitch-grid-maker'
 import { Route as CrochetGridMakerRouteImport } from './routes/crochet-grid-maker'
@@ -53,6 +54,11 @@ const ManifestDotjsonRoute = ManifestDotjsonRouteImport.update({
 const InstagramGridMakerRoute = InstagramGridMakerRouteImport.update({
   id: '/instagram-grid-maker',
   path: '/instagram-grid-maker',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EasyPixelArtGridRoute = EasyPixelArtGridRouteImport.update({
+  id: '/easy-pixel-art-grid',
+  path: '/easy-pixel-art-grid',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DrawingGridMakerRoute = DrawingGridMakerRouteImport.update({
@@ -141,6 +147,7 @@ export interface FileRoutesByFullPath {
   '/crochet-grid-maker': typeof CrochetGridMakerRoute
   '/cross-stitch-grid-maker': typeof CrossStitchGridMakerRoute
   '/drawing-grid-maker': typeof DrawingGridMakerRoute
+  '/easy-pixel-art-grid': typeof EasyPixelArtGridRoute
   '/instagram-grid-maker': typeof InstagramGridMakerRoute
   '/manifest.json': typeof ManifestDotjsonRoute
   '/pixel-grid-maker': typeof PixelGridMakerRoute
@@ -162,6 +169,7 @@ export interface FileRoutesByTo {
   '/crochet-grid-maker': typeof CrochetGridMakerRoute
   '/cross-stitch-grid-maker': typeof CrossStitchGridMakerRoute
   '/drawing-grid-maker': typeof DrawingGridMakerRoute
+  '/easy-pixel-art-grid': typeof EasyPixelArtGridRoute
   '/instagram-grid-maker': typeof InstagramGridMakerRoute
   '/manifest.json': typeof ManifestDotjsonRoute
   '/pixel-grid-maker': typeof PixelGridMakerRoute
@@ -185,6 +193,7 @@ export interface FileRoutesById {
   '/crochet-grid-maker': typeof CrochetGridMakerRoute
   '/cross-stitch-grid-maker': typeof CrossStitchGridMakerRoute
   '/drawing-grid-maker': typeof DrawingGridMakerRoute
+  '/easy-pixel-art-grid': typeof EasyPixelArtGridRoute
   '/instagram-grid-maker': typeof InstagramGridMakerRoute
   '/manifest.json': typeof ManifestDotjsonRoute
   '/pixel-grid-maker': typeof PixelGridMakerRoute
@@ -209,6 +218,7 @@ export interface FileRouteTypes {
     | '/crochet-grid-maker'
     | '/cross-stitch-grid-maker'
     | '/drawing-grid-maker'
+    | '/easy-pixel-art-grid'
     | '/instagram-grid-maker'
     | '/manifest.json'
     | '/pixel-grid-maker'
@@ -230,6 +240,7 @@ export interface FileRouteTypes {
     | '/crochet-grid-maker'
     | '/cross-stitch-grid-maker'
     | '/drawing-grid-maker'
+    | '/easy-pixel-art-grid'
     | '/instagram-grid-maker'
     | '/manifest.json'
     | '/pixel-grid-maker'
@@ -252,6 +263,7 @@ export interface FileRouteTypes {
     | '/crochet-grid-maker'
     | '/cross-stitch-grid-maker'
     | '/drawing-grid-maker'
+    | '/easy-pixel-art-grid'
     | '/instagram-grid-maker'
     | '/manifest.json'
     | '/pixel-grid-maker'
@@ -275,6 +287,7 @@ export interface RootRouteChildren {
   CrochetGridMakerRoute: typeof CrochetGridMakerRoute
   CrossStitchGridMakerRoute: typeof CrossStitchGridMakerRoute
   DrawingGridMakerRoute: typeof DrawingGridMakerRoute
+  EasyPixelArtGridRoute: typeof EasyPixelArtGridRoute
   InstagramGridMakerRoute: typeof InstagramGridMakerRoute
   ManifestDotjsonRoute: typeof ManifestDotjsonRoute
   PixelGridMakerRoute: typeof PixelGridMakerRoute
@@ -321,6 +334,13 @@ declare module '@tanstack/react-router' {
       path: '/instagram-grid-maker'
       fullPath: '/instagram-grid-maker'
       preLoaderRoute: typeof InstagramGridMakerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/easy-pixel-art-grid': {
+      id: '/easy-pixel-art-grid'
+      path: '/easy-pixel-art-grid'
+      fullPath: '/easy-pixel-art-grid'
+      preLoaderRoute: typeof EasyPixelArtGridRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/drawing-grid-maker': {
@@ -454,6 +474,7 @@ const rootRouteChildren: RootRouteChildren = {
   CrochetGridMakerRoute: CrochetGridMakerRoute,
   CrossStitchGridMakerRoute: CrossStitchGridMakerRoute,
   DrawingGridMakerRoute: DrawingGridMakerRoute,
+  EasyPixelArtGridRoute: EasyPixelArtGridRoute,
   InstagramGridMakerRoute: InstagramGridMakerRoute,
   ManifestDotjsonRoute: ManifestDotjsonRoute,
   PixelGridMakerRoute: PixelGridMakerRoute,

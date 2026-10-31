@@ -13,6 +13,7 @@ import {
   type Locale,
 } from '@/lib/grid-maker/i18n';
 import { toolPages } from '@/lib/grid-maker/tool-pages';
+import { practicePaths } from '@/lib/grid-maker/pixel-practice';
 import { cn } from '@/lib/utils';
 import { Link, useLocation } from '@tanstack/react-router';
 import { IconLanguage } from '@tabler/icons-react';
@@ -61,6 +62,9 @@ export function LanguageSwitcher({
   className?: string;
 }) {
   const pathname = useLocation().pathname;
+  const isPractice = Object.values(practicePaths).some(
+    (path) => path === pathname.replace(/\/$/, '')
+  );
   const currentLocale = getCurrentLocale(pathname);
   const currentPageSlug = getCurrentPageSlug(pathname);
   const currentOption =
@@ -81,23 +85,34 @@ export function LanguageSwitcher({
         {compact ? null : <span>{currentOption.shortLabel}</span>}
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-40">
-        {languageOptions.map((option) => (
-          <DropdownMenuItem
-            key={option.locale}
-            className={cn(
-              'cursor-pointer text-foreground hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground',
-              option.locale === currentLocale && 'font-semibold text-primary'
-            )}
-            render={
-              <Link to={getLanguagePath(option.locale, currentPageSlug)} />
-            }
-          >
-            <span className="min-w-7 text-xs uppercase text-muted-foreground">
-              {option.shortLabel}
-            </span>
-            <span>{option.label}</span>
-          </DropdownMenuItem>
-        ))}
+        {languageOptions
+          .filter(
+            (option) =>
+              !isPractice || option.locale === 'en' || option.locale === 'pt'
+          )
+          .map((option) => (
+            <DropdownMenuItem
+              key={option.locale}
+              className={cn(
+                'cursor-pointer text-foreground hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground',
+                option.locale === currentLocale && 'font-semibold text-primary'
+              )}
+              render={
+                <Link
+                  to={
+                    isPractice
+                      ? practicePaths[option.locale as 'en' | 'pt']
+                      : getLanguagePath(option.locale, currentPageSlug)
+                  }
+                />
+              }
+            >
+              <span className="min-w-7 text-xs uppercase text-muted-foreground">
+                {option.shortLabel}
+              </span>
+              <span>{option.label}</span>
+            </DropdownMenuItem>
+          ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );

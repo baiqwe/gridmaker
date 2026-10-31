@@ -375,6 +375,21 @@ export function ToolPage({
                 {copy.relatedToolsLabel}
               </p>
               <div className="mt-4 flex flex-col gap-2">
+                {(locale === 'en' || locale === 'pt') &&
+                (page.slug === 'home' || page.slug === 'pixel-grid-maker') ? (
+                  <a
+                    href={
+                      locale === 'pt'
+                        ? '/pt/pixel-art-facil'
+                        : '/easy-pixel-art-grid'
+                    }
+                    className="rounded-md px-3 py-2 text-sm font-medium text-teal-800 underline hover:bg-teal-50"
+                  >
+                    {locale === 'pt'
+                      ? 'Pixel art fácil: pintar na grade'
+                      : 'Easy pixel art grid: draw a pattern'}
+                  </a>
+                ) : null}
                 {visibleRelatedPages.map((item) => (
                   <Link
                     key={item.path}

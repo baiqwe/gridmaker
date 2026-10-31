@@ -23,6 +23,33 @@ const en = {
   help: 'PNG saves the preview. ZIP saves separate image tiles.',
   share: 'Share this tool',
 };
+
+export function getPixelOptionsCopy(path: string) {
+  const copy: Record<string, { crop: string; grid: string; preset: string }> = {
+    en: {
+      crop: 'Square center crop',
+      grid: 'Include grid lines',
+      preset: 'Pixel resolution',
+    },
+    pt: {
+      crop: 'Recorte quadrado central',
+      grid: 'Incluir linhas da grade',
+      preset: 'Resolução de pixels',
+    },
+    es: {
+      crop: 'Recorte cuadrado central',
+      grid: 'Incluir líneas',
+      preset: 'Resolución de píxeles',
+    },
+    ja: {
+      crop: '中央を正方形に切り抜く',
+      grid: 'グリッド線を含める',
+      preset: 'ピクセル解像度',
+    },
+    zh: { crop: '居中裁剪为正方形', grid: '包含网格线', preset: '像素格数' },
+  };
+  return copy[path.split('/')[1]] ?? copy.en;
+}
 type Copy = typeof en;
 const copies: Record<string, Copy> = {
   en,
